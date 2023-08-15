@@ -1,11 +1,16 @@
 import { Link } from "react-router-dom";
 
+const VisitTable = ()=> {
+
+// Direct child of ManageVisits (Owner AND Sitter)
+// Parent of ConfirmVisitDelete and VisitDetails
+
 // This component will show a User (owner OR sitter) their upcoming visits
 // Sitters will have the option to confirm, deny, or view details of unconfirmed requests
 // Owners will be able to see their upcoming visits and check status of requested visits
+
 // Would be nice to separate or sort by pending/ confirmed visits
 
-const VisitTable = ()=> {
 
     // Fake visit
     const testVisit = {

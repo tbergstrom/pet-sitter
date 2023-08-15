@@ -1,4 +1,11 @@
 const PetTable = ()=> {
+
+// Direct child of ManagePets
+// Parent of PetDetails, ConfirmPetDelete
+
+// An owners pets live here in a table
+// The table will link to ConfirmPetDelete, PetDetails
+
     return (
         <table>
             <thead>
