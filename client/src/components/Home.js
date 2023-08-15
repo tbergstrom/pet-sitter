@@ -1,6 +1,9 @@
 import { Navigate } from 'react-router-dom';
 
 const Home = () => {
+
+// Landing page
+
     return (
       <div className="App">
       <div>

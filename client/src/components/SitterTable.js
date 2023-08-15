@@ -1,8 +1,13 @@
-// SitterSearchBar will populate Sitter results here
-// Try to show 3 cards for 3 closest sitters?
-// Then show a normal table for sitters sorted by distance
-
 const SitterTable = ()=> {
+
+// Direct child of FindSitter
+// Parent of SitterDetails
+
+// SitterDetails is accessible through a button by each sitter in the table of results
+// SitterSearchBar will populate Sitter results here
+
+// Try to show 3 cards for 3 closest sitters
+// Then show a normal table for sitters sorted by distance
 
     // Fake sitters
     const testSitter1 = {
