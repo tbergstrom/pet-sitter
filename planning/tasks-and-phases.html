@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <h1 class="mb-5">Tasks List & Phases of Completion</h1>
+    <table class="table table-striped">
+        <thead>
+            <h3>1) Planning</h3>
+            <tr>
+                <th>#</th>
+                <th>Description</th>
+                <th>Owner</th>
+                <th>Est. Time</th>
+                <th>Complete?</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>User Stories</td>
+                <td>Chandler</td>
+                <td>~2 hours</td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Wireframes</td>
+                <td>Chandler</td>
+                <td>~2 hours</td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Database Schema Diagram</td>
+                <td>Shannon/ Tyler</td>
+                <td>90 mins</td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Controller Endpoints & JSON Payloads</td>
+                <td>Shannon</td>
+                <td>3 hours</td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Class List</td>
+                <td>Shannon</td>
+                <td>2 hours</td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Components Tree</td>
+                <td>Tyler</td>
+                <td>3 hours</td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Task List & Phases of Completion</td>
+                <td>Tyler</td>
+                <td>2 hours</td>
+                <td><input type="checkbox"></td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-striped">
+        <thead>
+            <h3>2) Finalize Structure</h3>
+            <tr>
+                <th>#</th>
+                <th>Description</th>
+                <th>Owner</th>
+                <th>Est. Time</th>
+                <th>Complete?</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Finalize Schemas</td>
+                <td>Shannon</td>
+                <td>?</td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Finalize Component Tree & Wireframe</td>
+                <td>Chandler/ Tyler</td>
+                <td>~2 hours</td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Setup MySQL Server/ SQL Script</td>
+                <td>?</td>
+                <td>~2 hours</td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Populate DB With Starter Data</td>
+                <td>?</td>
+                <td>30 mins</td>
+                <td><input type="checkbox"></td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-striped">
+        <thead>
+            <h3>3) Build Backend</h3>
+            <tr>
+                <th>#</th>
+                <th>Description</th>
+                <th>Owner</th>
+                <th>Est. Time</th>
+                <th>Complete?</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Create Controller Endpoints for User</td>
+                <td>Shannon</td>
+                <td>4+</td>
+                <td><input type="checkbox"></td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td>2</td>
+                <td>Implement AuthConfig, Security</td>
+                <td>?</td>
+                <td>4+</td>
+                <td><input type="checkbox"></td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td>3</td>
+                <td>Begin CRUD methods for User (create, find employees, users)</td>
+                <td>?</td>
+                <td>4+</td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Continue with CRUD methods for User (delete, update employees, users)</td>
+                <td>?</td>
+                <td>4+</td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Begin CRUD methods for Bookings, Care Visits (find, create bookings, create care vists)</td>
+                <td>?</td>
+                <td>4+</td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Continue CRUD methods for Bookings, Care Visits (delete (cancel), edit bookings, care visits)</td>
+                <td>?</td>
+                <td>4+</td>
+                <td><input type="checkbox"></td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-striped">
+        <thead>
+            <h3>3.5) Build Frontend</h3>
+            <tr>
+                <th>#</th>
+                <th>Description</th>
+                <th>Owner</th>
+                <th>Est. Time</th>
+                <th>Complete?</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Create Components, Routes</td>
+                <td>?</td>
+                <td>4+</td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Integrate First Endpoints w/ Backend (GET for owner/ sitter)</td>
+                <td>?</td>
+                <td>4+</td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Implement CRUD Routes: POST for Owner, Sitter, Pet</td>
+                <td>?</td>
+                <td>4+</td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Implement CRUD Routes: POST for Booking, Care Visit</td>
+                <td>?</td>
+                <td>4+</td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Implement CRUD Routes: DELETE for Booking, Care Visit</td>
+                <td>?</td>
+                <td>4+</td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Test User Flows</td>
+                <td>?</td>
+                <td>4+</td>
+                <td><input type="checkbox"></td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-striped">
+        <thead>
+            <h3>4) Testing </h3>
+            <tr>
+                <th>#</th>
+                <th>Description</th>
+                <th>Owner</th>
+                <th>Est. Time</th>
+                <th>Complete?</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
