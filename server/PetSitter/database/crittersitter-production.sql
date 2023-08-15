@@ -66,8 +66,8 @@ CREATE TABLE care_visit (
     care_visit_id INT PRIMARY KEY AUTO_INCREMENT,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
-    status VARCHAR(255),
-    duration DATETIME NOT NULL,
+    `status` VARCHAR(255),
+    time_of_day DATETIME NOT NULL,
     notes VARCHAR(2048),
     cost DOUBLE NOT NULL,
     owner_id INT NOT NULL,
@@ -121,7 +121,7 @@ INSERT INTO pet (`name`, notes, pet_type, goes_walking, owner_id)
     ('Spot', 'He\'s old, so walks take a bit longer', 'Dog', true, 2),
     ('Sporcle', 'Stinky little hamster, just check food and water levels. Change bedding if it gets too smelly.', 'Hamster', false, 3);
 
-INSERT INTO care_visit (start_date, end_date, status, duration, notes, cost, owner_id, sitter_id) VALUES
+INSERT INTO care_visit (start_date, end_date, `status`, time_of_day, notes, cost, owner_id, sitter_id) VALUES
 ('2023-08-15', '2023-08-16', 'Pending', TIMEDIFF('2023-08-15 16:00:00', '2023-08-16 08:00:00'), null, 30.50, 1, 4),
 ('2023-09-01', '2023-09-08', 'Cancelled', TIMEDIFF('2023-09-01 12:00:00', '2023-09-08 08:00:00'), 'Change of plans.', 20.00, 2, 4),
 ('2023-08-21', '2023-08-23', 'Pending', TIMEDIFF('2023-08-21 09:00:00', '2023-08-23 12:30:00'), 'Please watch the hamster', 15.75, 3, 4),

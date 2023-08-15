@@ -31,13 +31,19 @@ public class SecurityConfig {
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers("/create_account").permitAll()
                 .antMatchers("/refresh_token").authenticated()
-                .antMatchers(HttpMethod.GET, "/api/").permitAll()
+                .antMatchers(HttpMethod.GET, "/api", "/api/pets", "/api/pets/*").hasAnyAuthority("OWNER", "SITTER")
+                .antMatchers(HttpMethod.GET, "/api/visit/owner", "/api/visit/owner/*").hasAnyAuthority("OWNER")
+                .antMatchers(HttpMethod.GET, "/api/visit/sitter", "/api/visit/sitter/*").hasAnyAuthority("SITTER")
                 .antMatchers(HttpMethod.POST,
-                        "/api/microstackoverflow/post").hasAnyAuthority("USER", "ADMIN")
+                        "/api/pets", "/api/visit/owner").hasAnyAuthority("OWNER")
+                .antMatchers(HttpMethod.POST,
+                        "/api/visit/sitter").hasAnyAuthority("SITTER")
                 .antMatchers(HttpMethod.PUT,
-                        "/api/microstackoverflow/*").hasAnyAuthority("USER", "ADMIN")
+                        "/api/pets", "/api/visit/owner").hasAnyAuthority("OWNER")
+                .antMatchers(HttpMethod.PUT,
+                        "/api/visit/sitter").hasAnyAuthority("SITTER")
                 .antMatchers(HttpMethod.DELETE,
-                        "/api/microstackoverflow/*").hasAnyAuthority("ADMIN")
+                        "/api/pets").hasAnyAuthority("OWNER")
                 .antMatchers("/**").denyAll()
                 .and()
                 .addFilter(new JwtRequestFilter(authenticationManager(authConfig), converter))
