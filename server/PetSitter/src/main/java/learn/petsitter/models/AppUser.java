@@ -17,8 +17,7 @@ public class AppUser implements UserDetails {
     private  String password;
     private  boolean enabled;
     private  Collection<GrantedAuthority> authorities = List.of();
-//    TODO make this contact info an object
-    private int contactInfoId;
+    private ContactInfo contactInfoId;
     private BigDecimal rate;
 
     public AppUser() {}
@@ -85,6 +84,22 @@ public class AppUser implements UserDetails {
 
     public void setAppUserId(int appUserId) {
         this.appUserId = appUserId;
+    }
+
+    public ContactInfo getContactInfoId() {
+        return contactInfoId;
+    }
+
+    public void setContactInfoId(ContactInfo contactInfoId) {
+        this.contactInfoId = contactInfoId;
+    }
+
+    public BigDecimal getRate() {
+        return rate;
+    }
+
+    public void setRate(BigDecimal rate) {
+        this.rate = rate;
     }
 }
 
