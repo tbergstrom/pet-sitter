@@ -1,38 +1,52 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+  background-color: papayawhip;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+Nav {
+  background-color: lightcoral;
+  font-size: 30px;
+  padding: 3rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+button {
+  font-size: 24px;
+  padding: 3rem 6rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
+
+.nav-btn {
+  color: brown;
+}
+
+.find-sitter-btn {
+  margin: 1rem;
+  margin-right: 3rem;
+  font-size: 3rem;
+  background-color: lightblue;
+}
+
+.become-sitter-btn {
+  margin: 1rem;
+  margin-left: 3rem;
+  font-size: 3rem;
+  border-width: 2px;
+  border-color: black;
+  background-color: lightcyan;
+}
+
+.button-container {
+  margin-top: 20px;
+}
+
