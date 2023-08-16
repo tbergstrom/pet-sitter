@@ -31,7 +31,7 @@ public class SecurityConfig {
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers("/create_account").permitAll()
                 .antMatchers("/refresh_token").authenticated()
-                .antMatchers(HttpMethod.GET, "/api", "/api/pets", "/api/pets/*", "/api/pets/pet/*").hasAnyAuthority("OWNER", "SITTER")
+                .antMatchers(HttpMethod.GET, "/api", "/api/pets", "/api/pets/pet/*", "/api/pets/*").hasAnyAuthority("OWNER", "SITTER")
                 .antMatchers(HttpMethod.GET, "/api/visit/owner", "/api/visit/owner/*").hasAnyAuthority("OWNER")
                 .antMatchers(HttpMethod.GET, "/api/visit/sitter", "/api/visit/sitter/*").hasAnyAuthority("SITTER")
                 .antMatchers(HttpMethod.POST,
@@ -39,11 +39,11 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST,
                         "/api/visit/sitter").hasAnyAuthority("SITTER")
                 .antMatchers(HttpMethod.PUT,
-                        "/api/pets", "/api/visit/owner").hasAnyAuthority("OWNER")
+                        "/api/pets", "/api/pets/pet/*","/api/visit/owner").hasAnyAuthority("OWNER")
                 .antMatchers(HttpMethod.PUT,
                         "/api/visit/sitter").hasAnyAuthority("SITTER")
                 .antMatchers(HttpMethod.DELETE,
-                        "/api/pets").hasAnyAuthority("OWNER")
+                        "/api/pets", "/api/pets/pet/*").hasAnyAuthority("OWNER")
                 .antMatchers("/**").denyAll()
                 .and()
                 .addFilter(new JwtRequestFilter(authenticationManager(authConfig), converter))

@@ -13,9 +13,12 @@ public class PetMapper implements RowMapper<Pet> {
     public Pet mapRow(ResultSet resultSet, int i) throws SQLException {
         Pet pet = new Pet();
 
+        pet.setPetId(resultSet.getInt("pet_id"));
         pet.setName(resultSet.getString("name"));
-        pet.setPetType(resultSet.getString("pet_type"));
         pet.setNotes(resultSet.getString("notes"));
+        pet.setPetType(resultSet.getString("pet_type"));
+        pet.setGoesWalking(resultSet.getBoolean("goes_walking"));
+        pet.setOwnerId(resultSet.getInt("owner_id"));
 
         return pet;
     }
