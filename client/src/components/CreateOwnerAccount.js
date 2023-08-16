@@ -30,7 +30,10 @@ export default function CreateOwnerAccount() {
           body: JSON.stringify({
               username,
               password,
-              authorization: "OWNER"
+              enabled: true,
+              // authorization: "OWNER"
+              role: "OWNER",
+              
           }),
       });
   
@@ -41,8 +44,8 @@ export default function CreateOwnerAccount() {
           setErrors(["Account Creation failed."]);
       } else {
           const errorMessages = await response.json();
-          console.log(errorMessages[0]);
-          setErrors(errorMessages);
+          console.log(errorMessages);
+          setErrors([errorMessages.message]);
       }
   };
 
