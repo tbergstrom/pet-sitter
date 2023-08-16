@@ -1,4 +1,4 @@
-const PetTable = ()=> {
+const PetTable = (props)=> {
 
 // Direct child of ManagePets
 // Parent of PetDetails, ConfirmPetDelete
