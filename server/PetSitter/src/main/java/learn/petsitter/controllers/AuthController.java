@@ -58,7 +58,7 @@ public class AuthController {
 
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
-    //TODO a role param was added to eventually enable creating/signing in and designating role then
+
     @PostMapping("/create_account")
     public ResponseEntity<?> createAccount(@RequestBody Map<String, String> credentials) {
 
