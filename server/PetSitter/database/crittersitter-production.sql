@@ -52,7 +52,7 @@ CREATE TABLE app_user_role (
 
 CREATE TABLE pet (
     pet_id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
+    `name` VARCHAR(255) NOT NULL,
     notes VARCHAR(2048),
     pet_type VARCHAR(255) NOT NULL,
     goes_walking BOOL,

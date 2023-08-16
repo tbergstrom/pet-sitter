@@ -6,15 +6,17 @@ public class Pet {
     private int petId;
     private String name;
     private String notes;
+    String petType;
     private boolean goesWalking;
     private int ownerId;
 
     public Pet() {}
 
-    public Pet(int petId, String name, String notes, boolean goesWalking, int ownerId) {
+    public Pet(int petId, String name, String notes, String pet_type, boolean goesWalking, int ownerId) {
         this.petId = petId;
         this.name = name;
         this.notes = notes;
+        this.petType = pet_type;
         this.goesWalking = goesWalking;
         this.ownerId = ownerId;
     }
@@ -43,6 +45,14 @@ public class Pet {
         this.notes = notes;
     }
 
+    public String getPetType() {
+        return petType;
+    }
+
+    public void setPetType(String petType) {
+        this.petType = petType;
+    }
+
     public boolean isGoesWalking() {
         return goesWalking;
     }
@@ -64,12 +74,12 @@ public class Pet {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Pet that = (Pet) o;
-        return petId == that.petId && Objects.equals(name, that.name) && Objects.equals(notes, that.notes) && goesWalking == goesWalking && ownerId == that.ownerId;
+        return petId == that.petId && Objects.equals(name, that.name) && Objects.equals(notes, that.notes) && Objects.equals(petType, that.petType) && goesWalking == goesWalking && ownerId == that.ownerId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(petId, name, notes, goesWalking, ownerId);
+        return Objects.hash(petId, name, notes, petType, goesWalking, ownerId);
     }
 
 

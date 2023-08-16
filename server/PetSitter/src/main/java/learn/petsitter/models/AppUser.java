@@ -19,6 +19,7 @@ public class AppUser implements UserDetails {
     private  Collection<GrantedAuthority> authorities = List.of();
     private ContactInfo contactInfoId;
     private BigDecimal rate;
+    private List<Pet> pets;
 
     public AppUser() {}
 
@@ -100,6 +101,14 @@ public class AppUser implements UserDetails {
 
     public void setRate(BigDecimal rate) {
         this.rate = rate;
+    }
+
+    public List<Pet> getPets() {
+        return pets;
+    }
+
+    public void setPets(List<Pet> pets) {
+        this.pets = pets;
     }
 }
 
