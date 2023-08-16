@@ -62,7 +62,7 @@ const SitterTable = ()=> {
     const testSitters = [testSitter1, testSitter2, testSitter3, testSitter4, testSitter5, testSitter6];
 
     const topThree = testSitters.slice(0,3);
-    const others = testSitter1.slice(3);
+    const others = testSitters.slice(3);
 
     return (
         <>
