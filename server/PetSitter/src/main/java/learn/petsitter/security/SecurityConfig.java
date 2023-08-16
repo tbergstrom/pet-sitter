@@ -31,7 +31,7 @@ public class SecurityConfig {
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers("/create_account").permitAll()
                 .antMatchers("/refresh_token").authenticated()
-                .antMatchers(HttpMethod.GET, "/api", "/api/pets", "/api/pets/*").hasAnyAuthority("OWNER", "SITTER")
+                .antMatchers(HttpMethod.GET, "/api", "/api/pets", "/api/pets/*", "/api/pets/pet/*").hasAnyAuthority("OWNER", "SITTER")
                 .antMatchers(HttpMethod.GET, "/api/visit/owner", "/api/visit/owner/*").hasAnyAuthority("OWNER")
                 .antMatchers(HttpMethod.GET, "/api/visit/sitter", "/api/visit/sitter/*").hasAnyAuthority("SITTER")
                 .antMatchers(HttpMethod.POST,

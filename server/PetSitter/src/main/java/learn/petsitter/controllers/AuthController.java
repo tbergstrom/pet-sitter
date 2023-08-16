@@ -57,12 +57,13 @@ public class AuthController {
 
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
-
+    //TODO a role param was added to eventually enable creating/signing in and designating role then
     @PostMapping("/create_account")
-    public ResponseEntity<?> createAccount(@RequestBody Map<String, String> credentials) {
+    public ResponseEntity<?> createAccount(@RequestBody Map<String, String> credentials, String role) {
 
         String username = credentials.get("username");
         String password = credentials.get("password");
+        String userAuthorization = role;
 
         Result<AppUser> result = appUserService.create(username, password);
 
