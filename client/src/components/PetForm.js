@@ -84,6 +84,7 @@ const PetForm = (props)=> {
                         <option>Fish</option>
                         <option>Reptile</option>
                         <option>Bird</option>
+                        <option>Hamster</option>
                     </select>                
                 </fieldset>
                 <fieldset>
