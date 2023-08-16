@@ -55,17 +55,19 @@ function App() {
   }
 
   const loadVisits = () => {
-    fetch("http://localhost:8080/api/visit")
-    .then(response => response.json())
-    .then(payload => setVisits(payload))
+    // fetch("http://localhost:8080/api/visit")
+    // .then(response => response.json())
+    // .then(payload => setVisits(payload))
+    console.log("visits endpoint not implemented")
   }
 
   useEffect(loadVisits, [])
 
   const loadSitters = () => {
-    fetch("http://localhost:8080/api/sitter")
-    .then(response => response.json())
-    .then(payload => setSitters(payload))
+    // fetch("http://localhost:8080/api/sitter")
+    // .then(response => response.json())
+    // .then(payload => setSitters(payload))
+    console.log("sitters endpoint not implemented")
   }
 
   useEffect(loadSitters, [])
