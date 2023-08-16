@@ -36,7 +36,7 @@ public class AppUserService implements UserDetailsService {
         return appUser;
     }
 
-    public Result<AppUser> create(String username, String password) {
+    public Result<AppUser> create(String username, String password, List<String> roles) {
         Result<AppUser> result = validate(username, password);
         if (!result.isSuccess()) {
             return result;
@@ -44,7 +44,7 @@ public class AppUserService implements UserDetailsService {
 
         password = encoder.encode(password);
 
-        AppUser appUser = new AppUser(0, username, password, true, List.of("USER"));
+        AppUser appUser = new AppUser(0, username, password, true, roles);
 
         try {
             appUser = repository.create(appUser);
