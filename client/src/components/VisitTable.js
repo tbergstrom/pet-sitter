@@ -57,13 +57,21 @@ const VisitTable = ()=> {
                 <tbody>
                     {visits.map(visit => <tr key={visit.visitId}>
                         {/* A logged in Sitter will see the Owner's name. A logged in Owner will see the Sitter's name */}
-                        {someUser.role === 1 ? <td>visit.sitterName</td> : <td>visit.ownerName</td>}
-                        <td>visit.start</td>
-                        <td>visit.end</td>
-                        <td>visit.status</td>
-                        <td>visit.cost</td>
-                        <td><button>Confirm</button></td> 
-                        <td><button>Deny</button></td>
+                        {someUser.role === 1 ? <td>{visit.sitterName}</td> : <td>{visit.ownerName}</td>}
+                        <td>{visit.start}</td>
+                        <td>{visit.end}</td>
+                        <td>{visit.status}</td>
+                        <td>{visit.cost}</td>
+                        {someUser.role === 2 
+                        ? 
+                        <>
+                            <td><button>Deny</button></td>
+                            <td><button>Confirm</button></td>
+                        </>  
+                        :
+                        null
+                        }
+                        
                         {/* The "Details" button would link to the full VisitDetails component and contact_info table */}
                         <td><button>Details</button></td>
 

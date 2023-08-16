@@ -1,11 +1,26 @@
+import { useContext, useState } from "react";
+import VisitTable from "./VisitTable";
+import AuthContext from "../contexts/AuthContext";
+import { useNavigate, useParams } from "react-router-dom";
+
 const ManageOwnerVisits = ()=> {
 
-// Direct child of ManageAccount
-// Parent of VisitTable
+    const [visits, setVisits] = useState([]);
+    const [visitsCounter, setVisitsCounter] = useState(visits.length);
+    
+    const auth = useContext(AuthContext);
+    const navigate = useNavigate();
+    const params = useParams();
 
-// Owners can see their upcoming visits here and pending visits
-// Could contain some link or access to VisitForm
+    const loadVisits = ()=> {
+        console.log("implement loadVisits function");
+    }
 
+    return (
+        <>
+            <VisitTable />
+        </>
+    )
 }
 
 export default ManageOwnerVisits;
