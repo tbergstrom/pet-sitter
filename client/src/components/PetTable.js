@@ -1,4 +1,7 @@
-const PetTable = (props)=> {
+import PetDetails from './PetDetails'
+import ConfirmPetDelete from './ConfirmPetDelete'
+
+const PetTable = ()=> {
 
 // Direct child of ManagePets
 // Parent of PetDetails, ConfirmPetDelete
@@ -21,7 +24,8 @@ const PetTable = (props)=> {
                     <tr key={pet.petId}>
                         <td>{pet.name}</td>
                         <td>{pet.petType}</td>
-                        <td>{pet.notes}</td>
+                        <td>{<PetDetails />}</td>
+                        <td>{<ConfirmPetDelete />}</td>
                     </tr>
                 ))}
             </tbody>

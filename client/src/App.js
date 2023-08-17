@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 import Nav from './components/Nav';
-import Login from './components/OwnerLogin';
+import Login from './components/Login';
 import Home from './components/Home';
 import VisitTable from './components/VisitTable';
 import VisitForm from './components/VisitForm';
@@ -13,7 +13,7 @@ import ManagePets from './components/ManagePets';
 
 import jwtDecode from 'jwt-decode';
 import AuthContext from './contexts/AuthContext';
-import CreateAccount from './components/CreateOwnerAccount';
+import CreateAccount from './components/CreateAccount';
 
 
 function App() {
