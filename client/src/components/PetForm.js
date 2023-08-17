@@ -3,13 +3,6 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 
 const PetForm = (props)=> {
-    //props should include list of pets (props.pets) and petCounter (props.petCounter)
-
-// Direct child of ManagePets
-
-// Where a new Pet can be added.
-// Should be accessed via button/ link in ManagePets near PetTable
-// On submission, should take to PetDetails for that pet
 
     const params = useParams(props);
     const navigate = useNavigate();
@@ -54,7 +47,6 @@ const PetForm = (props)=> {
             petType,
             notes,
             goesWalking,
-            // ownerId
         }
 
         // let url = null;
@@ -83,6 +75,7 @@ const PetForm = (props)=> {
                 navigate(`/managepets`); // need params.id?
                 resetState();
                 props.loadPets();
+                props.toggleForm();
                 // a "props.setPetsCounter" could be useful as a useEffect dependency
             } else {
                 response.json()

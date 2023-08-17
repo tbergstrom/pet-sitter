@@ -29,10 +29,7 @@ const ManagePets = ()=> {
             }
         })
         .then(response => response.json())
-        .then(payload => {
-            setPets(payload);
-            console.log(payload);
-        })
+        .then(payload => setPets(payload))
     };
 
     useEffect(loadPets, []);
@@ -41,7 +38,7 @@ const ManagePets = ()=> {
         <>
             <h3>{user.username}'s Pets</h3>
             <PetTable pets={pets} loadPets={loadPets}/>
-            {showPetForm && <PetForm pets={pets} setPets={setPets} loadPets={loadPets}/>}
+            {showPetForm && <PetForm pets={pets} setPets={setPets} loadPets={loadPets} toggleForm={toggleForm} />}
             
             <button onClick={toggleForm}>
                 {showPetForm ? "Cancel" : "Add New Pet"}
