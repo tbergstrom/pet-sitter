@@ -18,7 +18,7 @@ public class ContactInfoService {
     }
 
     public ContactInfo findByAppUserId(int appUserId) {
-        return repository.findById(appUserId);
+        return repository.findByAppUserId(appUserId);
     }
 
     public Result<ContactInfo> create(ContactInfo contactInfo) {
