@@ -12,10 +12,13 @@ public class ContactInfo {
     private String city;
     private String state;
     private String zipCode;
+    private AppUser appUser;
+    private int appUserId;
 
     public ContactInfo() {}
 
-    public ContactInfo(int contactInfoId, String firstName, String lastName, String email, String phoneNumber, String streetAddress, String city, String state, String zipCode) {
+    public ContactInfo(int contactInfoId, String firstName, String lastName, String email, String phoneNumber,
+                       String streetAddress, String city, String state, String zipCode, AppUser appUser, int appUserId) {
         this.contactInfoId = contactInfoId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -25,6 +28,8 @@ public class ContactInfo {
         this.city = city;
         this.state = state;
         this.zipCode = zipCode;
+        this.appUser = appUser;
+        this.appUserId = appUserId;
     }
 
     public int getContactInfoId() {
@@ -97,6 +102,22 @@ public class ContactInfo {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public AppUser getAppUser() {
+        return appUser;
+    }
+
+    public void setAppUser(AppUser appUser) {
+        this.appUser = appUser;
+    }
+
+    public int getAppUserId() {
+        return appUserId;
+    }
+
+    public void setAppUserId(int appUserId) {
+        this.appUserId = appUserId;
     }
 
     @Override

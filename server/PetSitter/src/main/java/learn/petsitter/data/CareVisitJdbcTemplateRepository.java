@@ -52,7 +52,7 @@ public class CareVisitJdbcTemplateRepository implements CareVisitRepository{
     @Override
     public CareVisit create(CareVisit careVisit) {
         final String sql = "insert into care_visit (start_date, end_date, `status`, time_of_day, notes, cost, owner_id, sitter_id "
-                + " values (?,?,?,?,??,?,?);";
+                + " values (?,?,?,?,?,?,?,?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
@@ -62,8 +62,9 @@ public class CareVisitJdbcTemplateRepository implements CareVisitRepository{
             ps.setString(3, careVisit.getStatus());
             ps.setTime(4, careVisit.getTimeOfDay());
             ps.setString(5, careVisit.getNotes());
-            ps.setInt(6, careVisit.getOwnerId());
-            ps.setInt(7, careVisit.getSitterId());
+            ps.setBigDecimal(6, careVisit.getCost());
+            ps.setInt(7, careVisit.getOwnerId());
+            ps.setInt(8, careVisit.getSitterId());
             return ps;
         }, keyHolder);
 
