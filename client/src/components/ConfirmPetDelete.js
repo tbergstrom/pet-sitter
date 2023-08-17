@@ -15,23 +15,30 @@ const ConfirmPetDelete = () => {
     const auth = useContext(AuthContext);
 
     const [pet, setPet] = useState(null);
+    const [errors, setErrors] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/pets/${params.id}`)
-        .then(response => {
-          if (response.ok) {
-            response.json()
-            .then(setPet)
-          } else {
-            navigate("/not-found")
-          }
+        fetch(`http://localhost:8080/api/pets/pet/${params.id}`, {
+            headers: {
+                "Authorization": `Bearer ${auth.user.token}`
+            }
         })
-    }, [params.id])
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                navigate("/not-found");
+                setErrors(["Could not retrieve pet details"])
+            }
+        })
+        .then(setPet)
+        .catch(error => console.error(error))
+    }, [params.id, auth.user.token, navigate])
 
     const handleDelete = () => {
         // Check if the authenticated user is the owner of the pet
         // if (auth.user.id === pet.ownerId) {
-            fetch(`http://localhost:8080/api/pets/${params.id}`, {
+            fetch(`http://localhost:8080/api/pets/pet/${params.id}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: "Bearer " + auth.user.token
@@ -39,7 +46,7 @@ const ConfirmPetDelete = () => {
             })
             .then(response => {
                 if (response.ok) {
-                    navigate("/pettable")
+                    navigate("/managepets")
                 } else {
                     console.log(`Unexpected response status code ${response.status}`);
                 }
