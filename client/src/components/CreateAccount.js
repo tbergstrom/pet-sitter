@@ -42,8 +42,8 @@ export default function CreateAccount() {
           setErrors(["Account Creation failed."]);
       } else {
           const errorMessages = await response.json();
-          console.log(errorMessages[0]);
-          setErrors(errorMessages);
+          console.log(errorMessages);
+          setErrors([errorMessages.message]);
       }
   };
 

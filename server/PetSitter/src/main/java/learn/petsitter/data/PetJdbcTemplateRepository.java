@@ -23,7 +23,7 @@ public class PetJdbcTemplateRepository implements  PetRepository{
 
     @Override
     public List<Pet> findByUserid(int userId) {
-        final String sql = "select `name`, pet_type, notes "
+        final String sql = "select pet_id, `name`, notes, pet_type, goes_walking, owner_id "
                 + "from pet "
                 + "where owner_id = ?;";
 
@@ -32,7 +32,7 @@ public class PetJdbcTemplateRepository implements  PetRepository{
 
     @Override
     public Pet findById(int id) {
-        final String sql = "select `name`, pet_type, notes "
+        final String sql = "select pet_id, `name`, notes, pet_type, goes_walking, owner_id "
                 + "from pet "
                 + "where pet_id = ?;";
 
@@ -51,8 +51,8 @@ public class PetJdbcTemplateRepository implements  PetRepository{
             ps.setString(1, pet.getName());
             ps.setString(2, pet.getNotes());
             ps.setString(3, pet.getPetType());
-            ps.setBoolean(3, pet.isGoesWalking());
-            ps.setInt(3, pet.getOwnerId());
+            ps.setBoolean(4, pet.isGoesWalking());
+            ps.setInt(5, pet.getOwnerId());
             return ps;
         }, keyHolder);
 
@@ -79,14 +79,15 @@ public class PetJdbcTemplateRepository implements  PetRepository{
                 pet.getNotes(),
                 pet.getPetType(),
                 pet.isGoesWalking(),
-                pet.getOwnerId());
+                pet.getOwnerId(),
+                pet.getPetId());
 
         return rowsUpdated > 0;
     }
 
     @Override
-    public boolean deleteById(int id) {
-        final String sql = "delete from pet where id = ?;";
-        return jdbcTemplate.update(sql, id) > 0;
+    public boolean deleteById(int petId) {
+        final String sql = "delete from pet where pet_id = ?;";
+        return jdbcTemplate.update(sql, petId) > 0;
     }
 }
