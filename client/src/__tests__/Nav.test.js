@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import Nav from './Nav';
+import Nav from '../components/Nav';
 import AuthContext from "../contexts/AuthContext"
 
 
@@ -14,7 +14,7 @@ function renderComponent() {
                 role: 'OWNER'
             }
         }
-    }
+    };
     
     render(
         <AuthContext.Provider value={mockAuthValue}>
@@ -29,7 +29,7 @@ describe('Nav', () => {
     it('should render six links', () => {
         renderComponent();
 
-        const listItemElements = screen.getAllByRole('link')
+        const listItemElements = screen.getAllByRole('link');
 
         expect(listItemElements).toHaveLength(6);
     });
@@ -64,11 +64,10 @@ describe('Nav', () => {
             name: /create account/i
         });
 
-        // This is just a dryer version of the stuff below
         const assertLink = (element, path) => {
             expect(element).toBeInTheDocument();
             expect(element).toHaveAttribute('href', path);
-        }
+        };
 
         assertLink(homeLinkElement, '/');
         assertLink(findSitterLinkElement, '/findsitter');
