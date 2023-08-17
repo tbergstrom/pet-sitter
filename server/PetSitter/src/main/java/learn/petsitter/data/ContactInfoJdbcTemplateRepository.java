@@ -1,32 +1,104 @@
 package learn.petsitter.data;
 
+import learn.petsitter.data.mappers.ContactInfoMapper;
+import learn.petsitter.data.mappers.PetMapper;
 import learn.petsitter.models.ContactInfo;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 
 @Repository
 public class ContactInfoJdbcTemplateRepository implements ContactInfoRepository{
+    private final JdbcTemplate jdbcTemplate;
+
+    public ContactInfoJdbcTemplateRepository(JdbcTemplate jdbcTemplate) {
+        this. jdbcTemplate = jdbcTemplate;
+    }
+
     @Override
     public ContactInfo findById(int id) {
-        return null;
+        final String sql = "select contact_info_id, first_name, last_name, email, phone_number, street_address, city, state, zipcode "
+                + "from contact_info "
+                + "where contact_info_id = ?;";
+
+        return jdbcTemplate.query(sql, new ContactInfoMapper(), id).stream()
+                .findFirst().orElse(null);
     }
 
     @Override
     public ContactInfo findByAppUserId(int appUserId) {
-        return null;
+        final String sql = "SELECT username, first_name, last_name, email, phone_number, street_address, city, state, zipcode " +
+                "from contact_info " +
+                "join app_user " +
+                "on app_user.app_user_id = contact_info.app_user_id " +
+                "where app_user.app_user_id = ?;";
+
+        return jdbcTemplate.query(sql, new ContactInfoMapper(), appUserId).stream()
+                .findFirst().orElse(null);
     }
 
     @Override
     public ContactInfo create(ContactInfo contactInfo) {
-        return null;
+        final String sql = "insert into contact_info (first_name, last_name, email, phone_number, street_address, city, state, zipcode "
+                + " values (?,?,?,?,?,?,?,?);";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        int rowsAffected = jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, contactInfo.getFirstName());
+            ps.setString(2, contactInfo.getLastName());
+            ps.setString(3, contactInfo.getEmail());
+            ps.setString(4, contactInfo.getPhoneNumber());
+            ps.setString(5, contactInfo.getStreetAddress());
+            ps.setString(6, contactInfo.getCity());
+            ps.setString(7, contactInfo.getState());
+            ps.setString(7, contactInfo.getZipCode());
+            return ps;
+        }, keyHolder);
+
+        if (rowsAffected <= 0) {
+            return null;
+        }
+
+        contactInfo.setContactInfoId(keyHolder.getKey().intValue());
+        return contactInfo;
     }
 
     @Override
     public boolean update(ContactInfo contactInfo) {
-        return false;
+        final String sql = "update contact_info set " +
+                "first_name = ?, " +
+                "last_name = ?, " +
+                "email = ?, " +
+                "phone_number = ?, " +
+                "street_address = ?, " +
+                "city = ?, " +
+                "state = ?, " +
+                "zipcode = ? " +
+                "where contact_info_id = ?;";
+
+        int rowsUpdated = jdbcTemplate.update(sql,
+                contactInfo.getFirstName(),
+                contactInfo.getLastName(),
+                contactInfo.getEmail(),
+                contactInfo.getPhoneNumber(),
+                contactInfo.getStreetAddress(),
+                contactInfo.getCity(),
+                contactInfo.getState(),
+                contactInfo.getZipCode(),
+                contactInfo.getContactInfoId());
+
+        return rowsUpdated > 0;
     }
 
     @Override
     public boolean deleteById(int id) {
-        return false;
+        final String sql = "delete from contact_info where contact_info_id = ?;";
+        return jdbcTemplate.update(sql, id) > 0;
     }
 }
