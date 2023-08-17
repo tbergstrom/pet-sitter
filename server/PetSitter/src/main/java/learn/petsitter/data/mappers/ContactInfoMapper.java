@@ -19,7 +19,6 @@ public class ContactInfoMapper implements RowMapper<ContactInfo> {
         contactInfo.setLastName(resultSet.getString("last_name"));
         contactInfo.setEmail(resultSet.getString("email"));
         contactInfo.setPhoneNumber(resultSet.getString("phone_number"));
-        contactInfo.setStreetAddress(resultSet.getString("notes"));
         contactInfo.setCity(resultSet.getString("city"));
         contactInfo.setState(resultSet.getString("state"));
         contactInfo.setZipCode(resultSet.getString("zipcode"));

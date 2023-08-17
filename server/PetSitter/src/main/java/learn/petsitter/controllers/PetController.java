@@ -6,6 +6,7 @@ import learn.petsitter.domain.Result;
 import learn.petsitter.domain.ResultType;
 import learn.petsitter.models.AppUser;
 import learn.petsitter.models.Pet;
+import learn.petsitter.security.JwtConverter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,19 +20,24 @@ import java.util.List;
 public class PetController {
     private final PetService service;
     private final AppUserService appUserService;
+    private final JwtConverter converter;
 
-    public PetController(PetService service, AppUserService appUserService) {
+    public PetController(PetService service, AppUserService appUserService, JwtConverter converter) {
         this.service = service;
         this.appUserService = appUserService;
+        this.converter = converter;
     }
 
-    @GetMapping("/{ownerId}")
-    public List<Pet> findByOwnerId(@PathVariable int ownerId) {
+    @GetMapping("/mypets")
+    public List<Pet> findByOwnerToken() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        AppUser appUser = (AppUser) appUserService.loadUserByUsername(username);
+        int ownerId = appUser.getAppUserId();
         return service.findByUserId(ownerId);
     }
 
     @GetMapping("/pet/{petId}")
-    public ResponseEntity<Pet> findbyId(@PathVariable int petId) {
+    public ResponseEntity<Pet> findById(@PathVariable int petId) {
         Pet pet = service.findById(petId);
         if (pet == null) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
