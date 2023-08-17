@@ -11,6 +11,15 @@ CREATE TABLE app_role (
     `name` VARCHAR(50) NOT NULL UNIQUE
 );
 
+CREATE TABLE app_user (
+	app_user_id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password_hash VARCHAR(2048) NOT NULL,
+    enabled BIT NOT NULL DEFAULT(1),
+    contact_info_id INT,
+    rate DECIMAL(7, 2)
+);
+
 CREATE TABLE contact_info (
     contact_info_id INT PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(255) NOT NULL,
@@ -20,21 +29,11 @@ CREATE TABLE contact_info (
     street_address VARCHAR(255) NOT NULL,
     city VARCHAR(255) NOT NULL,
     state VARCHAR(255) NOT NULL,
-    zipcode VARCHAR(15) NOT NULL
-);
-
-
-
-CREATE TABLE app_user (
-	app_user_id INT PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR(50) NOT NULL UNIQUE,
-    password_hash VARCHAR(2048) NOT NULL,
-    enabled BIT NOT NULL DEFAULT(1),
-    contact_info_id INT,
-    rate DECIMAL(7, 2),
-    CONSTRAINT fk_app_user_contact_id
-        FOREIGN KEY (contact_info_id)
-        REFERENCES contact_info(contact_info_id)
+    zipcode VARCHAR(15) NOT NULL,
+    app_user_id INT,
+    CONSTRAINT fk_app_user_id
+		FOREIGN KEY (app_user_id)
+        REFERENCES app_user(app_user_id)
 );
 
 CREATE TABLE app_user_role (
@@ -85,22 +84,21 @@ CREATE TABLE care_visit (
 -- -------------------------------------------------------------------------------------------------------------------------------------
 
 
-
-INSERT INTO contact_info (first_name, last_name, email, phone_number, street_address, city, state, zipcode) VALUES
-('John', 'Doe', 'john.doe@example.com', '123-456-7890', '123 Main St', 'Los Angeles', 'CA', '90001'),
-('Sally', 'Jones', 'sally.jones@example.com', '987-654-3210', '23 Leap St', 'New York', 'NY', '10001'),
-('Finn', 'Bert', 'finnbert@example.com', '999-222-1234', '789 Roadlike Ave', 'Chicago', 'IL', '60601'),
-('Cat', 'Friend', 'catfriend@example.com', '434-443-3344', '55 Tater St', 'Spokane', 'WA', '99200'),
-('Dog', 'Buddy', 'dogbuddy@example.com', '212-121-1212', '55 Burger Lane', 'Seattle', 'WA', '93613');
-
 -- passwords are set to "P@ssw0rd!"
-INSERT INTO app_user (username, password_hash, contact_info_id, rate, enabled)
+INSERT INTO app_user (username, password_hash, rate, enabled)
     VALUES
-    ('Johnnyboy', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 1, null, 1),
-    ('Sally-Jo', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 2, null, 1),
-    ('Finn99', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 3, null, 1),
-    ('CatFriend', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 4, 20, 1),
-    ('DogBuddy', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 5, 22, 1);
+    ('Johnnyboy', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', null, 1),
+    ('Sally-Jo', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', null, 1),
+    ('Finn99', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', null, 1),
+    ('CatFriend', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 20, 1),
+    ('DogBuddy', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 22, 1);
+    
+    INSERT INTO contact_info (first_name, last_name, email, phone_number, street_address, city, state, zipcode, app_user_id) VALUES
+('John', 'Doe', 'john.doe@example.com', '123-456-7890', '123 Main St', 'Los Angeles', 'CA', '90001', 1),
+('Sally', 'Jones', 'sally.jones@example.com', '987-654-3210', '23 Leap St', 'New York', 'NY', '10001', 2),
+('Finn', 'Bert', 'finnbert@example.com', '999-222-1234', '789 Roadlike Ave', 'Chicago', 'IL', '60601', 3),
+('Cat', 'Friend', 'catfriend@example.com', '434-443-3344', '55 Tater St', 'Spokane', 'WA', '99200', 4),
+('Dog', 'Buddy', 'dogbuddy@example.com', '212-121-1212', '55 Burger Lane', 'Seattle', 'WA', '93613', 5);
 
 INSERT INTO app_role (`name`) VALUES
     ('OWNER'),
@@ -137,3 +135,4 @@ SELECT * FROM app_user;
 SELECT * FROM care_visit;
 SELECT * FROM pet;
 SELECT * FROM contact_info;
+SELECT * FROM pet where owner_id = 1;

@@ -1,16 +1,18 @@
 package learn.petsitter.models;
 
 import java.math.BigDecimal;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 
 public class CareVisit {
     private int careVisitId;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private Date startDate;
+    private Date endDate;
     private String status;
-    private LocalDateTime timeOfDay;
+    private Time timeOfDay;
     private String notes;
     private BigDecimal cost;
     private int ownerId;
@@ -19,7 +21,7 @@ public class CareVisit {
 
     public CareVisit() {}
 
-    public CareVisit(int careVisitId, LocalDate start_date, LocalDate end_date, String status, LocalDateTime timeOfDay, String notes, BigDecimal cost, int owner_id, int sitter_id) {
+    public CareVisit(int careVisitId, Date start_date, Date end_date, String status, Time timeOfDay, String notes, BigDecimal cost, int owner_id, int sitterId) {
         this.careVisitId = careVisitId;
         this.startDate = start_date;
         this.endDate = end_date;
@@ -28,7 +30,7 @@ public class CareVisit {
         this.notes = notes;
         this.cost = cost;
         this.ownerId = owner_id;
-        this.sitterId = sitter_id;
+        this.sitterId = sitterId;
     }
 
     public int getCareVisitId() {
@@ -39,19 +41,19 @@ public class CareVisit {
         this.careVisitId = careVisitId;
     }
 
-    public LocalDate getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDate getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
@@ -63,11 +65,11 @@ public class CareVisit {
         this.status = status;
     }
 
-    public LocalDateTime getTimeOfDay() {
+    public Time getTimeOfDay() {
         return timeOfDay;
     }
 
-    public void setTimeOfDay(LocalDateTime timeOfDay) {
+    public void setTimeOfDay(Time timeOfDay) {
         this.timeOfDay = timeOfDay;
     }
 
@@ -95,11 +97,11 @@ public class CareVisit {
         this.ownerId = ownerId;
     }
 
-    public int getSitter_id() {
+    public int getSitterId() {
         return sitterId;
     }
 
-    public void setSitter_id(int sitter_id) {
+    public void setSitterId(int sitter_id) {
         this.sitterId = sitter_id;
     }
 
