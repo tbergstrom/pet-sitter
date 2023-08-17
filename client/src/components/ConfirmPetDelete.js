@@ -30,7 +30,7 @@ const ConfirmPetDelete = () => {
 
     const handleDelete = () => {
         // Check if the authenticated user is the owner of the pet
-        if (auth.user.id === pet.ownerId) {
+        // if (auth.user.id === pet.ownerId) {
             fetch(`http://localhost:8080/api/pets/${params.id}`, {
                 method: "DELETE",
                 headers: {
@@ -44,9 +44,9 @@ const ConfirmPetDelete = () => {
                     console.log(`Unexpected response status code ${response.status}`);
                 }
             })
-        } else {
-            console.log("You are not authorized to delete this pet.");
-        }
+        // } else {
+        //     console.log("You are not authorized to delete this pet.");
+        // }
     }
 
     // if no pet yet, don't attempt to render confirmation information
