@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 
@@ -11,7 +11,7 @@ const PetForm = (props)=> {
 // Should be accessed via button/ link in ManagePets near PetTable
 // On submission, should take to PetDetails for that pet
 
-    const params = useParams();
+    const params = useParams(props);
     const navigate = useNavigate();
     const auth = useContext(AuthContext);
 
@@ -29,17 +29,45 @@ const PetForm = (props)=> {
         setGoesWalking(false);
     }
 
+    // useEffect(()=> {
+    //     if(params.id !== undefined) {
+    //         const targetPet = props.pets.find(pet => pet.id === parseInt(params.id))
+    //         if(targetPet !== undefined) {
+    //             setName(targetPet.name);
+    //             setPetType(targetPet.petType);
+    //             setNotes(targetPet.notes);
+    //             setGoesWalking(targetPet.goesWalking);
+    //         }
+    //     } else {
+    //         resetState();
+    //     }
+    // }, [props.pets, params.id])
+
+    // useEffect(props.loadPets, [props.pets])
+
 
     const handleSubmit = (evt)=> {
         evt.preventDefault();
 
         const newPet = {
-            ownerId: params.id,
             name,
             petType,
             notes,
-            goesWalking
+            goesWalking,
+            // ownerId
         }
+
+        // let url = null;
+        // let method = null;
+
+        // if (params.id !== undefined) {
+        //     newPet.id = params.id;
+        //     url = `http://localhost:8080/api/pets/${params.id}`
+        //     method = "PUT"
+        // } else {
+        //     url = "http://localhost:8080/api/pets"
+        //     method = "POST"
+        // }
 
         fetch("http://localhost:8080/api/pets", {
             method: "POST",
@@ -59,7 +87,7 @@ const PetForm = (props)=> {
             } else {
                 response.json()
                 .then(errors => {
-                    setErrors(errors)
+                    setErrors([errors])
                 })
             }
         })
@@ -69,7 +97,7 @@ const PetForm = (props)=> {
         <>
             <form onSubmit={handleSubmit}>
                 <ul>
-                    {errors.map(error => <li key={error}> {error}</li>)}
+                    {errors.map((error, i) => <li key={i}> {error}</li>)}
                 </ul>
                 <fieldset>
                     <label htmlFor="pet-name-input">Name:</label>
@@ -89,8 +117,8 @@ const PetForm = (props)=> {
                 </fieldset>
                 <fieldset>
                     <label htmlFor="goes-walking-input">Does your pet require walks? 
-                        <input id="goes-walking-input" type="radio" value="yes" checked={goesWalking === "yes"} onChange={(evt) => setGoesWalking(evt.target.value)} />Yes
-                        <input id="goes-walking-input" type="radio" value="no" checked={goesWalking === "no"} onChange={(evt) => setGoesWalking(evt.target.value)} />No
+                        <input id="goes-walking-input-yes" type="radio" value="true" checked={goesWalking === true} onChange={(evt) => setGoesWalking(true)} />Yes
+                        <input id="goes-walking-input-no" type="radio" value="false" checked={goesWalking === false} onChange={(evt) => setGoesWalking(false)} />No
                     </label>
                 </fieldset>
                 <fieldset>
@@ -98,7 +126,7 @@ const PetForm = (props)=> {
                     <textarea id="notes-input" value={notes} onChange={(evt) => setNotes(evt.target.value)}/>
                 </fieldset>
                 <button type="submit">Save</button>
-                <Link to="/managepets">Cancel</Link>
+                {/* <Link to="/managepets">Cancel</Link> */}
             </form>
         </>
     )
