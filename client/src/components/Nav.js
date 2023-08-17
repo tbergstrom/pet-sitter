@@ -1,10 +1,13 @@
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import AuthContext from "../contexts/AuthContext"
 import { useContext } from "react"
 
 const Nav = ()=> {
     const auth = useContext(AuthContext)
     const user = auth.user
+
+    const params = useParams();
+    const ownerId = params.id;
 
     return (
         <nav>
@@ -21,7 +24,7 @@ const Nav = ()=> {
             {/* only logged in as an owner */}
             { user && (
                 <>
-                    <Link className="nav-btn" to='/managepets'>Manage Your Pets</Link>
+                    <Link className="nav-btn" to={`/managepets`}>Manage Your Pets</Link>
                     {" "}
                     <Link className="nav-btn" to='/manageownervisits'>Manage Your Visits</Link>
                     {" "}
