@@ -16,6 +16,6 @@ public interface CareVisitRepository {
 
     boolean update(CareVisit careVisit);
 
-    boolean deleteById(int id);
+    boolean delete(CareVisit careVisit);
 
 }

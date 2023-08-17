@@ -60,7 +60,7 @@ public class PetController {
             return new ResponseEntity<>(HttpStatus.CONFLICT); //409
         }
 
-        Result result = service.update(pet);
+        Result<Pet> result = service.update(pet);
         if (!result.isSuccess()) {
             if (result.getResultType() == ResultType.NOT_FOUND) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND); //404
