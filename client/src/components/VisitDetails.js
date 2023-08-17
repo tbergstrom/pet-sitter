@@ -1,4 +1,4 @@
-const VisitDetails = ()=> {
+const VisitDetails = () => {
 
 // Direct child of VisitTable
 

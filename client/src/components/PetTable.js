@@ -1,3 +1,6 @@
+import PetDetails from './PetDetails'
+import ConfirmPetDelete from './ConfirmPetDelete'
+
 const PetTable = ()=> {
 
 // Direct child of ManagePets
@@ -21,7 +24,8 @@ const PetTable = ()=> {
                     <tr key={pet.petId}>
                         <td>{pet.name}</td>
                         <td>{pet.petType}</td>
-                        <td>{pet.notes}</td>
+                        <td>{<PetDetails />}</td>
+                        <td>{<ConfirmPetDelete />}</td>
                     </tr>
                 ))}
             </tbody>
