@@ -2,14 +2,14 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 
-export default function CreateOwnerAccount() {
 
+export default function Login() {
+  
 // Direct child of App.js
 
-// Where the account creation form lives.
-// If we use Google, we could be looking at 4 forms/ children:
-// CreateOwnerForm, CreateSitterForm, GoogleCreateSitterForm, GoogleCreateOwnerForm
-// Feels like too many
+// Login for Owners and Sitters - Could have two separate login forms, depending on role
+// If so, OwnerLoginForm and SitterLoginForm could be children components
+// This is where Google sign-in should live, probably as another child
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -19,36 +19,37 @@ export default function CreateOwnerAccount() {
 
   const auth = useContext(AuthContext)
 
-  const handleSubmit = async (event) => {
-      event.preventDefault();
-
-      const response = await fetch("http://localhost:8080/create_account", {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-              username,
-              password,
-              authorization: "OWNER"
-          }),
-      });
   
-      // This code executes if the request is successful
-      if (response.status === 201) {
-          navigate("/");
-      } else if (response.status === 403) {
-          setErrors(["Account Creation failed."]);
-      } else {
-          const errorMessages = await response.json();
-          console.log(errorMessages[0]);
-          setErrors(errorMessages);
-      }
-  };
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+  
+        // NEW
+        const response = await fetch("http://localhost:8080/authenticate", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                username,
+                password
+            }),
+        });
+    
+        // This code executes if the request is successful
+        if (response.status === 200) {
+            const { jwt_token } = await response.json();
+            auth.login(jwt_token);
+            navigate("/");
+        } else if (response.status === 403) {
+            setErrors(["Login failed."]);
+        } else {
+            setErrors(["Unknown error."]);
+        }
+    };
 
   return (
     <div>
-      <h2>Sign Up and Find a Sitter Near You</h2>
+      <h2>Login</h2>
       {errors.map((error, i) => (
         <div key={i}>{error}</div>
       ))}
@@ -73,7 +74,7 @@ export default function CreateOwnerAccount() {
           />
         </div>
         <div>
-          <button type="submit">Create Account</button>
+          <button type="submit">Login</button>
         </div>
       </form>
     </div>

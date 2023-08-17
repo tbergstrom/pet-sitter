@@ -39,7 +39,7 @@ const ConfirmPetDelete = () => {
             })
             .then(response => {
                 if (response.ok) {
-                    navigate("/list")
+                    navigate("/pettable")
                 } else {
                     console.log(`Unexpected response status code ${response.status}`);
                 }

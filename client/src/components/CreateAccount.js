@@ -2,8 +2,7 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 
-
-export default function CreateSitterAccount() {
+export default function CreateAccount() {
 
 // Direct child of App.js
 
@@ -14,6 +13,7 @@ export default function CreateSitterAccount() {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("OWNER")
   const [errors, setErrors] = useState([]);
 
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ export default function CreateSitterAccount() {
           body: JSON.stringify({
               username,
               password,
-              authorization: "SITTER"
+              role
           }),
       });
   
@@ -49,7 +49,7 @@ export default function CreateSitterAccount() {
 
   return (
     <div>
-      <h2>Become a Critter Sitter</h2>
+      <h2>Sign Up and Find a Sitter Near You</h2>
       {errors.map((error, i) => (
         <div key={i}>{error}</div>
       ))}
@@ -72,6 +72,17 @@ export default function CreateSitterAccount() {
             value={password}
             id="password"
           />
+        </div>
+        <div>
+          <label htmlFor="role">Role:</label>
+          <select
+            id="role"
+            onChange={(event) => setRole(event.target.value)}
+            value={role}
+          >
+            <option value="OWNER">Pet Owner</option>
+            <option value="SITTER">Pet Sitter</option>
+          </select>
         </div>
         <div>
           <button type="submit">Create Account</button>
