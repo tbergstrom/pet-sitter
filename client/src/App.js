@@ -14,6 +14,8 @@ import ManagePets from './components/ManagePets';
 import jwtDecode from 'jwt-decode';
 import AuthContext from './contexts/AuthContext';
 import CreateAccount from './components/CreateAccount';
+import PetDetails from './components/PetDetails';
+import ConfirmPetDelete from './components/ConfirmPetDelete';
 
 
 function App() {
@@ -89,7 +91,7 @@ function App() {
           {/* always visible */}
           <Route path='/' element={<Home />}/>
           <Route path="/findsitter" element={<SitterTable sitters={sitters} loadSitters={loadSitters}/>}/>
-          <Route path='*' element={<p>Page Not Found</p>} />
+          
 
           {/* logged in as owner and sitter */}
           <Route path="/visittable/:id" element={ user ? <VisitTable visits={visits} loadVisits={loadVisits} /> : <Navigate to="/" /> } />
@@ -99,10 +101,15 @@ function App() {
 
           {/* logged in as owner only */}
           <Route path='/requestvisit' element={ user ? <VisitForm loadVisits={loadVisits}/> : <Navigate to="/" /> }/>
+          <Route path="/petdetails/:id" element={ user ? <PetDetails /> : <Navigate to="/" />} />
+          <Route path="/confirmpetdelete/:id" element={ user ? <ConfirmPetDelete /> : <Navigate to="/" />} />
 
           {/* logged out only */}
           <Route path='/login' element={ user ? <Navigate to="/" /> : <Login /> }/>
           <Route path='/create_account' element={ user ? <Navigate to="/" /> : <CreateAccount /> }/>
+
+          {/* Helps to be last in list */}
+          <Route path='*' element={<p>Page Not Found</p>} />
         </Routes>
       </BrowserRouter>
     </AuthContext.Provider>
