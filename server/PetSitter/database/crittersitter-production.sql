@@ -16,7 +16,6 @@ CREATE TABLE app_user (
     username VARCHAR(50) NOT NULL UNIQUE,
     password_hash VARCHAR(2048) NOT NULL,
     enabled BIT NOT NULL DEFAULT(1),
-    contact_info_id INT,
     rate DECIMAL(7, 2)
 );
 
@@ -128,11 +127,9 @@ INSERT INTO care_visit (start_date, end_date, `status`, time_of_day, notes, cost
 ('2023-11-12', '2023-11-19', 'Accepted', TIMEDIFF('2023-11-12 06:00:00', '2023-11-19 18:30:00'), null, 100.50, 3, 5);
 
 
-
-
-
 SELECT * FROM app_user;
 SELECT * FROM care_visit;
 SELECT * FROM pet;
 SELECT * FROM contact_info;
 SELECT * FROM pet where owner_id = 1;
+select username, first_name, last_name, email, phone_number, street_address, city, state, zipcode from contact_info join app_user on app_user.app_user_id = contact_info.app_user_id where app_user.app_user_id = 1;
