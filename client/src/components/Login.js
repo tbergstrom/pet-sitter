@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 
 
-export default function OwnerLogin() {
+export default function Login() {
   
 // Direct child of App.js
 
@@ -25,15 +25,14 @@ export default function OwnerLogin() {
   
         // NEW
         const response = await fetch("http://localhost:8080/authenticate", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            username,
-            password,
-            authorization: "OWNER"
-        }),
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                username,
+                password
+            }),
         });
     
         // This code executes if the request is successful
@@ -50,7 +49,7 @@ export default function OwnerLogin() {
 
   return (
     <div>
-      <h2>Login as an Owner</h2>
+      <h2>Login</h2>
       {errors.map((error, i) => (
         <div key={i}>{error}</div>
       ))}
