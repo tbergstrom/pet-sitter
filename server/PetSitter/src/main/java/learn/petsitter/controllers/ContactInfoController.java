@@ -34,8 +34,12 @@ public class ContactInfoController {
         return new ResponseEntity<>(contactInfo, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<ContactInfo> findByAppUserId(@PathVariable int userId) {
+    @GetMapping("/user/my-info")
+    public ResponseEntity<ContactInfo> findByAppUserToken() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        AppUser appUser = (AppUser) appUserService.loadUserByUsername(username);
+        int userId = appUser.getAppUserId();
+
         ContactInfo contactInfo = service.findByAppUserId(userId);
         if (contactInfo == null) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

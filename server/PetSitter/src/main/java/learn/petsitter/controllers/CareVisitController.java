@@ -29,13 +29,19 @@ public class CareVisitController {
         this.appUserService = appUserService;
     }
 
-    @GetMapping("/owner/{ownerId}")
-    public List<CareVisit> findByOwnerId(@PathVariable int ownerId) {
+    @GetMapping("/owner/my-visits")
+    public List<CareVisit> findByOwnerToken() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        AppUser appUser = (AppUser) appUserService.loadUserByUsername(username);
+        int ownerId = appUser.getAppUserId();
         return service.findByOwnerId(ownerId);
     }
 
-    @GetMapping("/sitter/{sitterId}")
-    public List<CareVisit> findBySitterId(@PathVariable int sitterId) {
+    @GetMapping("/sitter/my-visits")
+    public List<CareVisit> findBySitterToken() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        AppUser appUser = (AppUser) appUserService.loadUserByUsername(username);
+        int sitterId = appUser.getAppUserId();
         return service.findBySitterId(sitterId);
     }
 
