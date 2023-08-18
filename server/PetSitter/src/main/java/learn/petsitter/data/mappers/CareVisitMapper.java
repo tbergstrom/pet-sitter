@@ -10,23 +10,24 @@ import java.time.LocalTime;
 
 public class CareVisitMapper implements RowMapper<CareVisit> {
 
-    private String processTime(String str) {
-        String newString = "";
-        if (str.startsWith("-")) {
-            newString = str.substring(1);
-        } else {
-            newString = str;
-        }
-
-        return newString;
-    }
+    //unnecessary but leaving here just in case
+//    private String processTime(String str) {
+//        String newString = "";
+//        if (str.startsWith("-")) {
+//            newString = str.substring(1);
+//        } else {
+//            newString = str;
+//        }
+//
+//        return newString;
+//    }
 
     @Override
     public CareVisit mapRow(ResultSet resultSet, int i) throws SQLException {
         CareVisit cv = new CareVisit();
 
         String time = resultSet.getString("time_of_day");
-        time = processTime(time);
+        //time = processTime(time);
         //System.out.println(time);
         LocalTime t = LocalTime.parse(time) ;
 
