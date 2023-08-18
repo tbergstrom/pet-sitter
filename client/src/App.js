@@ -1,6 +1,8 @@
 
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { GoogleOAuthProvider } from '@react-oauth/google'
+
 import './App.css';
 import Nav from './components/Nav';
 import Login from './components/Login';
@@ -17,6 +19,7 @@ import CreateAccount from './components/CreateAccount';
 import PetDetails from './components/PetDetails';
 import ConfirmPetDelete from './components/ConfirmPetDelete';
 import ManageSitterVisits from './components/ManageSitterVisits';
+
 
 
 function App() {
@@ -83,41 +86,38 @@ function App() {
   }, []);
 
   return (
+    <GoogleOAuthProvider clientId='321605181263-7tsniamk1f3712hs4p6uc26dvshbv46k.apps.googleusercontent.com'>
+      <AuthContext.Provider value={auth}>
+        <BrowserRouter>
+          <Nav />
 
-    <AuthContext.Provider value={auth}>
-      <BrowserRouter>
-        <Nav />
+          <Routes>
+            {/* always visible */}
+            <Route path='/' element={<Home />}/>
+            <Route path="/findsitter" element={<SitterTable sitters={sitters} loadSitters={loadSitters}/>}/>
+            
 
-        <Routes>
-          {/* always visible */}
-          <Route path='/' element={<Home />}/>
-          <Route path="/findsitter" element={<SitterTable sitters={sitters} loadSitters={loadSitters}/>}/>
-          
+            {/* logged in as owner and sitter */}
+            <Route path="/visittable/:id" element={ user ? <VisitTable visits={visits} loadVisits={loadVisits} /> : <Navigate to="/" /> } />
+            <Route path="/visittable/visitdetails/:id" element={ user ? <VisitTable visits={visits} loadVisits={loadVisits} /> : <Navigate to="/" /> } />
+            <Route path="/managepets" element={ user ? <ManagePets /> : <Navigate to="/" />} />
+            <Route path="/manageownervisits" element={ user ? <ManageOwnerVisits /> : <Navigate to="/" />} />
 
-          {/* logged in as owner and sitter */}
-          <Route path="/visittable/:id" element={ user ? <VisitTable visits={visits} loadVisits={loadVisits} /> : <Navigate to="/" /> } />
-          <Route path="/visittable/visitdetails/:id" element={ user ? <VisitTable visits={visits} loadVisits={loadVisits} /> : <Navigate to="/" /> } />
-          <Route path="/managepets" element={ user ? <ManagePets /> : <Navigate to="/" />} />
+            {/* logged in as owner only */}
+            <Route path='/requestvisit' element={ user ? <VisitForm loadVisits={loadVisits}/> : <Navigate to="/" /> }/>
+            <Route path="/petdetails/:id" element={ user ? <PetDetails /> : <Navigate to="/" />} />
+            <Route path="/confirmpetdelete/:id" element={ user ? <ConfirmPetDelete /> : <Navigate to="/" />} />
 
-          {/* logged in as owner only */}
-          <Route path='/requestvisit' element={ user ? <VisitForm loadVisits={loadVisits}/> : <Navigate to="/" /> }/>
-          <Route path="/petdetails/:id" element={ user ? <PetDetails /> : <Navigate to="/" />} />
-          <Route path="/confirmpetdelete/:id" element={ user ? <ConfirmPetDelete /> : <Navigate to="/" />} />
-          <Route path="/manageownervisits" element={ user ? <ManageOwnerVisits /> : <Navigate to="/" />} />
+            {/* logged out only */}
+            <Route path='/login' element={ user ? <Navigate to="/" /> : <Login /> }/>
+            <Route path='/create_account' element={ user ? <Navigate to="/" /> : <CreateAccount /> }/>
 
-          {/* logged in as sitter only */}
-          {user && user.hasRole("SITTER") && (
-            <Route path="/managesittervisits" element={<ManageSitterVisits />} />
-          )}
-          {/* logged out only */}
-          <Route path='/login' element={ user ? <Navigate to="/" /> : <Login /> }/>
-          <Route path='/create_account' element={ user ? <Navigate to="/" /> : <CreateAccount /> }/>
-
-          {/* Helps to be last in list */}
-          <Route path='*' element={<p>Page Not Found</p>} />
-        </Routes>
-      </BrowserRouter>
-    </AuthContext.Provider>
+            {/* Helps to be last in list */}
+            <Route path='*' element={<p>Page Not Found</p>} />
+          </Routes>
+        </BrowserRouter>
+      </AuthContext.Provider>
+    </GoogleOAuthProvider>
   );
 }
 

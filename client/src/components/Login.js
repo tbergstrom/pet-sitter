@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
+import { GoogleLogin } from '@react-oauth/google';
 
 
 export default function Login() {
@@ -53,6 +54,16 @@ export default function Login() {
       {errors.map((error, i) => (
         <div key={i}>{error}</div>
       ))}
+      
+      <GoogleLogin
+        onSuccess={credentialResponse => {
+          console.log(credentialResponse);
+        }}
+        onError={() => {
+          console.log('Login Failed');
+        }}
+      />;
+
       <form onSubmit={handleSubmit}>
         <div>
           {/* Includes for/id attributes for basic HTML accessibility ♿. */}

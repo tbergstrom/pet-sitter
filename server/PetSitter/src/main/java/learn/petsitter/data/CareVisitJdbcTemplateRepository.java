@@ -1,7 +1,6 @@
 package learn.petsitter.data;
 
 import learn.petsitter.data.mappers.CareVisitMapper;
-import learn.petsitter.data.mappers.PetMapper;
 import learn.petsitter.models.CareVisit;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -11,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -49,16 +50,25 @@ public class CareVisitJdbcTemplateRepository implements CareVisitRepository{
                 .findFirst().orElse(null);
     }
 
+    private static Date convertToMySQLDate(java.util.Date javaDate) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String mysqlDateStr = sdf.format(javaDate);
+        return Date.valueOf(mysqlDateStr);
+    }
+
     @Override
     public CareVisit create(CareVisit careVisit) {
         final String sql = "insert into care_visit (start_date, end_date, `status`, time_of_day, notes, cost, owner_id, sitter_id "
                 + " values (?,?,?,?,?,?,?,?);";
 
+        //careVisitSqlDate = convertToMySQLDate(careVisitJavaDate);
+
+
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setDate(1, (Date) careVisit.getStartDate());
-            ps.setDate(2, (Date) careVisit.getEndDate());
+            ps.setDate(1, convertToMySQLDate(careVisit.getStartDate()));
+            ps.setDate(2, convertToMySQLDate(careVisit.getEndDate()));
             ps.setString(3, careVisit.getStatus());
             ps.setTime(4, careVisit.getTimeOfDay());
             ps.setString(5, careVisit.getNotes());
@@ -113,4 +123,7 @@ public class CareVisitJdbcTemplateRepository implements CareVisitRepository{
 
         return rowsUpdated > 0;
     }
+
+
+
 }
