@@ -20,7 +20,7 @@ public class CareVisitService {
     }
 
     public List<CareVisit> findBySitterId(int sitterId) {
-        return repository.findByOwnerId(sitterId);
+        return repository.findBySitterId(sitterId);
     }
 
     public CareVisit findById(int careVisitId) {
