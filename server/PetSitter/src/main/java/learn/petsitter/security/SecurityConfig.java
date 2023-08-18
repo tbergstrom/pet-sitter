@@ -31,9 +31,9 @@ public class SecurityConfig {
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers("/create_account").permitAll()
                 .antMatchers("/refresh_token").authenticated()
-                .antMatchers(HttpMethod.GET, "/api", "/api/pets", "/api/pets/pet/*", "/api/pets/*", "/api/pets/mypets", "/api/contact-info", "/api/contact-info/user/*","/api/contact-info/*", "api/visit/singlevisit/*").hasAnyAuthority("OWNER", "SITTER")
-                .antMatchers(HttpMethod.GET, "/api/visit/owner", "/api/visit/owner/*").hasAnyAuthority("OWNER")
-                .antMatchers(HttpMethod.GET, "/api/visit/sitter", "/api/visit/sitter/*").hasAnyAuthority("SITTER")
+                .antMatchers(HttpMethod.GET, "/api", "/api/pets", "/api/pets/pet/*", "/api/pets/*", "/api/pets/mypets", "/api/contact-info", "/api/contact-info/user/my-info","/api/contact-info/*", "api/visit/singlevisit/*").hasAnyAuthority("OWNER", "SITTER")
+                .antMatchers(HttpMethod.GET, "/api/visit/owner", "/api/visit/owner/my-visits").hasAnyAuthority("OWNER")
+                .antMatchers(HttpMethod.GET, "/api/visit/sitter", "/api/visit/sitter/my-visits").hasAnyAuthority("SITTER")
                 .antMatchers(HttpMethod.POST,
                         "/api/pets", "/api/visit/owner", "/api/contact-info").hasAnyAuthority("OWNER")
                 .antMatchers(HttpMethod.POST,
