@@ -49,14 +49,14 @@ Content-Type: application/json
 @base_url = http://localhost:8080/api/visit
 
 server-818afternoon
-@bearer_token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcml0dGVyLXNpdHRlciIsInN1YiI6IkpvaG5ueWJveSIsImF1dGhvcml0aWVzIjoiT1dORVIiLCJleHAiOjE2OTIzODAxMDh9.PLYCnP1Dv8qTA_xhzJSWaxs2mWg-wTQhc_Z4X_-_5yY
+@bearer_token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcml0dGVyLXNpdHRlciIsInN1YiI6IkpvaG5ueWJveSIsImF1dGhvcml0aWVzIjoiT1dORVIiLCJleHAiOjE2OTIzODUzMTZ9.ap7Tv2wJZ8LdhhubxWW0nRaGrTfmnst-H6XcdsoKKw4
 
 ###
 
 
 ### Why is status null? can't find error in repo or mapper
 # Returns visits associated with owner id
-GET {{base_url}}/owner/1 HTTP/1.1
+GET {{base_url}}/owner/my-visits HTTP/1.1
 Authorization: Bearer {{bearer_token}}
 
 ###
@@ -68,8 +68,8 @@ Authorization: Bearer {{bearer_token}}
 ###
 
 # Returns visits associated with sitter id
-GET {{base_url}}/sitter/4 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcml0dGVyLXNpdHRlciIsInN1YiI6IkNhdEZyaWVuZCIsImF1dGhvcml0aWVzIjoiU0lUVEVSIiwiZXhwIjoxNjkyMzc3NTY0fQ.EBlKlW9hYylEXjUieAkbFRQfZE4Lmo4o6l-zKl0NAao
+GET {{base_url}}/sitter/my-visits HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcml0dGVyLXNpdHRlciIsInN1YiI6IkNhdEZyaWVuZCIsImF1dGhvcml0aWVzIjoiU0lUVEVSIiwiZXhwIjoxNjkyMzg1MzQ5fQ.SVekkXSBNvabvssAmOphLnYb6CHVNguOX00DLcsoDYA
 
 ###
 

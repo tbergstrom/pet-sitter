@@ -35,12 +35,12 @@ Content-Type: application/json
 ###
 
 @base_url = http://localhost:8080/api/contact-info
-@bearer_token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcml0dGVyLXNpdHRlciIsInN1YiI6IkpvaG5ueWJveSIsImF1dGhvcml0aWVzIjoiT1dORVIiLCJleHAiOjE2OTIzNzYyNDl9.GDXSUckZmTBeZIYRb6f08t1FCvKzOQXcH7Jbu2fCNuY
+@bearer_token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcml0dGVyLXNpdHRlciIsInN1YiI6IkpvaG5ueWJveSIsImF1dGhvcml0aWVzIjoiT1dORVIiLCJleHAiOjE2OTIzODU1OTl9.91PcDSY_t75J_n-c_iqiC92vYtdZeJmpHhqNa8a5LUU
 
 ###
 
 # Returns contact info associated with user id, works
-GET {{base_url}}/user/1 HTTP/1.1
+GET {{base_url}}/user/my-info HTTP/1.1
 Authorization: Bearer {{bearer_token}}
 ###
 
