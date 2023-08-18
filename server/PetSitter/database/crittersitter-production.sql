@@ -65,7 +65,7 @@ CREATE TABLE care_visit (
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
     `status` VARCHAR(255),
-    time_of_day DATETIME NOT NULL,
+    time_of_day TIME NOT NULL,
     notes VARCHAR(2048),
     cost DOUBLE NOT NULL,
     owner_id INT NOT NULL,
@@ -136,3 +136,8 @@ SELECT * FROM pet where owner_id = 1;
 select * from app_user join app_user_role on app_user.app_user_id = app_user_role.app_user_id join app_role on app_role.app_role_id = app_user_role.app_role_id ;
 
 select username, first_name, last_name, email, phone_number, street_address, city, state, zipcode from contact_info join app_user on app_user.app_user_id = contact_info.app_user_id where app_user.app_user_id = 1;
+
+select TIMEDIFF('2023-08-15 16:00:00', '2023-08-16 08:00:00');
+
+
+
