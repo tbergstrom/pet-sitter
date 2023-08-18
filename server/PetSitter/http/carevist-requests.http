@@ -48,7 +48,8 @@ Content-Type: application/json
 
 @base_url = http://localhost:8080/api/visit
 
-@bearer_token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcml0dGVyLXNpdHRlciIsInN1YiI6IkpvaG5ueWJveSIsImF1dGhvcml0aWVzIjoiT1dORVIiLCJleHAiOjE2OTIzMjExNTV9.qVr4HkYFyZUVtXl3vKk86laRSxMaSSIOXDLFv4YDe4g
+server-818afternoon
+@bearer_token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcml0dGVyLXNpdHRlciIsInN1YiI6IkpvaG5ueWJveSIsImF1dGhvcml0aWVzIjoiT1dORVIiLCJleHAiOjE2OTIzODAxMDh9.PLYCnP1Dv8qTA_xhzJSWaxs2mWg-wTQhc_Z4X_-_5yY
 
 ###
 
@@ -68,7 +69,7 @@ Authorization: Bearer {{bearer_token}}
 
 # Returns visits associated with sitter id
 GET {{base_url}}/sitter/4 HTTP/1.1
-Authorization: Bearer {{bearer_token}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcml0dGVyLXNpdHRlciIsInN1YiI6IkNhdEZyaWVuZCIsImF1dGhvcml0aWVzIjoiU0lUVEVSIiwiZXhwIjoxNjkyMzc3NTY0fQ.EBlKlW9hYylEXjUieAkbFRQfZE4Lmo4o6l-zKl0NAao
 
 ###
 
@@ -91,7 +92,7 @@ Authorization: Bearer {{bearer_token}}
 ###
 
 #should update by petId, 403
-PUT {{base_url}}/singlevisit/{careVisitId} HTTP/1.1
+PUT {{base_url}}/singlevisit/1 HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{bearer_token}}
 
@@ -99,10 +100,11 @@ Authorization: Bearer {{bearer_token}}
     "careVisitId": 1,
     "startDate": "2023-09-12",
     "endDate": "2023-09-12",
-    "status": "Accepted",
+    "status": "Cancelled",
     "timeOfDay": "010:00:00",
     "notes": "a note.",
     "cost": 20.0,
+    "ownerId": 1,
     "sitterId": 4
 }
 
