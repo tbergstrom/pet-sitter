@@ -37,8 +37,6 @@ const PetDetails = ()=> {
     }
 
     useEffect(loadPetDetails, [params.id, jwtToken])
-    
-
     return (
         <>
             { errors && 
@@ -49,7 +47,7 @@ const PetDetails = ()=> {
                 (<div className="pet-details">
                     <h2>Pet Details</h2>
                     <p>Name: {pet.name}</p>
-                    <p>Species: {pet.type}</p>
+                    <p>Species: {pet.petType}</p>
                     <p>Description: {pet.notes}</p>
                     <Link to={`/confirmpetdelete/${pet.petId}`}>Delete Pet</Link>
 

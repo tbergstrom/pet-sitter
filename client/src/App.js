@@ -19,6 +19,10 @@ import CreateAccount from './components/CreateAccount';
 import PetDetails from './components/PetDetails';
 import ConfirmPetDelete from './components/ConfirmPetDelete';
 import ManageSitterVisits from './components/ManageSitterVisits';
+import ContactInfoDetails from './components/ContactInfoDetails';
+import ContactInfoForm from './components/ContactInfoForm';
+import ManageAccount from './components/ManageAccount';
+import ManageContactInfo from './components/ManageContactInfo';
 
 
 
@@ -26,6 +30,7 @@ function App() {
   
   const [sitters, setSitters] = useState([]);
   const [visits, setVisits] = useState([]);
+  const [contactInfo, setContactInfo] = useState([]);
   const [user, setUser] = useState(null);
 
   const login = (token) => {
@@ -78,12 +83,22 @@ function App() {
 
   useEffect(loadSitters, [])
 
+  const loadContactInfo = () => {
+    fetch("http://localhost:8080/api/contact-info")
+    .then(response => response.json())
+    .then(payload => setContactInfo(payload))
+  }
+
+  useEffect(loadContactInfo, [])
+
   useEffect(() => {
     const token = localStorage.getItem("auth-token")
     if (token) {
       login(token)
     }
   }, []);
+
+  console.log(user);
 
   return (
     <GoogleOAuthProvider clientId='321605181263-7tsniamk1f3712hs4p6uc26dvshbv46k.apps.googleusercontent.com'>
@@ -100,8 +115,12 @@ function App() {
             {/* logged in as owner and sitter */}
             <Route path="/visittable/:id" element={ user ? <VisitTable visits={visits} loadVisits={loadVisits} /> : <Navigate to="/" /> } />
             <Route path="/visittable/visitdetails/:id" element={ user ? <VisitTable visits={visits} loadVisits={loadVisits} /> : <Navigate to="/" /> } />
+            <Route path="/manageaccount" element={ user ? <ManageAccount /> : <Navigate to="/" />} />
+            <Route path="/managecontactinfo" element={ user ? <ManageContactInfo /> : <Navigate to="/" />} />
             <Route path="/managepets" element={ user ? <ManagePets /> : <Navigate to="/" />} />
             <Route path="/manageownervisits" element={ user ? <ManageOwnerVisits /> : <Navigate to="/" />} />
+            <Route path="/user/:id" element={ user ? <ContactInfoDetails /> : <Navigate to="/" />} />
+            <Route path='/requestvisit' element={ user ? <ContactInfoForm contactInfo={contactInfo} loadContactInfo={loadContactInfo}/> : <Navigate to="/" /> }/>
 
             {/* logged in as owner only */}
             <Route path='/requestvisit' element={ user ? <VisitForm loadVisits={loadVisits}/> : <Navigate to="/" /> }/>
