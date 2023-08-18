@@ -48,7 +48,7 @@ public class CareVisitController {
         }
         return new ResponseEntity<>(cv, HttpStatus.OK);
     }
-
+    //TODO how is the sitter going to be set? User can designate on the form (minimally we can show the number corresponding to their id and take in the id?
     @PostMapping
     public ResponseEntity<Object> create(@RequestBody CareVisit cv) {
         String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
@@ -63,7 +63,7 @@ public class CareVisitController {
         return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
     }
 
-    @PutMapping("/single/{careVisitId}")
+    @PutMapping("/singlevisit/{careVisitId}")
     public ResponseEntity<?> update(@PathVariable int careVisitId, @RequestBody CareVisit cv) {
         if (careVisitId != cv.getCareVisitId()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT); //409
@@ -80,7 +80,7 @@ public class CareVisitController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT); //204
     }
 
-    @DeleteMapping("/single/{careVisitId}")
+    @DeleteMapping("/singlevisit/{careVisitId}")
     public ResponseEntity<?> delete(@PathVariable int careVisitId, @RequestBody CareVisit cv) {
         if (careVisitId != cv.getCareVisitId()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT); //409
