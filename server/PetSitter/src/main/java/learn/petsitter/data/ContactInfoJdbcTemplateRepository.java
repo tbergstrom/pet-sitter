@@ -57,7 +57,7 @@ public class ContactInfoJdbcTemplateRepository implements ContactInfoRepository{
             ps.setString(5, contactInfo.getStreetAddress());
             ps.setString(6, contactInfo.getCity());
             ps.setString(7, contactInfo.getState());
-            ps.setString(7, contactInfo.getZipCode());
+            ps.setString(8, contactInfo.getZipCode());
             return ps;
         }, keyHolder);
 

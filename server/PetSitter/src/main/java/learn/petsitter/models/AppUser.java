@@ -18,7 +18,7 @@ public class AppUser implements UserDetails {
     private  boolean enabled;
     private  Collection<GrantedAuthority> authorities = List.of();
     private BigDecimal rate;
-    private List<Pet> pets;
+    private ContactInfo contactInfo;
 
     public AppUser() {}
 
@@ -94,12 +94,12 @@ public class AppUser implements UserDetails {
         this.rate = rate;
     }
 
-    public List<Pet> getPets() {
-        return pets;
+    public ContactInfo getContactInfo() {
+        return contactInfo;
     }
 
-    public void setPets(List<Pet> pets) {
-        this.pets = pets;
+    public void setContactInfo(ContactInfo contactInfo) {
+        this.contactInfo = contactInfo;
     }
 }
 
