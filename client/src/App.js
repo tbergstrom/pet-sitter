@@ -16,6 +16,7 @@ import AuthContext from './contexts/AuthContext';
 import CreateAccount from './components/CreateAccount';
 import PetDetails from './components/PetDetails';
 import ConfirmPetDelete from './components/ConfirmPetDelete';
+import ManageSitterVisits from './components/ManageSitterVisits';
 
 
 function App() {
@@ -97,13 +98,17 @@ function App() {
           <Route path="/visittable/:id" element={ user ? <VisitTable visits={visits} loadVisits={loadVisits} /> : <Navigate to="/" /> } />
           <Route path="/visittable/visitdetails/:id" element={ user ? <VisitTable visits={visits} loadVisits={loadVisits} /> : <Navigate to="/" /> } />
           <Route path="/managepets" element={ user ? <ManagePets /> : <Navigate to="/" />} />
-          <Route path="/manageownervisits" element={ user ? <ManageOwnerVisits /> : <Navigate to="/" />} />
 
           {/* logged in as owner only */}
           <Route path='/requestvisit' element={ user ? <VisitForm loadVisits={loadVisits}/> : <Navigate to="/" /> }/>
           <Route path="/petdetails/:id" element={ user ? <PetDetails /> : <Navigate to="/" />} />
           <Route path="/confirmpetdelete/:id" element={ user ? <ConfirmPetDelete /> : <Navigate to="/" />} />
+          <Route path="/manageownervisits" element={ user ? <ManageOwnerVisits /> : <Navigate to="/" />} />
 
+          {/* logged in as sitter only */}
+          {user && user.hasRole("SITTER") && (
+            <Route path="/managesittervisits" element={<ManageSitterVisits />} />
+          )}
           {/* logged out only */}
           <Route path='/login' element={ user ? <Navigate to="/" /> : <Login /> }/>
           <Route path='/create_account' element={ user ? <Navigate to="/" /> : <CreateAccount /> }/>
