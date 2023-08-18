@@ -70,7 +70,7 @@ const ConfirmPetDelete = () => {
             </ul>
             <button onClick={handleDelete}>Delete</button>
             {" "}
-            <Link to="/pettable">Cancel</Link>
+            <Link to="/managepets">Cancel</Link>
         </>
     );
 }

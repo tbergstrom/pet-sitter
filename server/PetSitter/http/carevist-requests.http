@@ -48,7 +48,7 @@ Content-Type: application/json
 
 @base_url = http://localhost:8080/api/visit
 
-@bearer_token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcml0dGVyLXNpdHRlciIsInN1YiI6IkpvaG5ueWJveSIsImF1dGhvcml0aWVzIjoiT1dORVIiLCJleHAiOjE2OTIzNzY2NjZ9.hHWPR3C4UfQKTG3HIbBQkohiglZspiEr3lFgaVJ4Rj0
+@bearer_token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcml0dGVyLXNpdHRlciIsInN1YiI6IkpvaG5ueWJveSIsImF1dGhvcml0aWVzIjoiT1dORVIiLCJleHAiOjE2OTIzMjExNTV9.qVr4HkYFyZUVtXl3vKk86laRSxMaSSIOXDLFv4YDe4g
 
 ###
 
