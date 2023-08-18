@@ -119,12 +119,12 @@ INSERT INTO pet (`name`, notes, pet_type, goes_walking, owner_id)
     ('Sporcle', 'Stinky little hamster, just check food and water levels. Change bedding if it gets too smelly.', 'Hamster', false, 3);
 
 INSERT INTO care_visit (start_date, end_date, `status`, time_of_day, notes, cost, owner_id, sitter_id) VALUES
-('2023-08-15', '2023-08-16', 'Pending', TIMEDIFF('2023-08-15 16:00:00', '2023-08-16 08:00:00'), null, 30.50, 1, 4),
-('2023-09-01', '2023-09-08', 'Cancelled', TIMEDIFF('2023-09-01 12:00:00', '2023-09-08 08:00:00'), 'Change of plans.', 20.00, 2, 4),
-('2023-08-21', '2023-08-23', 'Pending', TIMEDIFF('2023-08-21 09:00:00', '2023-08-23 12:30:00'), 'Please watch the hamster', 15.75, 3, 4),
-('2023-08-16', '2023-08-16', 'Accepted', TIMEDIFF('2023-08-16 08:00:00', '2023-08-16 20:00:00'), 'Give Sprinkle his medicine at noon and at 4:00 please', 20.00, 1, 5),
-('2023-10-01', '2023-10-21', 'Accepted', TIMEDIFF('2023-10-01 08:00:00', '2023-10-21 08:00:00'), 'You already know the feeding and walking schedule, just call us at any time if something goes wrong.', 325.00, 2, 5),
-('2023-11-12', '2023-11-19', 'Accepted', TIMEDIFF('2023-11-12 06:00:00', '2023-11-19 18:30:00'), null, 100.50, 3, 5);
+('2023-08-15', '2023-08-16', 'Pending', '16:00:00', null, 30.50, 1, 4),
+('2023-09-01', '2023-09-08', 'Cancelled', '12:00:00', 'Change of plans.', 20.00, 2, 4),
+('2023-08-21', '2023-08-23', 'Pending', '09:00:00', 'Please watch the hamster', 15.75, 3, 4),
+('2023-08-16', '2023-08-16', 'Accepted', '08:00:00', 'Give Sprinkle his medicine at noon and at 4:00 please', 20.00, 1, 5),
+('2023-10-01', '2023-10-21', 'Accepted', '08:00:00', 'You already know the feeding and walking schedule, just call us at any time if something goes wrong.', 325.00, 2, 5),
+('2023-11-12', '2023-11-19', 'Accepted', '06:00:00', null, 100.50, 3, 5);
 
 
 SELECT * FROM app_user;
