@@ -22,9 +22,11 @@ public class ContactInfoJdbcTemplateRepository implements ContactInfoRepository{
 
     @Override
     public ContactInfo findById(int id) {
-        final String sql = "select contact_info_id, first_name, last_name, email, phone_number, street_address, city, state, zipcode "
-                + "from contact_info "
-                + "where contact_info_id = ?;";
+        final String sql = "select username, contact_info_id, first_name, last_name, email, phone_number, street_address, city, state, zipcode " +
+                "from contact_info " +
+                "join app_user " +
+                "on app_user.app_user_id = contact_info.app_user_id " +
+                "where contact_info_id = ?;";
 
         return jdbcTemplate.query(sql, new ContactInfoMapper(), id).stream()
                 .findFirst().orElse(null);

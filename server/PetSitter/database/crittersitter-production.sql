@@ -132,4 +132,7 @@ SELECT * FROM care_visit;
 SELECT * FROM pet;
 SELECT * FROM contact_info;
 SELECT * FROM pet where owner_id = 1;
+
+select * from app_user join app_user_role on app_user.app_user_id = app_user_role.app_user_id join app_role on app_role.app_role_id = app_user_role.app_role_id ;
+
 select username, first_name, last_name, email, phone_number, street_address, city, state, zipcode from contact_info join app_user on app_user.app_user_id = contact_info.app_user_id where app_user.app_user_id = 1;
