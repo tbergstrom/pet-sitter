@@ -49,7 +49,7 @@ Content-Type: application/json
 @base_url = http://localhost:8080/api/visit
 
 server-818afternoon
-@bearer_token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcml0dGVyLXNpdHRlciIsInN1YiI6IkpvaG5ueWJveSIsImF1dGhvcml0aWVzIjoiT1dORVIiLCJleHAiOjE2OTIzODUzMTZ9.ap7Tv2wJZ8LdhhubxWW0nRaGrTfmnst-H6XcdsoKKw4
+@bearer_token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcml0dGVyLXNpdHRlciIsInN1YiI6IkpvaG5ueWJveSIsImF1dGhvcml0aWVzIjoiT1dORVIiLCJleHAiOjE2OTIzODU5MzR9.bdp0JJuo7BNoFIYHAJkNzM9VZlcrBcb_b0bkCsW8m0U
 
 ###
 
@@ -69,7 +69,7 @@ Authorization: Bearer {{bearer_token}}
 
 # Returns visits associated with sitter id
 GET {{base_url}}/sitter/my-visits HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcml0dGVyLXNpdHRlciIsInN1YiI6IkNhdEZyaWVuZCIsImF1dGhvcml0aWVzIjoiU0lUVEVSIiwiZXhwIjoxNjkyMzg1MzQ5fQ.SVekkXSBNvabvssAmOphLnYb6CHVNguOX00DLcsoDYA
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcml0dGVyLXNpdHRlciIsInN1YiI6IkNhdEZyaWVuZCIsImF1dGhvcml0aWVzIjoiU0lUVEVSIiwiZXhwIjoxNjkyMzg1OTYxfQ.Hww4qO-8xqwZ_yNwVpiOhADkRW3QDdrEAdtgdZXDORo
 
 ###
 
