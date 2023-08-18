@@ -58,10 +58,8 @@ public class CareVisitJdbcTemplateRepository implements CareVisitRepository{
 
     @Override
     public CareVisit create(CareVisit careVisit) {
-        final String sql = "insert into care_visit (start_date, end_date, `status`, time_of_day, notes, cost, owner_id, sitter_id "
+        final String sql = "insert into care_visit (start_date, end_date, `status`, time_of_day, notes, cost, owner_id, sitter_id) "
                 + " values (?,?,?,?,?,?,?,?);";
-
-        //careVisitSqlDate = convertToMySQLDate(careVisitJavaDate);
 
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
