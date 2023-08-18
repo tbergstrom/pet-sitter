@@ -18,6 +18,7 @@ import AuthContext from './contexts/AuthContext';
 import CreateAccount from './components/CreateAccount';
 import PetDetails from './components/PetDetails';
 import ConfirmPetDelete from './components/ConfirmPetDelete';
+import ManageSitterVisits from './components/ManageSitterVisits';
 
 
 
@@ -85,7 +86,6 @@ function App() {
   }, []);
 
   return (
-
     <GoogleOAuthProvider clientId='321605181263-7tsniamk1f3712hs4p6uc26dvshbv46k.apps.googleusercontent.com'>
       <AuthContext.Provider value={auth}>
         <BrowserRouter>
