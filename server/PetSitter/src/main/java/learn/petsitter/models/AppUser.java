@@ -30,6 +30,14 @@ public class AppUser implements UserDetails {
         this.authorities = convertRolesToAuthorities(roles);
     }
 
+    // For Google users, they will not have a password:
+    public AppUser(int appUserId, String username, boolean enabled, List<String> roles) {
+        this.appUserId = appUserId;
+        this.username = username;
+        this.enabled = enabled;
+        this.authorities = convertRolesToAuthorities(roles);
+    }
+
     private static Collection<GrantedAuthority> convertRolesToAuthorities(List<String> roles) {
         return roles.stream()
                 .map(r -> new SimpleGrantedAuthority(r))

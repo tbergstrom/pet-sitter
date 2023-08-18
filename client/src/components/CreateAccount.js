@@ -52,10 +52,11 @@ export default function CreateAccount() {
     console.log(credentialResponse);
 
     const authCode = credentialResponse.credential;
+    console.log(authCode);
 
     try {
 
-      const response = await fetch('http://localhost:8080/create_account', {
+      const response = await fetch('http://localhost:8080/create_account_g', {
       method: "POST",
       headers: {
         'Content-Type': "application/json",
@@ -72,13 +73,6 @@ export default function CreateAccount() {
       console.log(errorMessages);
       setErrors([errorMessages.message]);
     }
-    // .then(response => response.json())
-    // .then(payload => {
-    //   console.log("Success:", payload)
-    // })
-    // .catch(error => {
-    //   console.error("Error:", error)
-    // });
     } catch (error) {
       console.error("Network error", error);
       setErrors(["Something went wrong on our end. Please try again."])

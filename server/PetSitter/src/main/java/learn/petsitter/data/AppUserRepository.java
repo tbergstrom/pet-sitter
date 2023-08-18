@@ -11,6 +11,10 @@ public interface AppUserRepository {
     @Transactional
     public AppUser create(AppUser user);
 
+    // createGoogleUser is only used for creating via Google OAuth: no passwords are stored.
+    @Transactional
+    AppUser createGoogleUser(AppUser user);
+
     @Transactional
     void update(AppUser user);
 
