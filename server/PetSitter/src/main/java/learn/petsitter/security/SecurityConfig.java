@@ -30,6 +30,7 @@ public class SecurityConfig {
         http.authorizeRequests()
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers("/create_account").permitAll()
+                .antMatchers("/create_account_g").permitAll() // added separate endpoint for google sign in
                 .antMatchers("/refresh_token").authenticated()
                 .antMatchers(HttpMethod.GET, "/api", "/api/pets", "/api/pets/pet/*", "/api/pets/*", "/api/pets/mypets", "/api/contact-info", "/api/contact-info/user/my-info","/api/contact-info/*", "api/visit/singlevisit/*").hasAnyAuthority("OWNER", "SITTER")
                 .antMatchers(HttpMethod.GET, "/api/visit/owner", "/api/visit/owner/my-visits").hasAnyAuthority("OWNER")

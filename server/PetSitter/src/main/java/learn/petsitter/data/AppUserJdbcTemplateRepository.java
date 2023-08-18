@@ -60,6 +60,31 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
 
         return user;
     }
+
+//    createGoogleUser uses the Google OAuth and does not store passwords. It also uses the email for the username.
+    @Override
+    @Transactional
+    public AppUser createGoogleUser(AppUser user) {
+
+        final String sql = "insert into app_user (username) values (?);";
+
+        GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+        int rowsAffected = jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, user.getUsername());
+            return ps;
+        }, keyHolder);
+
+        if(rowsAffected <= 0) {
+            return null;
+        }
+
+        user.setAppUserId(keyHolder.getKey().intValue());
+        updateRoles(user);
+        return user;
+    }
+
+
     @Override
     @Transactional
     public void update(AppUser user) {

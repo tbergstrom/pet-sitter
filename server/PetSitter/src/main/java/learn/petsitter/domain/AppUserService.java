@@ -1,5 +1,6 @@
 package learn.petsitter.domain;
 
+import learn.petsitter.App;
 import learn.petsitter.data.AppUserRepository;
 import learn.petsitter.data.ContactInfoRepository;
 import learn.petsitter.domain.ResultType;
@@ -13,7 +14,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class AppUserService implements UserDetailsService {
@@ -65,6 +70,35 @@ public class AppUserService implements UserDetailsService {
         return result;
     }
 
+    public Result<AppUser> createGoogleUser(String email, List<String> roles) {
+        Result <AppUser> result = validateGoogleUser(email);
+        if (!result.isSuccess()) {
+            return result;
+        }
+
+        AppUser existingUser = repository.findByUsername(email);
+
+        if(existingUser != null){
+            result.addErrorMessage("Email already exists", ResultType.INVALID);
+            return result;
+        }
+
+        AppUser googleUser = new AppUser(0, email, true, roles);
+        // How to set roles? New constructor?
+        ContactInfo contactInfo = new ContactInfo();
+        googleUser.setContactInfo(contactInfo);
+
+        try{
+            googleUser = repository.createGoogleUser(googleUser);
+            Result<AppUser> resultGoogleUser = new Result<>();
+            resultGoogleUser.setPayload(googleUser);
+            return resultGoogleUser;
+        } catch (Exception ex){
+            result.addErrorMessage("Unable to create user", ResultType.INVALID);
+            return result;
+        }
+    }
+
     private Result<AppUser> validate(String username, String password) {
         Result<AppUser> result = new Result<>();
         if (username == null || username.isBlank()) {
@@ -87,6 +121,27 @@ public class AppUserService implements UserDetailsService {
                             " a letter, and a non-digit/non-letter", ResultType.INVALID);
         }
 
+        return result;
+    }
+
+    private Result<AppUser> validateGoogleUser(String email) {
+        Result<AppUser> result = new Result<>();
+        String emailRegex = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\\\.[A-Za-z0-9-]+)*(\\\\.[A-Za-z]{2,})$";
+
+        if (email == null || email.isBlank() || email.isEmpty()) {
+            result.addErrorMessage("Email is required", ResultType.INVALID);
+            return result;
+        }
+
+        if (!email.matches(emailRegex)) {
+            result.addErrorMessage("Invalid email", ResultType.INVALID);
+            return result;
+        }
+
+        if (email.length() > 50) {
+            result.addErrorMessage("username must be less than 50 characters", ResultType.INVALID);
+            return result;
+        }
         return result;
     }
 
