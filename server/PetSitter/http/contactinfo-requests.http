@@ -35,7 +35,7 @@ Content-Type: application/json
 ###
 
 @base_url = http://localhost:8080/api/contact-info
-@bearer_token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcml0dGVyLXNpdHRlciIsInN1YiI6IkpvaG5ueWJveSIsImF1dGhvcml0aWVzIjoiT1dORVIiLCJleHAiOjE2OTIzNzYyNDl9.GDXSUckZmTBeZIYRb6f08t1FCvKzOQXcH7Jbu2fCNuY
+@bearer_token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcml0dGVyLXNpdHRlciIsInN1YiI6IkpvaG5ueWJveSIsImF1dGhvcml0aWVzIjoiT1dORVIiLCJleHAiOjE2OTIzODg2MzB9.5kBzgb1ZFRi-WjA7E3aeq9WsHGQhu5J6dqS08MQ-P0o
 
 ###
 

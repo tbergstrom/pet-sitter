@@ -24,9 +24,7 @@ const Nav = ()=> {
             {/* only logged in as an owner */}
             { user && (
                 <>
-                    <Link className="nav-btn" to={`/managepets`}>Manage Your Pets</Link>
-                    {" "}
-                    <Link className="nav-btn" to='/manageownervisits'>Manage Your Visits</Link>
+                    <Link className="nav-btn" to='/manageaccount'>Manage Your Account</Link>
                     {" "}
                     <button onClick={auth.logout}>Logout</button>
                 </>
