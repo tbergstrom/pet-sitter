@@ -45,8 +45,45 @@ export default function CreateAccount() {
           const errorMessages = await response.json();
           console.log(errorMessages);
           setErrors([errorMessages.message]);
-      }
+        }
   };
+
+  const handleGoogleSubmit = async (credentialResponse) => {
+    console.log(credentialResponse);
+
+    const authCode = credentialResponse.credential;
+
+    try {
+
+      const response = await fetch('http://localhost:8080/create_account', {
+      method: "POST",
+      headers: {
+        'Content-Type': "application/json",
+      },
+      body: JSON.stringify({ credential: authCode, role }),
+    });
+
+    if (response.status === 201) {
+      navigate("/");
+    } else if (response.status === 403) {
+      setErrors(["Google Account Creation Failed"]);
+    } else {
+      const errorMessages = await response.json();
+      console.log(errorMessages);
+      setErrors([errorMessages.message]);
+    }
+    // .then(response => response.json())
+    // .then(payload => {
+    //   console.log("Success:", payload)
+    // })
+    // .catch(error => {
+    //   console.error("Error:", error)
+    // });
+    } catch (error) {
+      console.error("Network error", error);
+      setErrors(["Something went wrong on our end. Please try again."])
+    }
+  }
 
   return (
     <div>
@@ -56,13 +93,11 @@ export default function CreateAccount() {
       ))}
 
       <GoogleLogin
-        onSuccess={credentialResponse => {
-          console.log(credentialResponse);
-        }}
+        onSuccess={handleGoogleSubmit}
         onError={() => {
           console.log('Login Failed');
         }}
-      />;
+      />
       
       <form onSubmit={handleSubmit}>
         <div>
