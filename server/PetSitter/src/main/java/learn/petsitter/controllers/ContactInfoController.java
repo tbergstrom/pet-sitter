@@ -60,7 +60,7 @@ public class ContactInfoController {
         return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{contactInfoId}")
+    @PutMapping("/user/{userId}")
     public ResponseEntity<?> update(@PathVariable int contactInfoId, @RequestBody ContactInfo contactInfo) {
         if (contactInfoId != contactInfo.getContactInfoId()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT); //409

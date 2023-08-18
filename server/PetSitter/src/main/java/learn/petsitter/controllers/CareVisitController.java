@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+//TODO what should be the endpoints for updating and deleting a visit?
+//also i tried to make delete an update under the hood that just makes the status cancelled
 
 @RestController
 @RequestMapping("/api/visit")
@@ -33,12 +35,12 @@ public class CareVisitController {
     }
 
     @GetMapping("/sitter/{sitterId}")
-    public List<CareVisit> findBySitterrId(@PathVariable int sitterId) {
+    public List<CareVisit> findBySitterId(@PathVariable int sitterId) {
         return service.findBySitterId(sitterId);
     }
 
-    //TODO think up endpoint for single visit ("/visit/*") ??
-    @GetMapping("/visit/{careVisitId}")
+
+    @GetMapping("/singlevisit/{careVisitId}")
     public ResponseEntity<CareVisit> findById(@PathVariable int careVisitId) {
         CareVisit cv = service.findById(careVisitId);
         if (cv == null) {
@@ -61,7 +63,7 @@ public class CareVisitController {
         return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
     }
 
-    @PutMapping("/visit/{careVisitId}")
+    @PutMapping("/single/{careVisitId}")
     public ResponseEntity<?> update(@PathVariable int careVisitId, @RequestBody CareVisit cv) {
         if (careVisitId != cv.getCareVisitId()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT); //409
@@ -78,7 +80,7 @@ public class CareVisitController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT); //204
     }
 
-    @DeleteMapping("/visit/{careVisitId}")
+    @DeleteMapping("/single/{careVisitId}")
     public ResponseEntity<?> delete(@PathVariable int careVisitId, @RequestBody CareVisit cv) {
         if (careVisitId != cv.getCareVisitId()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT); //409

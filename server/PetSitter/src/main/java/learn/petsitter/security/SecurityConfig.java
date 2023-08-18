@@ -31,21 +31,21 @@ public class SecurityConfig {
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers("/create_account").permitAll()
                 .antMatchers("/refresh_token").authenticated()
-                .antMatchers(HttpMethod.GET, "/api", "/api/pets", "/api/pets/pet/*", "/api/pets/*", "/api/pets/mypets", "/api/contact-info", "/api/contact-info/user/*").hasAnyAuthority("OWNER", "SITTER")
-                .antMatchers(HttpMethod.GET, "/api/visit/owner", "/api/visit/owner/*").hasAnyAuthority("OWNER")
-                .antMatchers(HttpMethod.GET, "/api/visit/sitter", "/api/visit/sitter/*").hasAnyAuthority("SITTER")
+                .antMatchers(HttpMethod.GET, "/api", "/api/pets", "/api/pets/pet/*", "/api/pets/*", "/api/pets/mypets", "/api/contact-info", "/api/contact-info/user/*", "api/visit/singlevisit/*").hasAnyAuthority("OWNER", "SITTER")
+                .antMatchers(HttpMethod.GET, "/api/visit/owner", "/api/visit/owner/*", "/api/contact-info/*").hasAnyAuthority("OWNER")
+                .antMatchers(HttpMethod.GET, "/api/visit/sitter", "/api/visit/sitter/*", "/api/contact-info/*").hasAnyAuthority("SITTER")
                 .antMatchers(HttpMethod.POST,
-                        "/api/pets", "/api/visit/owner", "/api/contact-info").hasAnyAuthority("OWNER")
+                        "/api/pets", "/api/visit/owner", "/api/contact-info","/api/visit").hasAnyAuthority("OWNER")
                 .antMatchers(HttpMethod.POST,
                         "/api/visit/sitter", "/api/contact-info").hasAnyAuthority("SITTER")
                 .antMatchers(HttpMethod.PUT,
-                        "/api/pets", "/api/pets/pet/*","/api/visit/owner","/api/contact-info/*").hasAnyAuthority("OWNER")
+                        "/api/pets", "/api/pets/pet/*", "/api/visit/owner", "/api/contact-info/*", "api/visit/singlevisit/*").hasAnyAuthority("OWNER")
                 .antMatchers(HttpMethod.PUT,
-                        "/api/visit/sitter","/api/contact-info/*").hasAnyAuthority("SITTER")
+                        "/api/visit/sitter","/api/contact-info/*", "api/visit/singlevisit/*").hasAnyAuthority("SITTER")
                 .antMatchers(HttpMethod.DELETE,
-                        "/api/pets", "/api/pets/pet/*").hasAnyAuthority("OWNER")
+                        "/api/pets", "/api/pets/pet/*", "api/visit/singlevisit/*").hasAnyAuthority("OWNER")
                 .antMatchers(HttpMethod.DELETE,
-                        "/api/contact-info/*").hasAnyAuthority("OWNER", "SITTER")
+                        "/api/contact-info/*", "api/visit/singlevisit/*").hasAnyAuthority("OWNER", "SITTER")
                 .antMatchers("/**").denyAll()
                 .and()
                 .addFilter(new JwtRequestFilter(authenticationManager(authConfig), converter))
