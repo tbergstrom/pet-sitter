@@ -94,7 +94,7 @@ public class AppUserService implements UserDetailsService {
             resultGoogleUser.setPayload(googleUser);
             return resultGoogleUser;
         } catch (Exception ex){
-            result.addErrorMessage("Unable to create user", ResultType.INVALID);
+            result.addErrorMessage("Unable to create user: " + ex.getMessage(), ResultType.INVALID);
             return result;
         }
     }
@@ -126,7 +126,8 @@ public class AppUserService implements UserDetailsService {
 
     private Result<AppUser> validateGoogleUser(String email) {
         Result<AppUser> result = new Result<>();
-        String emailRegex = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\\\.[A-Za-z0-9-]+)*(\\\\.[A-Za-z]{2,})$";
+        String emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
+
 
         if (email == null || email.isBlank() || email.isEmpty()) {
             result.addErrorMessage("Email is required", ResultType.INVALID);
