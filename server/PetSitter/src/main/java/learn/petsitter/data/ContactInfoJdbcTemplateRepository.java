@@ -46,7 +46,7 @@ public class ContactInfoJdbcTemplateRepository implements ContactInfoRepository{
 
     @Override
     public ContactInfo create(ContactInfo contactInfo) {
-        final String sql = "insert into contact_info (first_name, last_name, email, phone_number, street_address, city, state, zipcode "
+        final String sql = "insert into contact_info (first_name, last_name, email, phone_number, street_address, city, state, zipcode) "
                 + " values (?,?,?,?,?,?,?,?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
