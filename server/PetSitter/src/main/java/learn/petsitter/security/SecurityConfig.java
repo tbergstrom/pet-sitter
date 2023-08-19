@@ -29,6 +29,7 @@ public class SecurityConfig {
 
         http.authorizeRequests()
                 .antMatchers("/authenticate").permitAll()
+                .antMatchers("/authenticate_google").permitAll()
                 .antMatchers("/create_account").permitAll()
                 .antMatchers("/create_account_google").permitAll() // added separate endpoint for google sign in
                 .antMatchers("/refresh_token").authenticated()

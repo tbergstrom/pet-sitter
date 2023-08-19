@@ -5,12 +5,6 @@ import { GoogleLogin } from '@react-oauth/google';
 
 
 export default function Login() {
-  
-// Direct child of App.js
-
-// Login for Owners and Sitters - Could have two separate login forms, depending on role
-// If so, OwnerLoginForm and SitterLoginForm could be children components
-// This is where Google sign-in should live, probably as another child
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -48,21 +42,54 @@ export default function Login() {
         }
     };
 
+    // Need to setErrors, display to DOM when possible
+  const handleGoogleSuccess = async (event)=> {
+    const tokenId = event.credential;
+
+    try {
+      console.log(tokenId);
+      const response = await fetch("http://localhost:8080/authenticate_google", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({tokenId})
+      });
+
+      const data = await response.json();
+
+      if(response.ok) {
+        const { jwt_token } = data;
+        auth.login(jwt_token);
+        navigate("/");
+      } else {
+        console.log("Response status: " + response.status);
+        console.error("Error from backend: ", data);
+        navigate("/login");
+      }
+    }catch (error) {
+      console.error("Network error: ", error); // Display errors to DOM
+      navigate("/login")
+    }
+  }
+
+  const handleGoogleFailure = (error)=> {
+    console.error("Google Login Error:", error); // Display errors to DOM instead?
+  }
+
   return (
     <div>
       <h2>Login</h2>
       {errors.map((error, i) => (
         <div key={i}>{error}</div>
       ))}
-      
+
       <GoogleLogin
-        onSuccess={credentialResponse => {
-          console.log(credentialResponse);
-        }}
-        onError={() => {
-          console.log('Login Failed');
-        }}
-      />;
+        clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+        // buttonText="Sign Up with Google"
+        onSuccess={handleGoogleSuccess}
+        onFailure={handleGoogleFailure}
+      />
 
       <form onSubmit={handleSubmit}>
         <div>
