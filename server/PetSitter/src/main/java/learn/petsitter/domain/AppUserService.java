@@ -84,9 +84,16 @@ public class AppUserService implements UserDetailsService {
         }
 
         AppUser googleUser = new AppUser(0, email, true, roles);
-        // How to set roles? New constructor?
-        ContactInfo contactInfo = new ContactInfo();
-        googleUser.setContactInfo(contactInfo);
+//        ContactInfo contactInfo = new ContactInfo();
+//        googleUser.setContactInfo(contactInfo);
+//
+//        System.out.println("My contact info App User: " + googleUser.getContactInfo().getAppUser());
+//        System.out.println("Id: " + googleUser.getContactInfo().getContactInfoId());
+//        System.out.println("First name: " + googleUser.getContactInfo().getFirstName());
+//        System.out.println("Last name: " + googleUser.getContactInfo().getLastName());
+//        System.out.println("Email: " + googleUser.getContactInfo().getEmail());
+//        System.out.println("City: " + googleUser.getContactInfo().getCity());
+
 
         try{
             googleUser = repository.createGoogleUser(googleUser);
