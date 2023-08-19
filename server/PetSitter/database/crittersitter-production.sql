@@ -14,7 +14,7 @@ CREATE TABLE app_role (
 CREATE TABLE app_user (
 	app_user_id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL UNIQUE,
-    password_hash VARCHAR(2048) NOT NULL,
+    password_hash VARCHAR(2048),
     enabled BIT NOT NULL DEFAULT(1),
     rate DECIMAL(7, 2)
 );

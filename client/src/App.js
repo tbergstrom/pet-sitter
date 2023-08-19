@@ -84,9 +84,10 @@ function App() {
   useEffect(loadSitters, [])
 
   const loadContactInfo = () => {
-    fetch("http://localhost:8080/api/contact-info")
-    .then(response => response.json())
-    .then(payload => setContactInfo(payload))
+    // fetch("http://localhost:8080/api/contact-info")
+    // .then(response => response.json())
+    // .then(payload => setContactInfo(payload))
+    console.log("no contact info yet")
   }
 
   useEffect(loadContactInfo, [])
@@ -109,8 +110,7 @@ function App() {
           <Routes>
             {/* always visible */}
             <Route path='/' element={<Home />}/>
-            <Route path="/findsitter" element={<SitterTable sitters={sitters} loadSitters={loadSitters}/>}/>
-            
+            <Route path="/findsitter" element={<SitterTable sitters={sitters} loadSitters={loadSitters}/>}/>            
 
             {/* logged in as owner and sitter */}
             <Route path="/visittable/:id" element={ user ? <VisitTable visits={visits} loadVisits={loadVisits} /> : <Navigate to="/" /> } />

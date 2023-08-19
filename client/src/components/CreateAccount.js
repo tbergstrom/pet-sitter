@@ -48,36 +48,73 @@ export default function CreateAccount() {
         }
   };
 
-  const handleGoogleSubmit = async (credentialResponse) => {
-    console.log(credentialResponse);
+  // const handleGoogleSuccess = async (credentialResponse) => {
+  //   console.log(credentialResponse);
+  //   navigate("/callback");
 
-    const authCode = credentialResponse.credential;
-    console.log(authCode);
+    // const authCode = credentialResponse.credential;
+    // const decodedAuthCode = decodeURIComponent(authCode);
 
-    try {
+    // try {
 
-      const response = await fetch('http://localhost:8080/create_account_g', {
-      method: "POST",
-      headers: {
-        'Content-Type': "application/json",
-      },
-      body: JSON.stringify({ credential: authCode, role }),
-    });
+    //   const response = await fetch('http://localhost:8080/create_account_g', {
+    //   method: "POST",
+    //   headers: {
+    //     'Content-Type': "application/json",
+    //   },
+    //   body: JSON.stringify({ credential: decodedAuthCode, role }),
+    // });
 
-    if (response.status === 201) {
-      navigate("/");
-    } else if (response.status === 403) {
-      setErrors(["Google Account Creation Failed"]);
-    } else {
-      const errorMessages = await response.json();
-      console.log(errorMessages);
-      setErrors([errorMessages.message]);
-    }
-    } catch (error) {
-      console.error("Network error", error);
-      setErrors(["Something went wrong on our end. Please try again."])
-    }
+    // if (response.status === 201) {
+    //   // navigate("/");
+    //   console.log("nice.")
+    // } else if (response.status === 403) {
+    //   setErrors(["Google Account Creation Failed"]);
+    // } else {
+    //   const errorMessages = await response.json();
+    //   console.log(errorMessages);
+    //   setErrors([errorMessages.message]);
+    // }
+    // } catch (error) {
+    //   console.error("Network error", error);
+    //   setErrors(["Something went wrong on our end. Please try again."])
+    // }
+
+    const handleGoogleSuccess = async (response) => {
+      const tokenId = response.credential;
+
+      try {
+
+        console.log(response);
+        console.log(tokenId)
+        const result = await fetch("http://localhost:8080/create_account_google", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ tokenId: tokenId, role: "OWNER" })
+        });
+        
+        const data = await result.json();
+        
+        if (result.status === 201) {
+          navigate("/");
+        } else {
+          console.log("Result status: " + result.status);
+          console.error("Error from backend:", data);
+          navigate("/create_account")
+        }
+      } catch (error) {
+        console.error("Network error:", error);
+        navigate("/create_account");
+      }
   }
+  
+  const handleGoogleFailure = (error) => {
+    console.error("Google Login Error:", error);
+  }
+
+
 
   return (
     <div>
@@ -87,10 +124,10 @@ export default function CreateAccount() {
       ))}
 
       <GoogleLogin
-        onSuccess={handleGoogleSubmit}
-        onError={() => {
-          console.log('Login Failed');
-        }}
+        clientId={"321605181263-7tsniamk1f3712hs4p6uc26dvshbv46k.apps.googleusercontent.com"}
+        buttonText="Login with Google"
+        onSuccess={handleGoogleSuccess}
+        onFailure={handleGoogleFailure}
       />
       
       <form onSubmit={handleSubmit}>
