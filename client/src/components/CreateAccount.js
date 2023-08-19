@@ -5,16 +5,9 @@ import { GoogleLogin } from '@react-oauth/google';
 
 export default function CreateAccount() {
 
-// Direct child of App.js
-
-// Where the account creation form lives.
-// If we use Google, we could be looking at 4 forms/ children:
-// CreateOwnerForm, CreateSitterForm, GoogleCreateSitterForm, GoogleCreateOwnerForm
-// Feels like too many
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("OWNER")
+  const [role, setRole] = useState("")
   const [errors, setErrors] = useState([]);
 
   const navigate = useNavigate();
@@ -23,6 +16,11 @@ export default function CreateAccount() {
 
   const handleSubmit = async (event) => {
       event.preventDefault();
+
+      if (!role) {
+        setErrors(existingErrors => [...existingErrors, "Please choose a role before proceeding."]);
+        return;
+      }
 
       const response = await fetch("http://localhost:8080/create_account", {
           method: "POST",
@@ -47,74 +45,46 @@ export default function CreateAccount() {
           setErrors([errorMessages.message]);
         }
   };
+    // Need to setErrors, display to DOM when possible
+    const handleGoogleSuccess = async (event) => {
+      const tokenId = event.credential;
 
-  // const handleGoogleSuccess = async (credentialResponse) => {
-  //   console.log(credentialResponse);
-  //   navigate("/callback");
-
-    // const authCode = credentialResponse.credential;
-    // const decodedAuthCode = decodeURIComponent(authCode);
-
-    // try {
-
-    //   const response = await fetch('http://localhost:8080/create_account_g', {
-    //   method: "POST",
-    //   headers: {
-    //     'Content-Type': "application/json",
-    //   },
-    //   body: JSON.stringify({ credential: decodedAuthCode, role }),
-    // });
-
-    // if (response.status === 201) {
-    //   // navigate("/");
-    //   console.log("nice.")
-    // } else if (response.status === 403) {
-    //   setErrors(["Google Account Creation Failed"]);
-    // } else {
-    //   const errorMessages = await response.json();
-    //   console.log(errorMessages);
-    //   setErrors([errorMessages.message]);
-    // }
-    // } catch (error) {
-    //   console.error("Network error", error);
-    //   setErrors(["Something went wrong on our end. Please try again."])
-    // }
-
-    const handleGoogleSuccess = async (response) => {
-      const tokenId = response.credential;
+      if (!role) {
+        setErrors(existingErrors => [...existingErrors, "Please choose a role before proceeding."]);
+        return;
+      }
 
       try {
 
-        console.log(response);
-        console.log(tokenId)
-        const result = await fetch("http://localhost:8080/create_account_google", {
+        const response = await fetch("http://localhost:8080/create_account_google", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ tokenId: tokenId, role: "OWNER" })
+            body: JSON.stringify({ tokenId: tokenId, role })
         });
         
-        const data = await result.json();
+        const data = await response.json();
         
-        if (result.status === 201) {
+        if (response.status === 201) {
           navigate("/");
         } else {
-          console.log("Result status: " + result.status);
-          console.error("Error from backend:", data);
-          navigate("/create_account")
+          // console.log("Response status: " + response.status);
+          // console.error("Error from backend: ", data);
+          setErrors(existingErrors => [...existingErrors, `Error from backend: ${data}`])
+          navigate("/create_account");
         }
       } catch (error) {
-        console.error("Network error:", error);
+        // console.error("Network error:", error);
+        setErrors(existingErrors => [...existingErrors, `Network error: ${error}`])
         navigate("/create_account");
       }
   }
   
   const handleGoogleFailure = (error) => {
-    console.error("Google Login Error:", error);
+    setErrors(`[Google Login Error: ${error}]`)
+    // console.error("Google Login Error:", error); // Display errors to DOM
   }
-
-
 
   return (
     <div>
@@ -123,9 +93,22 @@ export default function CreateAccount() {
         <div key={i}>{error}</div>
       ))}
 
+      <div>
+        <label htmlFor="role">Role:</label>
+        <select
+          id="role"
+          onChange={(event) => setRole(event.target.value)}
+          value={role}
+          >
+          <option value="" disabled>Choose a Role</option>
+          <option value="OWNER">Pet Owner</option>
+          <option value="SITTER">Pet Sitter</option>
+        </select>
+      </div>
+
       <GoogleLogin
-        clientId={"321605181263-7tsniamk1f3712hs4p6uc26dvshbv46k.apps.googleusercontent.com"}
-        buttonText="Login with Google"
+        clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+        // buttonText="Sign Up with Google"
         onSuccess={handleGoogleSuccess}
         onFailure={handleGoogleFailure}
       />
@@ -150,17 +133,7 @@ export default function CreateAccount() {
             id="password"
           />
         </div>
-        <div>
-          <label htmlFor="role">Role:</label>
-          <select
-            id="role"
-            onChange={(event) => setRole(event.target.value)}
-            value={role}
-          >
-            <option value="OWNER">Pet Owner</option>
-            <option value="SITTER">Pet Sitter</option>
-          </select>
-        </div>
+        
         <div>
           <button type="submit">Create Account</button>
         </div>
