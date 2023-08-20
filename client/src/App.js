@@ -65,6 +65,7 @@ function App() {
     user: user ? { ...user } : null
   }
 
+  // consider moving to ManageVisits
   const loadVisits = () => {
     // fetch("http://localhost:8080/api/visit")
     // .then(response => response.json())
@@ -74,6 +75,7 @@ function App() {
 
   useEffect(loadVisits, [])
 
+  // consider moving to FindSitters
   const loadSitters = () => {
     // fetch("http://localhost:8080/api/sitter")
     // .then(response => response.json())
@@ -83,14 +85,15 @@ function App() {
 
   useEffect(loadSitters, [])
 
-  const loadContactInfo = () => {
-    // fetch("http://localhost:8080/api/contact-info")
-    // .then(response => response.json())
-    // .then(payload => setContactInfo(payload))
-    console.log("no contact info yet")
-  }
+  // consider moving to ManageContactInfo (and/ or where we view other ppls profiles)
+  // const loadContactInfo = () => {
+  //   fetch("http://localhost:8080/api/contact-info")
+  //   .then(response => response.json())
+  //   .then(payload => setContactInfo(payload))
+  //   console.log("no contact info yet")
+  // }
 
-  useEffect(loadContactInfo, [])
+  // useEffect(loadContactInfo, [])
 
   useEffect(() => {
     const token = localStorage.getItem("auth-token")
@@ -99,7 +102,7 @@ function App() {
     }
   }, []);
 
-  console.log(user);
+  console.log("User: ", user);
 
   return (
     <GoogleOAuthProvider clientId='321605181263-7tsniamk1f3712hs4p6uc26dvshbv46k.apps.googleusercontent.com'>
@@ -120,7 +123,7 @@ function App() {
             <Route path="/managepets" element={ user ? <ManagePets /> : <Navigate to="/" />} />
             <Route path="/manageownervisits" element={ user ? <ManageOwnerVisits /> : <Navigate to="/" />} />
             <Route path="/user/:id" element={ user ? <ContactInfoDetails /> : <Navigate to="/" />} />
-            <Route path='/requestvisit' element={ user ? <ContactInfoForm contactInfo={contactInfo} loadContactInfo={loadContactInfo}/> : <Navigate to="/" /> }/>
+            <Route path='/requestvisit' element={ user ? <ContactInfoForm contactInfo={contactInfo} /> : <Navigate to="/" /> }/>
 
             {/* logged in as owner only */}
             <Route path='/requestvisit' element={ user ? <VisitForm loadVisits={loadVisits}/> : <Navigate to="/" /> }/>
