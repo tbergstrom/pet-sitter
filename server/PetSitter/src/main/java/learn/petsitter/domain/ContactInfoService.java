@@ -70,6 +70,8 @@ public class ContactInfoService {
     public Result<ContactInfo> validate(ContactInfo contactInfo) {
         Result<ContactInfo> result = new Result<>();
 
+        System.out.println(contactInfo.getZipCode());
+
         if (contactInfo == null) {
             result.addErrorMessage("contactInfo cannot be null in service", ResultType.INVALID);
             return result;

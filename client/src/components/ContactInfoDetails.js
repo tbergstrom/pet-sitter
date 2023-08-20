@@ -16,27 +16,29 @@ const ContactInfoDetails = (props)=> {
 
     const jwtToken = auth.user.token;
 
-    const loadContactInfo = ()=> {
-        fetch(`http://localhost:8080/api/contact-info/${params.id}`, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${jwtToken}`
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                setErrors(["somethin happn"])
-            }
-            return response.json();
-        })
-        .then(payload => setContactInfo(payload))
-        .catch(error => {
-            console.error("Fetch error: ", error);
-            setErrors([error]);
-        })   
-    }
+    // const loadContactInfo = ()=> {
+    //     // fetch(`http://localhost:8080/api/contact-info/${params.id}`, {
+    //     fetch(`http://localhost:8080/api/contact-info/user/my-info`, {
+    //         method: "GET",
+    //         headers: {
+    //             "Authorization": `Bearer ${jwtToken}`
+    //         }
+    //     })
+    //     .then(response => {
+    //         if (!response.ok) {
+    //             console.log(response);
+    //             setErrors(["Err: ", response.status])
+    //         }
+    //         return response.json();
+    //     })
+    //     .then(payload => setContactInfo(payload))
+    //     .catch(error => {
+    //         console.error("Fetch error: ", error);
+    //         setErrors([error.message]);
+    //     })   
+    // }
 
-    useEffect(loadContactInfo, [])
+    // useEffect(loadContactInfo, [])
 
     const loadUser = ()=> {
         fetch(`http://localhost:8080/api/user/${params.id}`, {
@@ -46,7 +48,7 @@ const ContactInfoDetails = (props)=> {
             }
         })
         .then(response => {
-            console.log(params);
+            console.log("Params: ", params);
             if (!response.ok) {
                 setErrors(["somethin happn"])
             }
@@ -55,17 +57,17 @@ const ContactInfoDetails = (props)=> {
         .then(payload => setUser(payload))
         .catch(error => {
             console.error("Fetch error: ", error);
-            setErrors([error]);
+            setErrors([error.message]);
         })   
     }
 
     useEffect(loadUser, [])
     
-    console.log(user);
+    console.log("User: ", user);
 
     return (
         <>
-            { errors && 
+            { errors && errors.length > 0 &&
             <ul>
                 {errors.map((error, i) => <li key={i}>{error}</li>)}
             </ul>}

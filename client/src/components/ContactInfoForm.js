@@ -16,9 +16,9 @@ const ContactInfoForm = (props)=> {
     const [email, setEmail] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [streetAddress, setStreetAddress] = useState("");
-    const [city, setCity] = useState();
+    const [city, setCity] = useState("");
     const [state, setState] = useState('');
-    const [zipcode, setZipcode] = useState(0);
+    const [zipCode, setZipCode] = useState("");
     const [contactInfo, setContactInfo] = useState([]);
 
     const states = [
@@ -35,31 +35,48 @@ const ContactInfoForm = (props)=> {
         setLastName("");
     }
 
-    const loadContactInfo = () => {
-        fetch(`http://localhost:8080/api/contact-info`)
-        .then(response => response.json())
-        .then(payload => setContactInfo(payload))
-      }
+    const jwtToken = auth.user.token;
+
+    // const loadContactInfo = () => {
+    //     fetch(`http://localhost:8080/api/contact-info/user/my-info`, {
+    //         method: "GET",
+    //         headers: {
+    //             "Authorization" : `Bearer ${jwtToken}`
+    //         }
+    //     })
+    //     .then(response => {
+    //         if(!response.ok) {
+    //             console.log("Response: ", response);
+    //             setErrors(["Err: ", response.status])
+    //         }
+    //         return response.json()
+    //     })
+    //     .then(payload => setContactInfo(payload))
+    //     .catch(error => {
+    //         console.error("Fetch error: ", error);
+    //         setErrors([error.message])
+    //     })
+    //   }
     
-      useEffect(loadContactInfo, [])
+    //   useEffect(loadContactInfo, [])
 
     const handleSubmit = (evt)=> {
         evt.preventDefault();
 
         const currentContactInfo = {
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.firstName,
-            phoneNumber: user.firstName,
-            notes: user.firstName,
-            streetAddress: user.firstName,
-            city: user.firstName,
-            state: user.firstName,
-            zipcode: user.firstName
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            phoneNumber: phoneNumber,
+            streetAddress: streetAddress,
+            city: city,
+            state: state,
+            zipCode: zipCode
         }
 
+
         fetch(`http://localhost:8080/api/contact-info`, {
-            method: "PUT",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 Accept: "application/json",
@@ -69,25 +86,26 @@ const ContactInfoForm = (props)=> {
         })
         .then(response => {
             if(response.ok) {
-                navigate(`/contactinfo`); // need params.id?
+                navigate(`/managecontactinfo`); // need params.id?
                 resetState();
-                props.loadVisits();
-                // a props.setVisitsCounter as useEffect dependency?
+                // props.loadVisits();
             } else {
                 response.json()
                 .then(errors => {
-                    setErrors(errors)
+                    setErrors([errors])
                 })
             }
         })
     }
+
+    console.log(errors);
     return (
         <>
             <form onSubmit={handleSubmit}>
                 <ul>
-                    {/* {errors.map((error, index) => (
-                        <li key={index}>{error}</li>
-                    ))} */}
+                    {errors.map((error, index) => (
+                        <li key={index}>{error.message}</li>
+                    ))}
                 </ul>
                 <fieldset>
                     <label htmlFor="first-name-input">First Name: </label>
@@ -160,9 +178,9 @@ const ContactInfoForm = (props)=> {
                     <label htmlFor="zipcode-input">Zipcode: </label>
                     <input
                         id="zipcode-input"
-                        type="number"
-                        value={zipcode}
-                        onChange={(evt) => setZipcode(evt.target.value)}
+                        type="text"
+                        value={zipCode}
+                        onChange={(evt) => setZipCode(evt.target.value)}
                     />
                 </fieldset>
                 <button type="submit">Save</button>
