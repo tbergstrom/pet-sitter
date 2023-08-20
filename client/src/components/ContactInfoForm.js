@@ -20,7 +20,7 @@ const ContactInfoForm = (props)=> {
     const [streetAddress, setStreetAddress] = useState("");
     const [city, setCity] = useState("");
     const [state, setState] = useState('');
-    const [zipCode, setZipCode] = useState("");
+    const [zipCode, setZipCode] = useState(0);
     const [contactInfo, setContactInfo] = useState([]);
     const [user, setUser] = useState(null)
 
@@ -93,7 +93,7 @@ const ContactInfoForm = (props)=> {
         }
 
 
-        fetch(`http://localhost:8080/api/contact-info/${auth.user.id}`, {
+        fetch(`http://localhost:8080/api/contact-info/${contactInfoId}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -104,7 +104,7 @@ const ContactInfoForm = (props)=> {
         })
         .then(response => {
             if(response.ok) {
-                navigate(`/managecontactinfo`); // need params.id?
+                navigate(`/manageaccount`); // need params.id?
                 resetState();
                 // props.loadVisits();
             } else {
@@ -202,7 +202,7 @@ const ContactInfoForm = (props)=> {
                     <label htmlFor="zipcode-input">Zipcode: </label>
                     <input
                         id="zipcode-input"
-                        type="text"
+                        type="number"
                         value={zipCode}
                         onChange={(evt) => setZipCode(evt.target.value)}
                     />
