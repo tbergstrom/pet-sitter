@@ -40,8 +40,8 @@ const ContactInfoDetails = (props)=> {
 
     // useEffect(loadContactInfo, [])
 
-    const loadUser = ()=> {
-        fetch(`http://localhost:8080/api/user/${params.id}`, {
+    const loadUser = () => {
+        fetch(`http://localhost:8080/api/contact-info/user/my-info`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${jwtToken}`
@@ -64,6 +64,7 @@ const ContactInfoDetails = (props)=> {
     useEffect(loadUser, [])
     
     console.log("User: ", user);
+    console.log(" PROPS: " + props.contactInfo.firstName);
 
     return (
         <>
@@ -74,14 +75,14 @@ const ContactInfoDetails = (props)=> {
             { user ? 
                 (<div className="contact-info-details">
                     <h2>Contact Info Details</h2>
-                    <p>First Name: {props.contactInfo.firstName}</p>
+                    <p>First Name: {user.firstName}</p>
                     <p>Last Name: {user.lastName}</p>
                     <p>Email: {user.email}</p>
                     <p>Phone Number: {user.phoneNumber}</p>
                     <p>Street Address: {user.streetAddress}</p>
                     <p>City: {user.city}</p>
                     <p>State: {user.state}</p>
-                    <p>Zipcode: {user.zipcode}</p>
+                    <p>Zipcode: {user.zipCode}</p>
                 </div>)
                 :
                 (<p>...Loading</p>)

@@ -7,10 +7,12 @@ const ContactInfoForm = (props)=> {
     const params = useParams();
     const navigate = useNavigate();
     const auth = useContext(AuthContext);
-    const user = auth.user;
+    // const user = auth.user;
 
     const [errors, setErrors] = useState([]);
 
+
+    const [contactInfoId, setContactInfoId] = useState(0);
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -20,14 +22,16 @@ const ContactInfoForm = (props)=> {
     const [state, setState] = useState('');
     const [zipCode, setZipCode] = useState("");
     const [contactInfo, setContactInfo] = useState([]);
+    const [user, setUser] = useState(null)
 
     const states = [
-        'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia',
-        'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland',
-        'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey',
-        'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina',
-        'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+        'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA',
+        'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD',
+        'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ',
+        'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC',
+        'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'
     ];
+    
 
 
     const resetState = ()=> {
@@ -37,33 +41,47 @@ const ContactInfoForm = (props)=> {
 
     const jwtToken = auth.user.token;
 
-    // const loadContactInfo = () => {
-    //     fetch(`http://localhost:8080/api/contact-info/user/my-info`, {
-    //         method: "GET",
-    //         headers: {
-    //             "Authorization" : `Bearer ${jwtToken}`
-    //         }
-    //     })
-    //     .then(response => {
-    //         if(!response.ok) {
-    //             console.log("Response: ", response);
-    //             setErrors(["Err: ", response.status])
-    //         }
-    //         return response.json()
-    //     })
-    //     .then(payload => setContactInfo(payload))
-    //     .catch(error => {
-    //         console.error("Fetch error: ", error);
-    //         setErrors([error.message])
-    //     })
-    //   }
+    const loadContactInfo = () => {
+        fetch(`http://localhost:8080/api/contact-info/user/my-info`, {
+            method: "GET",
+            headers: {
+                "Authorization" : `Bearer ${jwtToken}`
+            }
+        })
+        .then(response => {
+            if(!response.ok) {
+                console.log("Response: ", response);
+                setErrors(["Err: ", response.status])
+            }
+            return response.json()
+        })
+        .then(payload => setContactInfo(payload))
+        .catch(error => {
+            console.error("Fetch error: ", error);
+            setErrors([error.message])
+        })
+    }
     
-    //   useEffect(loadContactInfo, [])
+    useEffect(loadContactInfo, [])
+
+    useEffect(() => {
+        // Set the state values using the contactInfo prop when it changes
+            setContactInfoId(contactInfo.contactInfoId);
+            setFirstName(contactInfo.firstName);
+            setLastName(contactInfo.lastName);
+            setEmail(contactInfo.email);
+            setPhoneNumber(contactInfo.phoneNumber);
+            setStreetAddress(contactInfo.streetAddress);
+            setCity(contactInfo.city);
+            setState(contactInfo.state);
+            setZipCode(contactInfo.zipCode);
+    }, [contactInfo]);
 
     const handleSubmit = (evt)=> {
         evt.preventDefault();
 
-        const currentContactInfo = {
+        const updatedContactInfo = {
+            contactInfoId: contactInfoId,
             firstName: firstName,
             lastName: lastName,
             email: email,
@@ -75,14 +93,14 @@ const ContactInfoForm = (props)=> {
         }
 
 
-        fetch(`http://localhost:8080/api/contact-info`, {
-            method: "POST",
+        fetch(`http://localhost:8080/api/contact-info/${auth.user.id}`, {
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
                 Accept: "application/json",
                 Authorization: "Bearer " + auth.user.token
             },
-            body: JSON.stringify(currentContactInfo)
+            body: JSON.stringify(updatedContactInfo)
         })
         .then(response => {
             if(response.ok) {
@@ -90,6 +108,7 @@ const ContactInfoForm = (props)=> {
                 resetState();
                 // props.loadVisits();
             } else {
+                console.log(updatedContactInfo.state);
                 response.json()
                 .then(errors => {
                     setErrors([errors])
@@ -98,7 +117,7 @@ const ContactInfoForm = (props)=> {
         })
     }
 
-    console.log(errors);
+    console.log(contactInfo);
     return (
         <>
             <form onSubmit={handleSubmit}>
@@ -107,6 +126,11 @@ const ContactInfoForm = (props)=> {
                         <li key={index}>{error.message}</li>
                     ))}
                 </ul>
+                <input
+                    type="hidden"
+                    value={contactInfoId}
+                    onChange={(evt) => setContactInfoId(evt.target.value)}
+                />
                 <fieldset>
                     <label htmlFor="first-name-input">First Name: </label>
                     <input

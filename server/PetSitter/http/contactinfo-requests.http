@@ -35,7 +35,7 @@ Content-Type: application/json
 ###
 
 @base_url = http://localhost:8080/api/contact-info
-@bearer_token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcml0dGVyLXNpdHRlciIsInN1YiI6IkpvaG5ueWJveSIsImF1dGhvcml0aWVzIjoiT1dORVIiLCJleHAiOjE2OTIzODg2MzB9.5kBzgb1ZFRi-WjA7E3aeq9WsHGQhu5J6dqS08MQ-P0o
+@bearer_token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcml0dGVyLXNpdHRlciIsInN1YiI6IkpvaG5ueWJveSIsImF1dGhvcml0aWVzIjoiT1dORVIiLCJleHAiOjE2OTI1NjM0NjV9.1Sw2075d6BJhuGNOtXtKFVsVOfKFO8GpOykjFIZAmzo
 
 ###
 
@@ -58,7 +58,7 @@ Authorization: Bearer {{bearer_token}}
 
 {
   "contactInfoId": 1,
-  "firstName": "John",
+  "firstName": "Johnathan",
   "lastName": "Jones-Smith",
   "email": "john.jonesh@example.com",
   "phoneNumber": "123-456-7890",
