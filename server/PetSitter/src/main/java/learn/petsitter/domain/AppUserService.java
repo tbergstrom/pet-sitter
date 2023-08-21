@@ -171,6 +171,8 @@ public class AppUserService implements UserDetailsService {
     }
 
     public List<AppUser> getNearbySitters(double lat, double lng) {
+
+        System.out.println("In service, finding nearby sitters...");
         return repository.findNearbySitters(lat,lng);
     }
 
