@@ -21,14 +21,14 @@ CREATE TABLE app_user (
 
 CREATE TABLE contact_info (
     contact_info_id INT PRIMARY KEY AUTO_INCREMENT,
-    first_name VARCHAR(255) NOT NULL,
-    last_name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    phone_number VARCHAR(20) NOT NULL,
-    street_address VARCHAR(255) NOT NULL,
-    city VARCHAR(255) NOT NULL,
-    state VARCHAR(255) NOT NULL,
-    zipcode VARCHAR(15) NOT NULL,
+    first_name VARCHAR(255),
+    last_name VARCHAR(255),
+    email VARCHAR(255),
+    phone_number VARCHAR(20),
+    street_address VARCHAR(255),
+    city VARCHAR(255),
+    state VARCHAR(255),
+    zipcode VARCHAR(15),
     app_user_id INT,
     CONSTRAINT fk_app_user_id
 		FOREIGN KEY (app_user_id)
