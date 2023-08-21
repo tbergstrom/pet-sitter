@@ -44,6 +44,24 @@ class ContactInfoJdbcTemplateRepositoryTest {
     }
 
     @Test
+    void shouldCreate() {
+        ContactInfo contactInfo = new ContactInfo();
+        contactInfo.setFirstName("Horse");
+        contactInfo.setLastName("Ken");
+        contactInfo.setEmail("horses@mojodojo.net");
+        contactInfo.setPhoneNumber("123-456-7890");
+        contactInfo.setStreetAddress("547 Beach");
+        contactInfo.setCity("Beach Town");
+        contactInfo.setState("CA");
+        contactInfo.setZipCode("90210");
+        contactInfo.setAppUserId(5);
+
+        ContactInfo result = repository.create(contactInfo);
+        assertNotNull(result);
+
+    }
+
+    @Test
     void shouldUpdate() {
         ContactInfo contactInfo = new ContactInfo();
         contactInfo.setContactInfoId(4);
@@ -55,6 +73,8 @@ class ContactInfoJdbcTemplateRepositoryTest {
         contactInfo.setCity("Any Town");
         contactInfo.setState("MT");
         contactInfo.setZipCode("60646");
+        contactInfo.setAppUserId(4);
+
 
         assertTrue(repository.update(contactInfo));
         assertEquals("Parrot", repository.findById(4).getFirstName());
