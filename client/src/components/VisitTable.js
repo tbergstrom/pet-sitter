@@ -1,4 +1,6 @@
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import AuthContext from "../contexts/AuthContext";
 
 const VisitTable = ()=> {
 
@@ -13,27 +15,47 @@ const VisitTable = ()=> {
 
 
     // Fake visit
-    const testVisit = {
-        visitId: 1,
-        ownerName: "jonnyboy",
-        sitterName: "sallyJones",
-        start: "jan",
-        end: "feb",
-        status: "pending",
-        cost: 100.00,
-        ownerId: 1,
-        sitterId: 999
-    }
+    // const testVisit = {
+    //     visitId: 1,
+    //     ownerName: "jonnyboy",
+    //     sitterName: "sallyJones",
+    //     start: "jan",
+    //     end: "feb",
+    //     status: "pending",
+    //     cost: 100.00,
+    //     ownerId: 1,
+    //     sitterId: 999
+    // }
 
 
-    // Fake visit array
-    const visits = [testVisit];
+    // // Fake visit array
+    // const visits = [testVisit];
 
-    // Fake user
-    const someUser = {
-        role: 1,
-        name: "bob"
-    }
+    // // Fake user
+    // const someUser = {
+    //     role: 1,
+    //     name: "bob"
+    // }
+
+    const [visits, setVisits] = useState([]);
+
+    const auth = useContext(AuthContext);
+    const user = auth.user;
+
+    const jwtToken = auth.user.token;
+
+    const loadVisits = () => {
+        fetch(`http://localhost:8080/api/visit/sitter/${user.id}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${jwtToken}`
+            }
+        })
+        .then(response => response.json())
+        .then(payload => setVisits(payload))
+    };
+
+    useEffect(loadVisits, []);
 
     return (
         <>
@@ -43,7 +65,7 @@ const VisitTable = ()=> {
                 <thead>
                     <tr>
                         {/* A logged in Sitter will see an "Owner" column. A logged in Owner will see a "Sitter" column */}
-                        {someUser.role === 1 ? <th>Sitter</th> : <th>Owner</th>}
+                        {user.role === 1 ? <th>Sitter</th> : <th>Owner</th>}
                         <th>Start Date</th>
                         <th>End Date</th>
                         <th>Status</th>
@@ -57,12 +79,12 @@ const VisitTable = ()=> {
                 <tbody>
                     {visits.map(visit => <tr key={visit.visitId}>
                         {/* A logged in Sitter will see the Owner's name. A logged in Owner will see the Sitter's name */}
-                        {someUser.role === 1 ? <td>{visit.sitterName}</td> : <td>{visit.ownerName}</td>}
+                        {user.role === 1 ? <td>{visit.sitterName}</td> : <td>{visit.ownerName}</td>}
                         <td>{visit.start}</td>
                         <td>{visit.end}</td>
                         <td>{visit.status}</td>
                         <td>{visit.cost}</td>
-                        {someUser.role === 2 
+                        {user.role === 2 
                         ? 
                         <>
                             <td><button>Deny</button></td>

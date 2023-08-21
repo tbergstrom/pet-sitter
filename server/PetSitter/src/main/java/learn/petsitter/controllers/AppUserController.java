@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,4 +32,16 @@ public class AppUserController {
     public List<AppUser> getAllOwners() {
         return appUserService.getAllOwnersFromRepository();
     }
+
+    @GetMapping("/sitter/{username}")
+    public AppUser getSitterByUsername(@PathVariable String username) {
+        return (AppUser) appUserService.loadUserByUsername(username);
+    }
+
+    @GetMapping("/owner/{username}")
+    public AppUser getOwnerByUsername(@PathVariable String username) {
+        return (AppUser) appUserService.loadUserByUsername(username);
+    }
+
+
 }

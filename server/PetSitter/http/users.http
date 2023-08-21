@@ -11,7 +11,7 @@ Content-Type: application/json
 
 @base_url = http://localhost:8080/api/users
 
-@bearer_token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcml0dGVyLXNpdHRlciIsInN1YiI6IkpvaG5ueWJveSIsImF1dGhvcml0aWVzIjoiT1dORVIiLCJleHAiOjE2OTI1OTM0NTh9.vaSQEF75gQoKoyhVbRi5Ejoqc3Aoxvb-90RKUzoWhA4
+@bearer_token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcml0dGVyLXNpdHRlciIsInN1YiI6IkpvaG5ueWJveSIsImF1dGhvcml0aWVzIjoiT1dORVIiLCJleHAiOjE2OTI2MzM3MDN9.eTyWRWJAM8Sw0IepkApCX-G6vyfuufSRs46g9Qs1fmE
 
 ###
 
@@ -25,6 +25,18 @@ Authorization: Bearer {{bearer_token}}
 
 # Get all sitters
 GET {{base_url}}/all-sitters HTTP/1.1
+Authorization: Bearer {{bearer_token}}
+
+###
+
+# Get all sitters
+GET {{base_url}}/owner/Johnnyboy HTTP/1.1
+Authorization: Bearer {{bearer_token}}
+
+###
+
+# Get all sitters
+GET {{base_url}}/sitter/DogBuddy HTTP/1.1
 Authorization: Bearer {{bearer_token}}
 
 ###

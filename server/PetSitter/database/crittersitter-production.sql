@@ -90,14 +90,18 @@ INSERT INTO app_user (username, password_hash, rate, enabled)
     ('Sally-Jo', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', null, 1),
     ('Finn99', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', null, 1),
     ('CatFriend', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 20, 1),
-    ('DogBuddy', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 22, 1);
+    ('DogBuddy', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 22, 1),
+	('LoveLizards', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 30, 1),
+    ('Horsetershire', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 30, 1);
     
 INSERT INTO contact_info (first_name, last_name, email, phone_number, street_address, city, state, zipcode, app_user_id) VALUES
 ('John', 'Doe', 'john.doe@example.com', '123-456-7890', '123 Main St', 'Los Angeles', 'CA', '90001', 1),
 ('Sally', 'Jones', 'sally.jones@example.com', '987-654-3210', '23 Leap St', 'New York', 'NY', '10001', 2),
 ('Finn', 'Bert', 'finnbert@example.com', '999-222-1234', '789 Roadlike Ave', 'Chicago', 'IL', '60601', 3),
 ('Cat', 'Friend', 'catfriend@example.com', '434-443-3344', '55 Tater St', 'Spokane', 'WA', '99200', 4),
-('Dog', 'Buddy', 'dogbuddy@example.com', '212-121-1212', '55 Burger Lane', 'Seattle', 'WA', '93613', 5);
+('Dog', 'Buddy', 'dogbuddy@example.com', '212-121-1212', '55 Burger Lane', 'Seattle', 'WA', '93613', 5),
+('Liz', 'Lizard', 'lvelizards@example.com', '111-111-2211', '55 Fry Ave', 'Minneapolis', 'MN', '55555', 6),
+('Ponyboy', 'Guy', 'horsetershire@example.com', '932-923-9329', '55 Shake Lane', 'St. Paul', 'MN', '55555', 7);
 
 INSERT INTO app_role (`name`) VALUES
     ('OWNER'),
@@ -110,7 +114,9 @@ INSERT INTO app_user_role
     (2, 1),
     (3, 1),
     (4, 2),
-    (5, 2);
+    (5, 2),
+	(6, 2),
+    (7, 2);
 
 INSERT INTO pet (`name`, notes, pet_type, goes_walking, owner_id)
     VALUES
@@ -132,6 +138,7 @@ SELECT * FROM care_visit;
 SELECT * FROM pet;
 SELECT * FROM contact_info;
 SELECT * FROM pet where owner_id = 1;
+SELECT * FROM app_user WHERE app_user_id > 5;
 
 select * from app_user join app_user_role on app_user.app_user_id = app_user_role.app_user_id join app_role on app_role.app_role_id = app_user_role.app_role_id ;
 
