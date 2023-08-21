@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google'
@@ -9,7 +8,6 @@ import Login from './components/Login';
 import Home from './components/Home';
 import VisitTable from './components/VisitTable';
 import VisitForm from './components/VisitForm';
-import SitterTable from './components/SitterTable';
 import ManageOwnerVisits from './components/ManageOwnerVisits';
 import ManagePets from './components/ManagePets';
 
@@ -18,21 +16,25 @@ import AuthContext from './contexts/AuthContext';
 import CreateAccount from './components/CreateAccount';
 import PetDetails from './components/PetDetails';
 import ConfirmPetDelete from './components/ConfirmPetDelete';
-import ManageSitterVisits from './components/ManageSitterVisits';
 import ContactInfoDetails from './components/ContactInfoDetails';
 import ContactInfoForm from './components/ContactInfoForm';
 import ManageAccount from './components/ManageAccount';
 import ManageContactInfo from './components/ManageContactInfo';
+<<<<<<< Updated upstream
 import SitterDetails from './components/SitterDetails';
+=======
+import FindSitter from './components/FindSitter';
+>>>>>>> Stashed changes
 
 
 
 function App() {
   
-  const [sitters, setSitters] = useState([]);
   const [visits, setVisits] = useState([]);
   const [contactInfo, setContactInfo] = useState([]);
   const [user, setUser] = useState(null);
+
+  
 
   const login = (token) => {
     // Decode the token
@@ -76,15 +78,6 @@ function App() {
 
   useEffect(loadVisits, [])
 
-  // consider moving to FindSitters
-  const loadSitters = () => {
-    // fetch("http://localhost:8080/api/sitter")
-    // .then(response => response.json())
-    // .then(payload => setSitters(payload))
-    console.log("sitters endpoint not implemented")
-  }
-
-  useEffect(loadSitters, [])
 
   // consider moving to ManageContactInfo (and/ or where we view other ppls profiles)
   // const loadContactInfo = () => {
@@ -103,6 +96,7 @@ function App() {
     }
   }, []);
 
+
   console.log("User: ", user);
 
   return (
@@ -110,11 +104,11 @@ function App() {
       <AuthContext.Provider value={auth}>
         <BrowserRouter>
           <Nav />
-
+           
           <Routes>
             {/* always visible */}
             <Route path='/' element={<Home />}/>
-            <Route path="/findsitter" element={<SitterTable sitters={sitters} loadSitters={loadSitters}/>}/>            
+            <Route path="/findsitter" element={<FindSitter />}/>
 
             {/* logged in as owner and sitter */}
             <Route path="/visittable/:id" element={ user ? <VisitTable visits={visits} loadVisits={loadVisits} /> : <Navigate to="/" /> } />

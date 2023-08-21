@@ -1,5 +1,6 @@
 package learn.petsitter.data;
 
+import learn.petsitter.App;
 import learn.petsitter.models.AppUser;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,4 +26,6 @@ public interface AppUserRepository {
 
     @Transactional
     List<AppUser> getAllSitters();
+    @Transactional
+    List <AppUser> findNearbySitters(double lat, double lng);
 }
