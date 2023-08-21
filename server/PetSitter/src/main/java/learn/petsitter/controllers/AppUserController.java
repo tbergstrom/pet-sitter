@@ -49,4 +49,5 @@ public class AppUserController {
         System.out.println("In controller, trying to find nearby sitters");
         return appUserService.getNearbySitters(lat, lng);
     }
+
 }
