@@ -22,7 +22,7 @@ public class ContactInfoJdbcTemplateRepository implements ContactInfoRepository{
 
     @Override
     public ContactInfo findById(int id) {
-        final String sql = "select username, contact_info_id, first_name, last_name, email, phone_number, street_address, city, state, zipcode " +
+        final String sql = "select username, contact_info_id, first_name, last_name, email, phone_number, street_address, city, state, zipcode, contact_info.app_user_id " +
                 "from contact_info " +
                 "join app_user " +
                 "on app_user.app_user_id = contact_info.app_user_id " +
@@ -34,7 +34,7 @@ public class ContactInfoJdbcTemplateRepository implements ContactInfoRepository{
 
     @Override
     public ContactInfo findByAppUserId(int appUserId) {
-        final String sql = "select username, contact_info_id, first_name, last_name, email, phone_number, street_address, city, state, zipcode " +
+        final String sql = "select username, contact_info_id, first_name, last_name, email, phone_number, street_address, city, state, zipcode, contact_info.app_user_id " +
                 "from contact_info " +
                 "join app_user " +
                 "on app_user.app_user_id = contact_info.app_user_id " +
@@ -46,8 +46,8 @@ public class ContactInfoJdbcTemplateRepository implements ContactInfoRepository{
 
     @Override
     public ContactInfo create(ContactInfo contactInfo) {
-        final String sql = "insert into contact_info (first_name, last_name, email, phone_number, street_address, city, state, zipcode) "
-                + " values (?,?,?,?,?,?,?,?);";
+        final String sql = "insert into contact_info (first_name, last_name, email, phone_number, street_address, city, state, zipcode, app_user_id) "
+                + " values (?,?,?,?,?,?,?,?,?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
@@ -60,6 +60,7 @@ public class ContactInfoJdbcTemplateRepository implements ContactInfoRepository{
             ps.setString(6, contactInfo.getCity());
             ps.setString(7, contactInfo.getState());
             ps.setString(8, contactInfo.getZipCode());
+            ps.setInt(9, contactInfo.getAppUserId());
             return ps;
         }, keyHolder);
 

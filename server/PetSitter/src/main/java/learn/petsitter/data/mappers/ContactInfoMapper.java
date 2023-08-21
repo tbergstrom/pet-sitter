@@ -23,6 +23,7 @@ public class ContactInfoMapper implements RowMapper<ContactInfo> {
         contactInfo.setCity(resultSet.getString("city"));
         contactInfo.setState(resultSet.getString("state"));
         contactInfo.setZipCode(resultSet.getString("zipcode"));
+        contactInfo.setAppUserId(resultSet.getInt("app_user_id"));
 
         return contactInfo;
     }
