@@ -29,9 +29,9 @@ const FindSitter = ()=> {
 
     return (
         <>
-        <SitterSearchBar onLocationSelect={setSelectedLocation}/>
+        <SitterSearchBar onLocationSelect={setSelectedLocation} setSitters={setSitters}/>
         <SitterMap location={selectedLocation}/>
-        <SitterTable location={selectedLocation}/>
+        <SitterTable location={selectedLocation} sitters={sitters}/>
         
         </>
     )
