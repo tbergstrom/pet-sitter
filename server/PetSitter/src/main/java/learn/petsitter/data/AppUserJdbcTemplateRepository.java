@@ -123,6 +123,12 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
         return jdbcTemplate.query(sql, new FindAllUsersMapper());
     }
 
+    @Override
+    public List<AppUser> findNearbySitters(double lat, double lng) {
+        System.out.println("In JDBC repo, implement findnearbysitters");
+        return null;
+    }
+
     private void updateRoles(AppUser user) {
         // delete all roles, then re-add
         jdbcTemplate.update("delete from app_user_role where app_user_id = ?;", user.getAppUserId());

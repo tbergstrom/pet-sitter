@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../contexts/AuthContext";
@@ -8,6 +9,9 @@ import { Link } from "react-router-dom";
 
 // // SitterDetails is accessible through a button by each sitter in the table of results
 // // SitterSearchBar will populate Sitter results here
+=======
+const SitterTable = ({location})=> {
+>>>>>>> Stashed changes
 
 // // Try to show 3 cards for 3 closest sitters
 // // Then show a normal table for sitters sorted by distance

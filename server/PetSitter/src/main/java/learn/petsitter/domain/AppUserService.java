@@ -93,8 +93,8 @@ public class AppUserService implements UserDetailsService {
         }
 
         AppUser googleUser = new AppUser(0, email, true, roles);
-//        ContactInfo contactInfo = new ContactInfo();
-//        googleUser.setContactInfo(contactInfo);
+        ContactInfo contactInfo = new ContactInfo();
+        googleUser.setContactInfo(contactInfo);
 //
 //        System.out.println("My contact info App User: " + googleUser.getContactInfo().getAppUser());
 //        System.out.println("Id: " + googleUser.getContactInfo().getContactInfoId());
@@ -168,6 +168,10 @@ public class AppUserService implements UserDetailsService {
 
     public List<AppUser> getAllOwnersFromRepository() {
          return repository.getAllOwners();
+    }
+
+    public List<AppUser> getNearbySitters(double lat, double lng) {
+        return repository.findNearbySitters(lat,lng);
     }
 
     private boolean isValidPassword(String password) {

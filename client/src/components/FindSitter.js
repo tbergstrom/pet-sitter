@@ -1,10 +1,41 @@
+import { LoadScript } from "@react-google-maps/api";
+import SitterSearchBar from "./SitterSearchBar";
+import { useEffect, useState } from "react";
+import SitterTable from "./SitterTable";
+import SitterMap from "./SitterMap";
+
 const FindSitter = ()=> {
 
-// Direct child of App.js
-// Parent of SitterTable, SitterMap, SitterSearchBar
+    // const [mapsLoaded, setMapsLoaded] = useState(false);
+    const [selectedLocation, setSelectedLocation] = useState(null);
+    const [sitters, setSitters] = useState([]);
 
-// This component should house those three components and their state variables
+    // useEffect(()=> {
+    //     const script = document.querySelector('script[src*="maps.googleapis.com"]');
+    //     if (script) {
+    //       script.addEventListener('load', ()=> setMapsLoaded(true));
+    //       return ()=> script.removeEventListener("load", ()=> setMapsLoaded(true))
+    //     }
+    //   }, []);
 
+    // const loadSitters = () => {
+    //     fetch("http://localhost:8080/api/users/all-sitters")
+    //     .then(response => response.json())
+    //     .then(payload => setSitters(payload))
+    //     console.log("Sitters: ", sitters);
+    // }
+
+    // useEffect(loadSitters, [])
+
+    return (
+        <>
+        <SitterSearchBar onLocationSelect={setSelectedLocation}/>
+        <SitterMap location={selectedLocation}/>
+        <SitterTable location={selectedLocation}/>
+        
+        </>
+    )
+    
 }
 
 export default FindSitter;
