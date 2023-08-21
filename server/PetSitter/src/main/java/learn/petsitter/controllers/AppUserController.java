@@ -34,7 +34,6 @@ public class AppUserController {
         return appUserService.getAllOwnersFromRepository();
     }
 
-<<<<<<< Updated upstream
     @GetMapping("/sitter/{username}")
     public AppUser getSitterByUsername(@PathVariable String username) {
         return (AppUser) appUserService.loadUserByUsername(username);
@@ -45,12 +44,9 @@ public class AppUserController {
         return (AppUser) appUserService.loadUserByUsername(username);
     }
 
-
-=======
     @GetMapping("/nearby-sitters")
     public List<AppUser> getNearbySitters(@RequestParam double lat, @RequestParam double lng) {
         System.out.println("In controller, trying to find nearby sitters");
         return appUserService.getNearbySitters(lat, lng);
     }
->>>>>>> Stashed changes
 }
