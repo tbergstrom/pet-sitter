@@ -78,6 +78,10 @@ CREATE TABLE care_visit (
         REFERENCES app_user(app_user_id)
 );
 
+ALTER TABLE contact_info ADD lat DOUBLE;
+ALTER TABLE contact_info ADD lng DOUBLE;
+
+
 -- -------------------------------------------------------------------------------------------------------------------------------------
 -- -- INSERTS -------------------------------------------------------------------------------------------------------------------------
 -- -------------------------------------------------------------------------------------------------------------------------------------
@@ -94,14 +98,14 @@ INSERT INTO app_user (username, password_hash, rate, enabled)
 	('LoveLizards', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 30, 1),
     ('Horsetershire', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 30, 1);
     
-    INSERT INTO contact_info (first_name, last_name, email, phone_number, street_address, city, state, zipcode, app_user_id) VALUES
-('John', 'Doe', 'john.doe@example.com', '123-456-7890', '123 Main St', 'Los Angeles', 'CA', '90001', 1),
-('Sally', 'Jones', 'sally.jones@example.com', '987-654-3210', '23 Leap St', 'New York', 'NY', '10001', 2),
-('Finn', 'Bert', 'finnbert@example.com', '999-222-1234', '789 Roadlike Ave', 'Chicago', 'IL', '60601', 3),
-('Cat', 'Friend', 'catfriend@example.com', '434-443-3344', '55 Tater St', 'Spokane', 'WA', '99200', 4),
-('Dog', 'Buddy', 'dogbuddy@example.com', '212-121-1212', '55 Burger Lane', 'Seattle', 'WA', '93613', 5),
-('Liz', 'Lizard', 'lvelizards@example.com', '111-111-2211', '55 Fry Ave', 'Minneapolis', 'MN', '55555', 6),
-('Ponyboy', 'Guy', 'horsetershire@example.com', '932-923-9329', '55 Shake Lane', 'St. Paul', 'MN', '55555', 7);
+    INSERT INTO contact_info (first_name, last_name, email, phone_number, street_address, city, state, zipcode, lat, lng, app_user_id) VALUES
+('John', 'Doe', 'john.doe@example.com', '123-456-7890', '400 Broad St', 'Seattle', 'WA', '98109', '47.6203953', '-122.3377493', 1),
+('Sally', 'Jones', 'sally.jones@example.com', '987-654-3210', '800 Occidental Ave S', 'Seattle', 'WA', '98134', '47.59324609999999', '-122.3315406', 2),
+('Finn', 'Bert', 'finnbert@example.com', '999-222-1234', '337 E Randolph St', 'Chicago', 'IL', '60601', '41.884392', '-87.619110', 3),
+('Cat', 'Friend', 'catfriend@example.com', '434-443-3344', '507 N Howard St', 'Spokane', 'WA', '99201', '47.662380', '-117.421471', 4),
+('Dog', 'Buddy', 'dogbuddy@example.com', '212-121-1212', '450 110th Ave NE', 'Bellevue', 'WA', '98004', '47.614288', '-122.192291', 5),
+('Liz', 'Lizard', 'lvelizards@example.com', '111-111-2211', '4553 Longfellow Ave', 'Minneapolis', 'MN', '55555', '44.920090', '-93.245180', 6),
+('Ponyboy', 'Guy', 'horsetershire@example.com', '932-923-9329', '60 E Broadway', 'Bloomington', 'MN', '55425', '44.856529', '-93.239449', 7);
 
 INSERT INTO app_role (`name`) VALUES
     ('OWNER'),
