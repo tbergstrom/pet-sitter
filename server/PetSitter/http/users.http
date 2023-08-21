@@ -1,0 +1,30 @@
+# authenticate
+POST http://localhost:8080/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "Johnnyboy",
+    "password": "P@ssw0rd!"
+}
+
+###
+
+@base_url = http://localhost:8080/api/users
+
+@bearer_token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcml0dGVyLXNpdHRlciIsInN1YiI6IkpvaG5ueWJveSIsImF1dGhvcml0aWVzIjoiT1dORVIiLCJleHAiOjE2OTI1OTM0NTh9.vaSQEF75gQoKoyhVbRi5Ejoqc3Aoxvb-90RKUzoWhA4
+
+###
+
+# Get all owners
+GET {{base_url}}/all-owners HTTP/1.1
+Authorization: Bearer {{bearer_token}}
+
+###
+
+###
+
+# Get all sitters
+GET {{base_url}}/all-sitters HTTP/1.1
+Authorization: Bearer {{bearer_token}}
+
+###
