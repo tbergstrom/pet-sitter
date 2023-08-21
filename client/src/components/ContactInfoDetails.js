@@ -62,9 +62,11 @@ const ContactInfoDetails = (props)=> {
     }
 
     useEffect(loadUser, [])
-    
-    console.log("User: ", user);
-    console.log(" PROPS: " + props.contactInfo.firstName);
+
+    useEffect(() => {
+        console.log("User: ", user);
+    }, [user]);
+
 
     return (
         <>
