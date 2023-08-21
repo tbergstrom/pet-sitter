@@ -56,9 +56,6 @@ public class AppUserService implements UserDetailsService {
 
         password = encoder.encode(password);
         AppUser appUser = new AppUser(0, username, password, true, roles);
-        //TODO setting blank contact info for new users. Is this right?
-        ContactInfo contactInfo = new ContactInfo();
-        appUser.setContactInfo(contactInfo);
 
         try {
             appUser = repository.create(appUser);
@@ -66,7 +63,19 @@ public class AppUserService implements UserDetailsService {
         } catch (DuplicateKeyException e) {
             result.addErrorMessage("The provided username already exists", ResultType.INVALID);
         }
-
+//        //TODO setting blank contact info for new users. Is this right?
+//        ContactInfo ci = new ContactInfo();
+//        ci.setFirstName("");
+//        ci.setLastName("");
+//        ci.setEmail("");
+//        ci.setPhoneNumber("");
+//        ci.setStreetAddress("");
+//        ci.setCity("");
+//        ci.setState("");
+//        ci.setZipCode("");
+//        ci.setAppUserId(appUser.getAppUserId());
+//        ContactInfo contactInfo = contactInfoRepository.create(ci);
+//        appUser.setContactInfo(contactInfo);
         return result;
     }
 
