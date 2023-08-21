@@ -105,6 +105,17 @@ public class CareVisit {
         this.sitterId = sitter_id;
     }
 
+//    public boolean doesNotOverlapWith(CareVisit other) {
+//        if (other.getEndDate().isBefore(this.getStartDate()) ||
+//                other.getStartDate().isAfter(this.getEndDate()) ||
+//                this.getEndDate().isEqual(other.getStartDate()) ||
+//                this.getStartDate().isEqual(other.getEndDate())) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+
 
     @Override
     public boolean equals(Object o) {
