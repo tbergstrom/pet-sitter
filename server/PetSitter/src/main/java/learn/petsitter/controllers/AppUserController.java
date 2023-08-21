@@ -34,7 +34,6 @@ public class AppUserController {
         return appUserService.getAllOwnersFromRepository();
     }
 
-
     @GetMapping("/sitter/{username}")
     public AppUser getSitterByUsername(@PathVariable String username) {
         return (AppUser) appUserService.loadUserByUsername(username);
@@ -44,8 +43,6 @@ public class AppUserController {
     public AppUser getOwnerByUsername(@PathVariable String username) {
         return (AppUser) appUserService.loadUserByUsername(username);
     }
-
-
 
     @GetMapping("/nearby-sitters")
     public List<AppUser> getNearbySitters(@RequestParam double lat, @RequestParam double lng) {
