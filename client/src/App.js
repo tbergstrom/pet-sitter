@@ -20,11 +20,8 @@ import ContactInfoDetails from './components/ContactInfoDetails';
 import ContactInfoForm from './components/ContactInfoForm';
 import ManageAccount from './components/ManageAccount';
 import ManageContactInfo from './components/ManageContactInfo';
-<<<<<<< Updated upstream
 import SitterDetails from './components/SitterDetails';
-=======
 import FindSitter from './components/FindSitter';
->>>>>>> Stashed changes
 
 
 
