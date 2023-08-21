@@ -26,10 +26,12 @@ const SitterSearchBar  = (props)=> {
         const geoResponse = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=AIzaSyDb0qn-w3xq6Kk3m6Hkr3Y25GOSE-LA1aI`)
         const geoData = await geoResponse.json();
 
-        console.log(geoResponse);
+        console.log("GeoResponse:", geoResponse);
 
         if(geoData.results && geoData.results.length > 0) {
             const location = geoData.results[0].geometry.location
+
+            console.log("Location: ", location)
             
             const nearbyAddresses = await getNearbyAddresses(location);
             console.log("Nearby addresses:", nearbyAddresses);

@@ -126,6 +126,21 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
     @Override
     public List<AppUser> findNearbySitters(double lat, double lng) {
         System.out.println("In JDBC repo, implement findnearbysitters");
+
+//        final String sql = "SELECT au.*, ci.*, ( 6471 * acos( cos( radians(?) ) " +
+//                "cos( radians( lat ) ) " +
+//                "cos( radians( lng ) - radians(?) ) + " +
+//                "sin ( radians(?) ) " +
+//                "sin( radians( lat) ) ) ) ) AS distance " +
+//                "FROM app_user_ au " +
+//                "JOIN contact_info ci ON au.app_user_id = ci.app_user_id " +
+//                "JOIN app_user_role aur ON au.app_user_id = aur.app_user_id " +
+//                "WHERE aur.app_role_id = 2 " +
+//                "HAVING distance < ? " +
+//                "ORDER BY distance " +
+//                "LIMIT 0, 20;";
+//
+//        return jdbcTemplate.query(sql, new FindAllUsersMapper(), lat, lng, lat, desiredDistanceInKm);
         return null;
     }
 
