@@ -3,6 +3,8 @@ package learn.petsitter.data;
 import learn.petsitter.models.AppUser;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 public interface AppUserRepository {
 
     @Transactional
@@ -18,5 +20,9 @@ public interface AppUserRepository {
     @Transactional
     void update(AppUser user);
 
+    @Transactional
+    List<AppUser> getAllOwners();
 
+    @Transactional
+    List<AppUser> getAllSitters();
 }

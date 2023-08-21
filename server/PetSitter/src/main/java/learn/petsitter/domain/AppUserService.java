@@ -162,6 +162,14 @@ public class AppUserService implements UserDetailsService {
         return result;
     }
 
+    public List<AppUser> getAllSittersFromRepository() {
+         return repository.getAllSitters();
+    }
+
+    public List<AppUser> getAllOwnersFromRepository() {
+         return repository.getAllOwners();
+    }
+
     private boolean isValidPassword(String password) {
         if (password.length() < 8) {
             return false;
