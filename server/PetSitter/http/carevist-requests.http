@@ -49,7 +49,9 @@ Content-Type: application/json
 @base_url = http://localhost:8080/api/visit
 
 server-818afternoon
+
 @bearer_token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcml0dGVyLXNpdHRlciIsInN1YiI6IkpvaG5ueWJveSIsImF1dGhvcml0aWVzIjoiT1dORVIiLCJleHAiOjE2OTI2MzQ3Nzh9.gGrOOjjhGdiNjd_fwHyo1WsrqVmKFB2S70geDYzKZRE
+
 
 ###
 
