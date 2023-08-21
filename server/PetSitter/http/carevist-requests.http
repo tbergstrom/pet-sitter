@@ -49,7 +49,7 @@ Content-Type: application/json
 @base_url = http://localhost:8080/api/visit
 
 server-818afternoon
-@bearer_token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcml0dGVyLXNpdHRlciIsInN1YiI6IkpvaG5ueWJveSIsImF1dGhvcml0aWVzIjoiT1dORVIiLCJleHAiOjE2OTIzODU5MzR9.bdp0JJuo7BNoFIYHAJkNzM9VZlcrBcb_b0bkCsW8m0U
+@bearer_token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcml0dGVyLXNpdHRlciIsInN1YiI6IkpvaG5ueWJveSIsImF1dGhvcml0aWVzIjoiT1dORVIiLCJleHAiOjE2OTI1OTI2MTZ9.K9iNZsJbB-jopFVNoLqI_Hgn8GDJ64J6dzhpP6jJmrA
 
 ###
 
@@ -91,7 +91,7 @@ Authorization: Bearer {{bearer_token}}
 
 ###
 
-#should update by petId, 403
+#should update by petId
 PUT {{base_url}}/singlevisit/1 HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{bearer_token}}
