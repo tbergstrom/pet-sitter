@@ -23,6 +23,7 @@ import ContactInfoDetails from './components/ContactInfoDetails';
 import ContactInfoForm from './components/ContactInfoForm';
 import ManageAccount from './components/ManageAccount';
 import ManageContactInfo from './components/ManageContactInfo';
+import SitterDetails from './components/SitterDetails';
 
 
 
@@ -122,7 +123,8 @@ function App() {
             <Route path="/managecontactinfo" element={ user ? <ManageContactInfo /> : <Navigate to="/" />} />
             <Route path="/managepets" element={ user ? <ManagePets /> : <Navigate to="/" />} />
             <Route path="/manageownervisits" element={ user ? <ManageOwnerVisits /> : <Navigate to="/" />} />
-            <Route path="/user/:id" element={ user ? <ContactInfoDetails /> : <Navigate to="/" />} />
+            <Route path="/user/sitter/:id" element={ user ? <SitterDetails /> : <Navigate to="/" />} />
+            <Route path="/user/my-info" element={ user ? <ContactInfoDetails /> : <Navigate to="/" />} />
             <Route path='/requestvisit' element={ user ? <ContactInfoForm contactInfo={contactInfo} /> : <Navigate to="/" /> }/>
 
             {/* logged in as owner only */}
