@@ -82,13 +82,12 @@ delimiter //
 create procedure set_known_good_state()
 begin
 
-
-    delete from app_role;
-    alter table app_role auto_increment = 1;
+	delete from contact_info;
+    alter table contact_info auto_increment = 1;
     delete from app_user_role;
     alter table app_user_role auto_increment = 1;
-    delete from contact_info;
-    alter table contact_info auto_increment = 1;
+    delete from app_role;
+    alter table app_role auto_increment = 1;
     delete from pet;
     alter table pet auto_increment = 1;
     delete from care_visit;
@@ -104,13 +103,6 @@ begin
         ('CatFriend', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 20, 1),
         ('DogBuddy', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 22, 1);
 
-    INSERT INTO contact_info (first_name, last_name, email, phone_number, street_address, city, state, zipcode, app_user_id) VALUES
-        ('John', 'Doe', 'john.doe@example.com', '123-456-7890', '123 Main St', 'Los Angeles', 'CA', '90001', 1),
-        ('Sally', 'Jones', 'sally.jones@example.com', '987-654-3210', '23 Leap St', 'New York', 'NY', '10001', 2),
-        ('Finn', 'Bert', 'finnbert@example.com', '999-222-1234', '789 Roadlike Ave', 'Chicago', 'IL', '60601', 3),
-        ('Cat', 'Friend', 'catfriend@example.com', '434-443-3344', '55 Tater St', 'Spokane', 'WA', '99200', 4),
-        ('Dog', 'Buddy', 'dogbuddy@example.com', '212-121-1212', '55 Burger Lane', 'Seattle', 'WA', '93613', 5);
-
     INSERT INTO app_role (`name`) VALUES
         ('OWNER'),
         ('SITTER');
@@ -123,6 +115,13 @@ begin
         (3, 1),
         (4, 2),
         (5, 2);
+        
+	INSERT INTO contact_info (first_name, last_name, email, phone_number, street_address, city, state, zipcode, app_user_id) VALUES
+	('John', 'Doe', 'john.doe@example.com', '123-456-7890', '123 Main St', 'Los Angeles', 'CA', '90001', 1),
+	('Sally', 'Jones', 'sally.jones@example.com', '987-654-3210', '23 Leap St', 'New York', 'NY', '10001', 2),
+	('Finn', 'Bert', 'finnbert@example.com', '999-222-1234', '789 Roadlike Ave', 'Chicago', 'IL', '60601', 3),
+	('Cat', 'Friend', 'catfriend@example.com', '434-443-3344', '55 Tater St', 'Spokane', 'WA', '99200', 4),
+	('Dog', 'Buddy', 'dogbuddy@example.com', '212-121-1212', '55 Burger Lane', 'Seattle', 'WA', '93613', 5);
 
     INSERT INTO pet (`name`, notes, pet_type, goes_walking, owner_id)
         VALUES
