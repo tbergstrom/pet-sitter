@@ -22,7 +22,7 @@ export default function CreateAccount() {
         return;
       }
 
-      const response = await fetch("http://localhost:8080/create_account", {
+      const response = await fetch("http://localhost:8080/create-account", {
           method: "POST",
           headers: {
               "Content-Type": "application/json",
@@ -56,7 +56,7 @@ export default function CreateAccount() {
 
       try {
 
-        const response = await fetch("http://localhost:8080/create_account_google", {
+        const response = await fetch("http://localhost:8080/create-account-google", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

@@ -21,9 +21,8 @@ const ContactInfoForm = (props)=> {
     const [streetAddress, setStreetAddress] = useState("");
     const [city, setCity] = useState("");
     const [state, setState] = useState('');
-    const [zipCode, setZipCode] = useState(0);
+    const [zipCode, setZipCode] = useState("");
     const [contactInfo, setContactInfo] = useState([]);
-    const [user, setUser] = useState(null)
 
     const states = [
         'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA',
@@ -38,6 +37,12 @@ const ContactInfoForm = (props)=> {
     const resetState = ()=> {
         setFirstName("");
         setLastName("");
+        setEmail("");
+        setPhoneNumber("");
+        setStreetAddress("");
+        setCity("");
+        setState("");
+        setZipCode("")
     }
 
     const jwtToken = auth.user.token;
@@ -223,7 +228,7 @@ const ContactInfoForm = (props)=> {
                     <label htmlFor="zipcode-input">Zipcode: </label>
                     <input
                         id="zipcode-input"
-                        type="number"
+                        type="text"
                         value={zipCode}
                         onChange={(evt) => setZipCode(evt.target.value)}
                     />
