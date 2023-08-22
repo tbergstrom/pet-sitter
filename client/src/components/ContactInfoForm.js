@@ -1,17 +1,15 @@
 import { useContext, useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
+import fetchWithToken from "../utils/fetchUtils";
 
 const ContactInfoForm = (props)=> {
 
-    const params = useParams();
     const navigate = useNavigate();
     const auth = useContext(AuthContext);
     const apiKey = process.env.REACT_APP_API_KEY;
-    // const user = auth.user;
 
     const [errors, setErrors] = useState([]);
-
 
     const [contactInfoId, setContactInfoId] = useState(0);
     const [firstName, setFirstName] = useState("");
@@ -21,9 +19,8 @@ const ContactInfoForm = (props)=> {
     const [streetAddress, setStreetAddress] = useState("");
     const [city, setCity] = useState("");
     const [state, setState] = useState('');
-    const [zipCode, setZipCode] = useState(0);
+    const [zipCode, setZipCode] = useState("");
     const [contactInfo, setContactInfo] = useState([]);
-    const [user, setUser] = useState(null)
 
     const states = [
         'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA',
@@ -36,14 +33,21 @@ const ContactInfoForm = (props)=> {
 
 
     const resetState = ()=> {
+        setContactInfo(0);
         setFirstName("");
         setLastName("");
+        setEmail("");
+        setPhoneNumber("");
+        setStreetAddress("");
+        setCity("");
+        setState("");
+        setZipCode("")
     }
 
     const jwtToken = auth.user.token;
 
     const loadContactInfo = () => {
-        fetch(`http://localhost:8080/api/contact-info/user/my-info`, {
+        fetchWithToken(`http://localhost:8080/api/contact-info/user/my-info`, auth.logout, {
             method: "GET",
             headers: {
                 "Authorization" : `Bearer ${jwtToken}`
@@ -51,14 +55,15 @@ const ContactInfoForm = (props)=> {
         })
         .then(response => {
             if(!response.ok) {
-                console.log("Response: ", response);
                 setErrors(["Err: ", response.status])
+            }
+            if (response.headers.get('Content-Length') === '0') {
+                return {};
             }
             return response.json()
         })
         .then(payload => setContactInfo(payload))
         .catch(error => {
-            console.error("Fetch error: ", error);
             setErrors([error.message])
         })
     }
@@ -85,13 +90,11 @@ const ContactInfoForm = (props)=> {
 
         try {
 
-            const geoResponse = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(addressToConvert)}&key=${apiKey}`)
+            const geoResponse = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(addressToConvert)}&key=${apiKey}`);
             const geoData = await geoResponse.json();
     
             if(geoData.results && geoData.results.length > 0) {
                 const location = geoData.results[0].geometry.location
-    
-                console.log("Location: ", location)
                 
                 const updatedContactInfo = {
                     contactInfoId: contactInfoId,
@@ -107,7 +110,7 @@ const ContactInfoForm = (props)=> {
                     longitude: location.lng
                 };
     
-                fetch(`http://localhost:8080/api/contact-info/${contactInfoId}`, {
+                fetchWithToken(`http://localhost:8080/api/contact-info/${contactInfoId}`, auth.logout, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -122,7 +125,6 @@ const ContactInfoForm = (props)=> {
                         resetState();
                         // props.loadVisits();
                     } else {
-                        console.log(updatedContactInfo.state);
                         response.json()
                         .then(errors => {
                             setErrors([errors])
@@ -130,11 +132,9 @@ const ContactInfoForm = (props)=> {
                     }
                 });
             } else {
-                console.error("Geocoding error")
                 setErrors(["Address could not be geocoded. Please try a different address."])
             }
         }catch (error) {
-            console.error("Geocoding error: ", error);
             setErrors([`Failed to fetch coordinates. Error: ${error.message}`])
         }
     };
@@ -223,7 +223,7 @@ const ContactInfoForm = (props)=> {
                     <label htmlFor="zipcode-input">Zipcode: </label>
                     <input
                         id="zipcode-input"
-                        type="number"
+                        type="text"
                         value={zipCode}
                         onChange={(evt) => setZipCode(evt.target.value)}
                     />

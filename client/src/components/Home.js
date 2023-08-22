@@ -12,9 +12,6 @@ const Home = () => {
   const user = auth.user
   const navigate = useNavigate();
 
-// Landing page
-
-
     return (
       <div className="App">
         <Container>

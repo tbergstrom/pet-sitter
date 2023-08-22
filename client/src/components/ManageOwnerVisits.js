@@ -1,19 +1,16 @@
 import { useContext, useState, useEffect } from "react";
 import VisitTable from "./VisitTable";
 import AuthContext from "../contexts/AuthContext";
-import { useNavigate, useParams } from "react-router-dom";
 import VisitForm from "./VisitForm";
+import fetchWithToken from "../utils/fetchUtils";
 
 const ManageOwnerVisits = ()=> {
 
     const [visits, setVisits] = useState([]);
-    const [visitsCounter, setVisitsCounter] = useState(visits.length);
     const [showVisitForm, setShowVisitForm] = useState(false);
 
     
     const auth = useContext(AuthContext);
-    const navigate = useNavigate();
-    const params = useParams();
     const user = auth.user;
 
     const jwtToken = auth.user.token;
@@ -23,7 +20,7 @@ const ManageOwnerVisits = ()=> {
     }
 
     const loadVisits = () => {
-        fetch(`http://localhost:8080/api/visit/owner/${user.id}`, {
+        fetchWithToken(`http://localhost:8080/api/visit/owner/${user.id}`, auth.logout, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${jwtToken}`

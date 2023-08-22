@@ -1,41 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
+import fetchWithToken from "../utils/fetchUtils";
 
 const VisitTable = ()=> {
-
-// Direct child of ManageVisits (Owner AND Sitter)
-// Parent of ConfirmVisitDelete and VisitDetails
-
-// This component will show a User (owner OR sitter) their upcoming visits
-// Sitters will have the option to confirm, deny, or view details of unconfirmed requests
-// Owners will be able to see their upcoming visits and check status of requested visits
-
-// Would be nice to separate or sort by pending/ confirmed visits
-
-
-    // Fake visit
-    // const testVisit = {
-    //     visitId: 1,
-    //     ownerName: "jonnyboy",
-    //     sitterName: "sallyJones",
-    //     start: "jan",
-    //     end: "feb",
-    //     status: "pending",
-    //     cost: 100.00,
-    //     ownerId: 1,
-    //     sitterId: 999
-    // }
-
-
-    // // Fake visit array
-    // const visits = [testVisit];
-
-    // // Fake user
-    // const someUser = {
-    //     role: 1,
-    //     name: "bob"
-    // }
 
     const [visits, setVisits] = useState([]);
 
@@ -45,7 +13,7 @@ const VisitTable = ()=> {
     const jwtToken = auth.user.token;
 
     const loadVisits = () => {
-        fetch(`http://localhost:8080/api/visit/sitter/${user.id}`, {
+        fetchWithToken(`http://localhost:8080/api/visit/sitter/${user.id}`, auth.logout, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${jwtToken}`

@@ -1,7 +1,6 @@
 import SitterSearchBar from "./SitterSearchBar";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SitterTable from "./SitterTable";
-import SitterMap from "./SitterMap";
 
 const FindSitter = ()=> {
 
@@ -11,7 +10,6 @@ const FindSitter = ()=> {
     return (
         <>
         <SitterSearchBar onLocationSelect={setSelectedLocation} setSitters={setSitters}/>
-        <SitterMap location={selectedLocation}/>
         <SitterTable location={selectedLocation} sitters={sitters}/>
         
         </>

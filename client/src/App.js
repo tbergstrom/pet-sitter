@@ -34,8 +34,6 @@ function App() {
   const [contactInfo, setContactInfo] = useState([]);
   const [user, setUser] = useState(null);
 
-  
-
   const login = (token) => {
     // Decode the token
     const { sub: username, authorities: authoritiesString } = jwtDecode(token);
@@ -68,6 +66,8 @@ function App() {
     user: user ? { ...user } : null
   }
 
+  
+
   // consider moving to ManageVisits
   const loadVisits = () => {
     // fetch("http://localhost:8080/api/visit")
@@ -78,26 +78,12 @@ function App() {
 
   useEffect(loadVisits, [])
 
-
-  // consider moving to ManageContactInfo (and/ or where we view other ppls profiles)
-  // const loadContactInfo = () => {
-  //   fetch("http://localhost:8080/api/contact-info")
-  //   .then(response => response.json())
-  //   .then(payload => setContactInfo(payload))
-  //   console.log("no contact info yet")
-  // }
-
-  // useEffect(loadContactInfo, [])
-
   useEffect(() => {
     const token = localStorage.getItem("auth-token")
     if (token) {
       login(token)
     }
   }, []);
-
-
-  console.log("User: ", user);
 
   return (
     <GoogleOAuthProvider clientId='321605181263-7tsniamk1f3712hs4p6uc26dvshbv46k.apps.googleusercontent.com'>
