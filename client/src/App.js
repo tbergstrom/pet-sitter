@@ -12,6 +12,7 @@ import VisitTable from './components/VisitTable';
 import VisitForm from './components/VisitForm';
 import ManageOwnerVisits from './components/ManageOwnerVisits';
 import ManagePets from './components/ManagePets';
+import About from './components/About';
 
 import jwtDecode from 'jwt-decode';
 import AuthContext from './contexts/AuthContext';
@@ -108,6 +109,7 @@ function App() {
             {/* always visible */}
             <Route path='/' element={<Home />}/>
             <Route path="/findsitter" element={<FindSitter />}/>
+            <Route path="/about" element={<About/>}/>
 
             {/* logged in as owner and sitter */}
             <Route path="/visittable/:id" element={ user ? <VisitTable visits={visits} loadVisits={loadVisits} /> : <Navigate to="/" /> } />

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
+import { Table } from "react-bootstrap";
 
 const SitterTable = ({ sitters }) => {
 
@@ -30,7 +31,7 @@ const SitterTable = ({ sitters }) => {
                             </div>
                         ))}
                     </div>
-                    <table>
+                    <Table>
                         <thead>
                             <tr>
                                 {/* <th>Profile</th> */}
@@ -58,7 +59,7 @@ const SitterTable = ({ sitters }) => {
                                 </tr>
                             ))}
                         </tbody>
-                    </table>
+                    </Table>
                 </>
             ) : (
                 <p>Please Enter Your Address to Find Nearby Sitters</p>

@@ -2,6 +2,7 @@ import PetDetails from './PetDetails'
 import ConfirmPetDelete from './ConfirmPetDelete'
 import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { Table } from 'react-bootstrap'
 
 const PetTable = (props)=> {
 
@@ -10,7 +11,7 @@ const PetTable = (props)=> {
     useEffect(props.loadPets, [])
 
     return (
-        <table>
+        <Table>
             <thead>
                 <tr>
                     <th>Name</th>
@@ -33,7 +34,7 @@ const PetTable = (props)=> {
                     </tr>
                 ))}
             </tbody>
-        </table>
+        </Table>
     )
 }
 
