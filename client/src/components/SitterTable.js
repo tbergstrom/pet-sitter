@@ -7,11 +7,11 @@ const SitterTable = ({ sitters }) => {
     const auth = useContext(AuthContext);
 
     return (
-        <>
+        <div>
             <h3>Sitters Near You</h3>
             {sitters && sitters.length ? (
                 <>
-                    <div className="d-flex justify-content-between"> 
+                    <div className="d-flex justify-content-between ml-5"> 
                         {sitters.slice(0, 3).map(sitter => (
                             <div key={sitter.appUserId} className="card" style={{width: "18rem"}}>
                                 {/* Need to have a pfp URL, prob in contact_info table */}
@@ -19,6 +19,7 @@ const SitterTable = ({ sitters }) => {
                                 <div className="card-body">
                                     <h5 className="card-title">{sitter.username}</h5>
                                     <p className="card-text">CARD TEMP TEXT</p>
+                                    <p className="card-text">{parseFloat(sitter.distanceInKm).toFixed(2)} km away</p>
                                     <p>Rate: {sitter.rate}</p>
                                     <p>
                                         <Link to={{
@@ -30,12 +31,13 @@ const SitterTable = ({ sitters }) => {
                             </div>
                         ))}
                     </div>
-                    <table className="table">
+                    <table>
                         <thead>
                             <tr>
                                 {/* <th>Profile</th> */}
                                 <th>Username</th>
                                 <th>Rate</th>
+                                <th>Distance</th>
                                 <th>Details</th>
                                 <th>&nbsp;</th>
                             </tr>
@@ -46,6 +48,7 @@ const SitterTable = ({ sitters }) => {
                                     {/* <td><img src={sitter.pfpUrl} className="card-img-top" alt="" /></td> */}
                                     <td>{sitter.username}</td>
                                     <td>{sitter.rate}</td>
+                                    <td>{parseFloat(sitter.distanceInKm).toFixed(2)} km</td>
                                     <td>
                                         <Link to={{
                                             pathname: `/user/sitter/${sitter.appUserId}`,
@@ -61,7 +64,7 @@ const SitterTable = ({ sitters }) => {
             ) : (
                 <p>Please Enter Your Address to Find Nearby Sitters</p>
             )}
-        </>
+        </div>
     )
 }
 

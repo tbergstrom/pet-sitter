@@ -55,7 +55,7 @@ public class AppUserService implements UserDetailsService {
         }
 
         password = encoder.encode(password);
-        AppUser appUser = new AppUser(0, username, password, true, roles);
+        AppUser appUser = new AppUser(0, username, password, true, 0, roles);
 
         try {
             appUser = repository.create(appUser);
@@ -92,7 +92,7 @@ public class AppUserService implements UserDetailsService {
             return result;
         }
 
-        AppUser googleUser = new AppUser(0, email, true, roles);
+        AppUser googleUser = new AppUser(0, email, true, 0, roles);
 
         try {
             googleUser = repository.createGoogleUser(googleUser);
