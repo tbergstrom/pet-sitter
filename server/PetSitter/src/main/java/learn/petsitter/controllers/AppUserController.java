@@ -46,7 +46,7 @@ public class AppUserController {
 
     @GetMapping("/nearby-sitters")
     public List<AppUser> getNearbySitters(@RequestParam double lat, @RequestParam double lng) {
-        System.out.println("In controller, finding nearby sitters...");
+        System.out.println("Lat: " + lat + " Lng: " + lng);
         return appUserService.getNearbySitters(lat, lng);
     }
 

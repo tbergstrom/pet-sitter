@@ -3,24 +3,8 @@ import AuthContext from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
 
 const SitterTable = ({ sitters }) => {
-    // const [sitters, setSitters] = useState([]);
+
     const auth = useContext(AuthContext);
-    // const jwtToken = auth.user.token;
-
-    // useEffect(() => {
-    //     if (auth.user === null) {
-    //         return;
-    //     }
-    //     fetch("http://localhost:8080/api/users/all-sitters", {
-    //         method: "GET",
-    //         headers: {
-    //             "Authorization": `Bearer ${auth.user.token}`
-    //         }
-    //     })
-    //     .then(response => response.json())
-    //     .then(payload => setSitters(payload));
-    // }, [auth]);
-
 
     return (
         <>
@@ -31,7 +15,7 @@ const SitterTable = ({ sitters }) => {
                         {sitters.slice(0, 3).map(sitter => (
                             <div key={sitter.appUserId} className="card" style={{width: "18rem"}}>
                                 {/* Need to have a pfp URL, prob in contact_info table */}
-                                <img src={sitter.pfpUrl} className="card-img-top" alt="" />
+                                {/* <img src={sitter.pfpUrl} className="card-img-top" alt="" /> */}
                                 <div className="card-body">
                                     <h5 className="card-title">{sitter.username}</h5>
                                     <p className="card-text">CARD TEMP TEXT</p>
@@ -75,7 +59,7 @@ const SitterTable = ({ sitters }) => {
                     </table>
                 </>
             ) : (
-                <p>No Sitters Found</p>
+                <p>Please Enter Your Address to Find Nearby Sitters</p>
             )}
         </>
     )

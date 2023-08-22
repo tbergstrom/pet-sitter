@@ -9,19 +9,19 @@ const SitterSearchBar  = (props)=> {
     const auth = useContext(AuthContext);
     // const jwtToken = auth.user.token;
 
-    useEffect(() => {
-        if (auth.user === null) {
-            return;
-        }
-        fetch("http://localhost:8080/api/users/all-sitters", {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${auth.user.token}`
-            }
-        })
-        .then(response => response.json())
-        .then(payload => props.setSitters(payload));
-    }, [auth]);
+    // useEffect(() => {
+    //     if (auth.user === null) {
+    //         return;
+    //     }
+    //     fetch("http://localhost:8080/api/users/all-sitters", {
+    //         method: "GET",
+    //         headers: {
+    //             "Authorization": `Bearer ${auth.user.token}`
+    //         }
+    //     })
+    //     .then(response => response.json())
+    //     .then(payload => props.setSitters(payload));
+    // }, [auth]);
 
     const handleSearch = async ()=> {
         const geoResponse = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`)
@@ -36,6 +36,8 @@ const SitterSearchBar  = (props)=> {
             
             const nearbyAddresses = await getNearbyAddresses(location);
             console.log("Nearby addresses:", nearbyAddresses);
+            props.setSitters(nearbyAddresses);
+            console.log("Nearby addresses:", nearbyAddresses);
         }
     }
 
@@ -47,6 +49,7 @@ const SitterSearchBar  = (props)=> {
         });
         // const response = await fetch("http://localhost:8080/api/users/all-sitters");
         const data = await response.json();
+        console.log("Backend fetch data :", data)
         return data;
     }
 
