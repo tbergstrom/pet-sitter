@@ -35,7 +35,7 @@ const ManageContactInfo = ()=> {
         .then(payload => setContactInfo(payload))
     };
 
-    useEffect(loadContactInfo, []);
+    // useEffect(loadContactInfo, []);
 
     return (
         <>

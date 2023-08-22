@@ -18,6 +18,8 @@ import java.util.List;
 public class AppUserJdbcTemplateRepository implements AppUserRepository{
 
     private final JdbcTemplate jdbcTemplate;
+    private static final double DESIRED_DISTANCE_IN_KM = 10; // for example
+
 
     public AppUserJdbcTemplateRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -124,24 +126,22 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
     }
 
     @Override
-    public List<AppUser> findNearbySitters(double lat, double lng) {
-        System.out.println("In JDBC repo, implement findnearbysitters");
-
-//        final String sql = "SELECT au.*, ci.*, ( 6471 * acos( cos( radians(?) ) " +
-//                "cos( radians( lat ) ) " +
-//                "cos( radians( lng ) - radians(?) ) + " +
-//                "sin ( radians(?) ) " +
-//                "sin( radians( lat) ) ) ) ) AS distance " +
-//                "FROM app_user_ au " +
-//                "JOIN contact_info ci ON au.app_user_id = ci.app_user_id " +
-//                "JOIN app_user_role aur ON au.app_user_id = aur.app_user_id " +
-//                "WHERE aur.app_role_id = 2 " +
-//                "HAVING distance < ? " +
-//                "ORDER BY distance " +
-//                "LIMIT 0, 20;";
-//
-//        return jdbcTemplate.query(sql, new FindAllUsersMapper(), lat, lng, lat, desiredDistanceInKm);
-        return null;
+    public List<AppUser> findNearbySitters(double lat, double lng, double distance) {
+        final String sql = "SELECT au.*, ci.*, ar.name AS role, ( 6371 * acos( cos( radians(?) ) * " +
+                "cos( radians( lat ) ) * " +
+                "cos( radians( lng ) - radians(?) ) + " +
+                "sin( radians(?) ) * " +
+                "sin( radians( lat ) ) ) ) AS distance " +
+                "FROM app_user au " +
+                "JOIN contact_info ci ON au.app_user_id = ci.app_user_id " +
+                "JOIN app_user_role aur ON au.app_user_id = aur.app_user_id " +
+                "JOIN app_role ar ON aur.app_role_id = ar.app_role_id " +
+                "WHERE aur.app_role_id = 2 " +
+                "HAVING distance < ? " +
+                "ORDER BY distance " +
+                "LIMIT 0, 20;";
+        
+        return jdbcTemplate.query(sql, new FindAllUsersMapper(), lat, lng, lat, distance);
     }
 
     private void updateRoles(AppUser user) {
