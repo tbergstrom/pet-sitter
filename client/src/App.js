@@ -118,7 +118,7 @@ function App() {
             <Route path="/managecontactinfo" element={ user ? <ManageContactInfo /> : <Navigate to="/" />} />
             <Route path="/managepets" element={ user ? <ManagePets /> : <Navigate to="/" />} />
             <Route path="/manageownervisits" element={ user ? <ManageOwnerVisits /> : <Navigate to="/" />} />
-            <Route path="/user/sitter/:id" element={ user ? <SitterDetails /> : <Navigate to="/" />} />
+            <Route path="/users/sitter/:username" element={ user ? <SitterDetails /> : <Navigate to="/" />} />
             <Route path="/user/my-info" element={ user ? <ContactInfoDetails /> : <Navigate to="/" />} />
             <Route path='/requestvisit' element={ user ? <ContactInfoForm contactInfo={contactInfo} /> : <Navigate to="/" /> }/>
 

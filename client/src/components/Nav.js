@@ -14,6 +14,7 @@ const Nav = ()=> {
     const ownerId = params.id;
 
     return (
+
         <Navbar expand="lg" data-bs-theme="dark" className="bg-body-tertiary">
             <Container>
                 {/* always show */}
@@ -22,10 +23,10 @@ const Nav = ()=> {
                 {" "}
                 <Link className="nav-btn" to='/findsitter'>Find a Sitter</Link>
                 {" "}
-                <Link className="nav-btn" to='/create_account'>Become a Sitter</Link>
-                {" "}
                 <Link className="nav-btn" to='/about'>About Us</Link>
                 {" "}
+
+
 
                 {/* only logged in as an owner */}
                 { user && (

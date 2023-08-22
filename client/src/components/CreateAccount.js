@@ -36,6 +36,7 @@ export default function CreateAccount() {
   
       // This code executes if the request is successful
       if (response.status === 201) {
+          alert("Account successfully created!");
           navigate("/");
       } else if (response.status === 403) {
           setErrors(["Account Creation failed."]);
@@ -67,6 +68,7 @@ export default function CreateAccount() {
         const data = await response.json();
         
         if (response.status === 201) {
+          alert("Account successfully created!");
           navigate("/");
         } else {
           // console.log("Response status: " + response.status);
