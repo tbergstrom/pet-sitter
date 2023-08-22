@@ -1,15 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
+import fetchWithToken from "../utils/fetchUtils";
 
 const SitterDetails = (props)=> {
 
-// Direct Child of SitterTable
-// Parent of VisitForm
-
-// Shows location/ contact info for a particular sitter
-// Contains VisitForm to request a Care Visit
-// Should be accessed via link/ button in SitterTable/ VisitTable
 const [sitter, setSitter] = useState(null)
 const [errors, setErrors] = useState([]);
 const location = useLocation();
@@ -17,15 +12,15 @@ const { username } = useParams();
 
 const auth = useContext(AuthContext)
 
-console.log("location: ", location);
-
-console.log("Username: ", username);
-
 useEffect(() => {
     if (username) {
         const loadSitterDetails = () => {
+
+//             fetchWithToken(`http://localhost:8080/api/users/sitter/${props.location.state.sitterFromTable.appUserId}`, auth.logout, {
+
             console.log("Fetching sitter details for ", username);
             fetch(`http://localhost:8080/api/users/sitter/${username}`, {
+
                 method: "GET",
                 headers: {
                     "Authorization": `Bearer ${auth.user.token}`
@@ -38,16 +33,25 @@ useEffect(() => {
                 } else {
                     response.json().then(payload => setSitter(payload))
                 }
+
+                if (response.headers.get('Content-Length') === '0') {
+                    return {};
+                }
+                return response.json();
+
             })
             .catch(error => {
-                console.error("Fetch error: ", error);
                 setErrors([error]);
             });
         };
 
         loadSitterDetails();
     }
+
+// }, [location.state, auth.user, auth.logout, props.location.state]);
+
 }, [username, auth.user]);
+
 
 
 return (

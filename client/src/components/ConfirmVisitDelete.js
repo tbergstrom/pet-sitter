@@ -1,14 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
+import fetchWithToken from "../utils/fetchUtils";
 
 const ConfirmVisitDelete = ()=> {
 
-// Direct Child of VisitTable
-
-// Accessed via button in VisitTable
-// Asks if you want to really delete/ cancel your upcoming visit
-// Should also be accessed via link/ button in VisitDetails
 const params = useParams();
 const navigate = useNavigate();
 const auth = useContext(AuthContext);
@@ -16,21 +12,24 @@ const auth = useContext(AuthContext);
 const [visit, setVisit] = useState(null);
 
 useEffect(() => {
-    fetch(`http://localhost:8080/api/visits/${params.id}`)
+    fetchWithToken(`http://localhost:8080/api/visits/${params.id}`, auth.logout)
     .then(response => {
       if (response.ok) {
+        if (response.headers.get('Content-Length') === '0') {
+            return {};
+        }
         response.json()
         .then(setVisit)
       } else {
         navigate("/not-found")
       }
     })
-}, [params.id])
+}, [params.id, auth.logout, navigate])
 
 const handleDelete = () => {
     // Check if the authenticated user is the owner of the visit
     if (auth.user.id === visit.ownerId) {
-        fetch(`http://localhost:8080/api/visits/${params.id}`, {
+        fetchWithToken(`http://localhost:8080/api/visits/${params.id}`, auth.logout, {
             method: "DELETE",
             headers: {
                 Authorization: "Bearer " + auth.user.token
@@ -40,6 +39,7 @@ const handleDelete = () => {
             if (response.ok) {
                 navigate("/visittable")
             } else {
+                // set error here?
                 console.log(`Unexpected response status code ${response.status}`);
             }
         })
