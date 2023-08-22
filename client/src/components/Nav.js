@@ -18,8 +18,6 @@ const Nav = ()=> {
             {" "}
             <Link className="nav-btn" to='/findsitter'>Find a Sitter</Link>
             {" "}
-            <Link className="nav-btn" to='/create_account'>Become a Sitter</Link>
-            {" "}
             <Link className="nav-btn" to='/about'>About Us</Link>
             {" "}
 
