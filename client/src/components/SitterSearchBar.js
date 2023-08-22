@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useState } from "react";
 import AuthContext from "../contexts/AuthContext";
 
 const SitterSearchBar  = (props)=> {
@@ -8,37 +8,16 @@ const SitterSearchBar  = (props)=> {
     const apiKey = process.env.REACT_APP_API_KEY;
 
     const auth = useContext(AuthContext);
-    // const jwtToken = auth.user.token;
-
-    // useEffect(() => {
-    //     if (auth.user === null) {
-    //         return;
-    //     }
-    //     fetch("http://localhost:8080/api/users/all-sitters", {
-    //         method: "GET",
-    //         headers: {
-    //             "Authorization": `Bearer ${auth.user.token}`
-    //         }
-    //     })
-    //     .then(response => response.json())
-    //     .then(payload => props.setSitters(payload));
-    // }, [auth]);
 
     const handleSearch = async ()=> {
         const geoResponse = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`)
         const geoData = await geoResponse.json();
 
-        console.log("GeoData:", geoData);
-
         if(geoData.results && geoData.results.length > 0) {
             const location = geoData.results[0].geometry.location
 
-            console.log("Location: ", location)
-            
             const nearbyAddresses = await getNearbyAddresses(location);
-            console.log("Nearby addresses:", nearbyAddresses);
             props.setSitters(nearbyAddresses);
-            console.log("Nearby addresses:", nearbyAddresses);
         }
     }
 
@@ -57,9 +36,8 @@ const SitterSearchBar  = (props)=> {
                 "Authorization": `Bearer ${auth.user.token}`
             }
         });
-        // const response = await fetch("http://localhost:8080/api/users/all-sitters");
+
         const data = await response.json();
-        console.log("Backend fetch data :", data)
         return data;
     }
 

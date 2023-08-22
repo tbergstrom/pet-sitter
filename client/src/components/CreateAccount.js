@@ -1,6 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "../contexts/AuthContext";
 import { GoogleLogin } from '@react-oauth/google';
 
 export default function CreateAccount() {
@@ -11,8 +10,6 @@ export default function CreateAccount() {
   const [errors, setErrors] = useState([]);
 
   const navigate = useNavigate();
-
-  const auth = useContext(AuthContext)
 
   const handleSubmit = async (event) => {
       event.preventDefault();
@@ -41,7 +38,6 @@ export default function CreateAccount() {
           setErrors(["Account Creation failed."]);
       } else {
           const errorMessages = await response.json();
-          console.log(errorMessages);
           setErrors([errorMessages.message]);
         }
   };
@@ -69,13 +65,10 @@ export default function CreateAccount() {
         if (response.status === 201) {
           navigate("/");
         } else {
-          // console.log("Response status: " + response.status);
-          // console.error("Error from backend: ", data);
           setErrors(existingErrors => [...existingErrors, `Error from backend: ${data}`])
           navigate("/create_account");
         }
       } catch (error) {
-        // console.error("Network error:", error);
         setErrors(existingErrors => [...existingErrors, `Network error: ${error}`])
         navigate("/create_account");
       }
@@ -83,7 +76,6 @@ export default function CreateAccount() {
   
   const handleGoogleFailure = (error) => {
     setErrors(`[Google Login Error: ${error}]`)
-    // console.error("Google Login Error:", error); // Display errors to DOM
   }
 
   return (
