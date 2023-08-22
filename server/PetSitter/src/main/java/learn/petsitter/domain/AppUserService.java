@@ -176,10 +176,9 @@ public class AppUserService implements UserDetailsService {
          return repository.getAllOwners();
     }
 
-    public List<AppUser> getNearbySitters(double lat, double lng) {
+    public List<AppUser> getNearbySitters(double lat, double lng, double distance) {
 
-        System.out.println("In service, finding nearby sitters...");
-        return repository.findNearbySitters(lat,lng);
+        return repository.findNearbySitters(lat,lng, distance);
     }
 
     private boolean isValidPassword(String password) {
