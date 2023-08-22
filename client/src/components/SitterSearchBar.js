@@ -4,7 +4,9 @@ import AuthContext from "../contexts/AuthContext";
 const SitterSearchBar  = (props)=> {
 
     const [address, setAddress] = useState("");
+
     const [selectedDistance, setSelectedDistance] = useState(10);
+
     const apiKey = process.env.REACT_APP_API_KEY;
 
     const auth = useContext(AuthContext);
@@ -26,6 +28,8 @@ const SitterSearchBar  = (props)=> {
 
     const handleSearch = async ()=> {
         const geoResponse = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`)
+
+
         const geoData = await geoResponse.json();
 
         console.log("GeoData:", geoData);

@@ -1,4 +1,3 @@
-import { LoadScript } from "@react-google-maps/api";
 import SitterSearchBar from "./SitterSearchBar";
 import { useEffect, useState } from "react";
 import SitterTable from "./SitterTable";

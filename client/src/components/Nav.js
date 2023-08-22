@@ -1,6 +1,8 @@
 import { Link, useParams } from "react-router-dom"
 import AuthContext from "../contexts/AuthContext"
 import { useContext } from "react"
+import Button from 'react-bootstrap/Button';
+import Navbar from 'react-bootstrap/Navbar';
 
 const Nav = ()=> {
     const auth = useContext(AuthContext)
@@ -10,7 +12,7 @@ const Nav = ()=> {
     const ownerId = params.id;
 
     return (
-        <nav>
+        <Navbar expand="lg" className="navbar">
             {/* always show */}
             <Link className="nav-btn" to='/'>Home</Link>
             {" "}
@@ -26,7 +28,7 @@ const Nav = ()=> {
                 <>
                     <Link className="nav-btn" to='/manageaccount'>Manage Your Account</Link>
                     {" "}
-                    <button onClick={auth.logout}>Logout</button>
+                    <Button variant="info" onClick={auth.logout}>Logout</Button>
                 </>
             )}
 
@@ -38,7 +40,7 @@ const Nav = ()=> {
                     <Link className="nav-btn" to='/create_account'>Create Account</Link>
                 </>
             )}
-        </nav>
+        </Navbar>
     )
 }
 

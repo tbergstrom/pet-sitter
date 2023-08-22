@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 import './App.css';
 import Nav from './components/Nav';
