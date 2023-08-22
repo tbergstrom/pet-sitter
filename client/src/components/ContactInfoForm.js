@@ -35,6 +35,7 @@ const ContactInfoForm = (props)=> {
 
 
     const resetState = ()=> {
+        setContactInfo(0);
         setFirstName("");
         setLastName("");
         setEmail("");
