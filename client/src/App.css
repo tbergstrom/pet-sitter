@@ -27,6 +27,11 @@ button {
 }
 
 .nav-btn {
+  margin-left:20px;
+  margin-right:20px;
+}
+
+.nav-btn {
   color: brown;
 }
 
