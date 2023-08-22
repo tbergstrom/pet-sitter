@@ -12,13 +12,15 @@ public class ContactInfo {
     private String city;
     private String state;
     private String zipCode;
+    private double latitude;
+    private double longitude;
     private AppUser appUser;
     private int appUserId;
 
     public ContactInfo() {}
 
     public ContactInfo(int contactInfoId, String firstName, String lastName, String email, String phoneNumber,
-                       String streetAddress, String city, String state, String zipCode, AppUser appUser, int appUserId) {
+                       String streetAddress, String city, String state, String zipCode, double longitude, double latitude,AppUser appUser, int appUserId) {
         this.contactInfoId = contactInfoId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -28,6 +30,8 @@ public class ContactInfo {
         this.city = city;
         this.state = state;
         this.zipCode = zipCode;
+        this.longitude = longitude;
+        this.latitude = latitude;
         this.appUser = appUser;
         this.appUserId = appUserId;
     }
@@ -102,6 +106,22 @@ public class ContactInfo {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     public AppUser getAppUser() {

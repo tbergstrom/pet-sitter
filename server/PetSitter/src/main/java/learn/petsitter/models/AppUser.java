@@ -18,10 +18,12 @@ public class AppUser implements UserDetails {
     private  boolean enabled;
     private  Collection<GrantedAuthority> authorities = List.of();
     private BigDecimal rate;
+    private double distanceInKm;
     private ContactInfo contactInfo;
 
     public AppUser() {}
 
+    // For traditional users who don't sign in with Google OAuth. The password field is included.
     public AppUser(int appUserId, String username, String password, boolean enabled, List<String> roles) {
         this.appUserId = appUserId;
         this.username = username;
@@ -30,11 +32,29 @@ public class AppUser implements UserDetails {
         this.authorities = convertRolesToAuthorities(roles);
     }
 
-    // For Google users, they will not have a password:
-    public AppUser(int appUserId, String username, boolean enabled, List<String> roles) {
+    // For traditional users who include "distanceInKm" property
+    public AppUser(int appUserId, String username, String password, boolean enabled, double distanceInKm, List<String> roles) {
+        this.appUserId = appUserId;
+        this.username = username;
+        this.password = password;
+        this.enabled = enabled;
+        this.distanceInKm = distanceInKm;
+        this.authorities = convertRolesToAuthorities(roles);
+    }
+
+    // For Google OAuth users, no password is stored. Does not include distance property.
+    public AppUser(int appUserId, String username, boolean enabled, List <String> roles) {
         this.appUserId = appUserId;
         this.username = username;
         this.enabled = enabled;
+        this.authorities = convertRolesToAuthorities(roles);
+    }
+    // For Google users. Includes distance property.
+    public AppUser(int appUserId, String username, boolean enabled, double distanceInKm, List <String> roles) {
+        this.appUserId = appUserId;
+        this.username = username;
+        this.enabled = enabled;
+        this.distanceInKm = distanceInKm;
         this.authorities = convertRolesToAuthorities(roles);
     }
 
@@ -94,12 +114,32 @@ public class AppUser implements UserDetails {
         this.appUserId = appUserId;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public void setAuthorities(Collection<GrantedAuthority> authorities) {
+        this.authorities = authorities;
+    }
+
     public BigDecimal getRate() {
         return rate;
     }
 
     public void setRate(BigDecimal rate) {
         this.rate = rate;
+    }
+
+    public double getDistanceInKm() {
+        return distanceInKm;
+    }
+
+    public void setDistanceInKm(double distanceInKm) {
+        this.distanceInKm = distanceInKm;
     }
 
     public ContactInfo getContactInfo() {

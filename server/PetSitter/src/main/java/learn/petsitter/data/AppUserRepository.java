@@ -27,5 +27,5 @@ public interface AppUserRepository {
     @Transactional
     List<AppUser> getAllSitters();
     @Transactional
-    List <AppUser> findNearbySitters(double lat, double lng);
+    List<AppUser> findNearbySitters(double lat, double lng, double distance);
 }
