@@ -7,6 +7,7 @@ const ContactInfoForm = (props)=> {
     const params = useParams();
     const navigate = useNavigate();
     const auth = useContext(AuthContext);
+    const apiKey = process.env.REACT_APP_API_KEY;
     // const user = auth.user;
 
     const [errors, setErrors] = useState([]);
@@ -77,47 +78,67 @@ const ContactInfoForm = (props)=> {
             setZipCode(contactInfo.zipCode);
     }, [contactInfo]);
 
-    const handleSubmit = (evt)=> {
+    const handleSubmit = async (evt)=> {
         evt.preventDefault();
 
-        const updatedContactInfo = {
-            contactInfoId: contactInfoId,
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            phoneNumber: phoneNumber,
-            streetAddress: streetAddress,
-            city: city,
-            state: state,
-            zipCode: zipCode
-        }
+        const addressToConvert = `${streetAddress} ${city} ${state} ${zipCode}`;
 
+        try {
 
-        fetch(`http://localhost:8080/api/contact-info/${contactInfoId}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-                Authorization: "Bearer " + auth.user.token
-            },
-            body: JSON.stringify(updatedContactInfo)
-        })
-        .then(response => {
-            if(response.ok) {
-                navigate(`/manageaccount`); // need params.id?
-                resetState();
-                // props.loadVisits();
-            } else {
-                console.log(updatedContactInfo.state);
-                response.json()
-                .then(errors => {
-                    setErrors([errors])
+            const geoResponse = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(addressToConvert)}&key=${apiKey}`)
+            const geoData = await geoResponse.json();
+    
+            if(geoData.results && geoData.results.length > 0) {
+                const location = geoData.results[0].geometry.location
+    
+                console.log("Location: ", location)
+                
+                const updatedContactInfo = {
+                    contactInfoId: contactInfoId,
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    phoneNumber: phoneNumber,
+                    streetAddress: streetAddress,
+                    city: city,
+                    state: state,
+                    zipCode: zipCode,
+                    latitude: location.lat,
+                    longitude: location.lng
+                };
+    
+                fetch(`http://localhost:8080/api/contact-info/${contactInfoId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    Authorization: "Bearer " + auth.user.token
+                },
+                body: JSON.stringify(updatedContactInfo)
                 })
+                .then(response => {
+                    if(response.ok) {
+                        navigate(`/manageaccount`); // need params.id?
+                        resetState();
+                        // props.loadVisits();
+                    } else {
+                        console.log(updatedContactInfo.state);
+                        response.json()
+                        .then(errors => {
+                            setErrors([errors])
+                        })
+                    }
+                });
+            } else {
+                console.error("Geocoding error")
+                setErrors(["Address could not be geocoded. Please try a different address."])
             }
-        })
-    }
+        }catch (error) {
+            console.error("Geocoding error: ", error);
+            setErrors([`Failed to fetch coordinates. Error: ${error.message}`])
+        }
+    };
 
-    console.log(contactInfo);
     return (
         <>
             <form onSubmit={handleSubmit}>

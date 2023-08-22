@@ -22,7 +22,7 @@ public class ContactInfoJdbcTemplateRepository implements ContactInfoRepository{
 
     @Override
     public ContactInfo findById(int id) {
-        final String sql = "select username, contact_info_id, first_name, last_name, email, phone_number, street_address, city, state, zipcode, contact_info.app_user_id " +
+        final String sql = "select username, contact_info_id, first_name, last_name, email, phone_number, street_address, city, state, zipcode, lat, lng, contact_info.app_user_id " +
                 "from contact_info " +
                 "join app_user " +
                 "on app_user.app_user_id = contact_info.app_user_id " +
@@ -34,7 +34,7 @@ public class ContactInfoJdbcTemplateRepository implements ContactInfoRepository{
 
     @Override
     public ContactInfo findByAppUserId(int appUserId) {
-        final String sql = "select username, contact_info_id, first_name, last_name, email, phone_number, street_address, city, state, zipcode, contact_info.app_user_id " +
+        final String sql = "select username, contact_info_id, first_name, last_name, email, phone_number, street_address, city, state, zipcode, lat, lng, contact_info.app_user_id " +
                 "from contact_info " +
                 "join app_user " +
                 "on app_user.app_user_id = contact_info.app_user_id " +
@@ -46,8 +46,8 @@ public class ContactInfoJdbcTemplateRepository implements ContactInfoRepository{
 
     @Override
     public ContactInfo create(ContactInfo contactInfo) {
-        final String sql = "insert into contact_info (first_name, last_name, email, phone_number, street_address, city, state, zipcode, app_user_id) "
-                + " values (?,?,?,?,?,?,?,?,?);";
+        final String sql = "insert into contact_info (first_name, last_name, email, phone_number, street_address, city, state, zipcode, lat, lng, app_user_id) "
+                + " values (?,?,?,?,?,?,?,?,?,?,?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
@@ -60,7 +60,9 @@ public class ContactInfoJdbcTemplateRepository implements ContactInfoRepository{
             ps.setString(6, contactInfo.getCity());
             ps.setString(7, contactInfo.getState());
             ps.setString(8, contactInfo.getZipCode());
-            ps.setInt(9, contactInfo.getAppUserId());
+            ps.setDouble(9, contactInfo.getLatitude());
+            ps.setDouble(10, contactInfo.getLongitude());
+            ps.setInt(11, contactInfo.getAppUserId());
             return ps;
         }, keyHolder);
 
@@ -82,7 +84,9 @@ public class ContactInfoJdbcTemplateRepository implements ContactInfoRepository{
                 "street_address = ?, " +
                 "city = ?, " +
                 "state = ?, " +
-                "zipcode = ? " +
+                "zipcode = ?, " +
+                "lat = ?, " +
+                "lng = ? " +
                 "where contact_info_id = ?;";
 
         int rowsUpdated = jdbcTemplate.update(sql,
@@ -94,6 +98,8 @@ public class ContactInfoJdbcTemplateRepository implements ContactInfoRepository{
                 contactInfo.getCity(),
                 contactInfo.getState(),
                 contactInfo.getZipCode(),
+                contactInfo.getLatitude(),
+                contactInfo.getLongitude(),
                 contactInfo.getContactInfoId());
 
         return rowsUpdated > 0;
