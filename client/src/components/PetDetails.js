@@ -49,7 +49,9 @@ const PetDetails = ()=> {
                     <p>Name: {pet.name}</p>
                     <p>Species: {pet.petType}</p>
                     <p>Description: {pet.notes}</p>
-                    <Link to={`/confirmpetdelete/${pet.petId}`}>Delete Pet</Link>
+                    <button onClick={() => navigate(`/confirmpetdelete/${pet.petId}`)}>Remove this pet from your list?</button>
+                    {" "}
+                    <button onClick={() => navigate("/manageaccount")}>Back to Manage Account</button>
 
 
                     {/* This button is activating as soon as the PetDetails button is clicked, for some reason. */}
