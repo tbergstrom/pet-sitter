@@ -93,26 +93,32 @@ public class AppUserService implements UserDetailsService {
         }
 
         AppUser googleUser = new AppUser(0, email, true, roles);
-        ContactInfo contactInfo = new ContactInfo();
-        googleUser.setContactInfo(contactInfo);
-//
-//        System.out.println("My contact info App User: " + googleUser.getContactInfo().getAppUser());
-//        System.out.println("Id: " + googleUser.getContactInfo().getContactInfoId());
-//        System.out.println("First name: " + googleUser.getContactInfo().getFirstName());
-//        System.out.println("Last name: " + googleUser.getContactInfo().getLastName());
-//        System.out.println("Email: " + googleUser.getContactInfo().getEmail());
-//        System.out.println("City: " + googleUser.getContactInfo().getCity());
 
-
-        try{
+        try {
             googleUser = repository.createGoogleUser(googleUser);
-            Result<AppUser> resultGoogleUser = new Result<>();
-            resultGoogleUser.setPayload(googleUser);
-            return resultGoogleUser;
-        } catch (Exception ex){
+        } catch (Exception ex) {
             result.addErrorMessage("Unable to create user: " + ex.getMessage(), ResultType.INVALID);
             return result;
         }
+
+        ContactInfo ci = new ContactInfo();
+        ci.setFirstName("");
+        ci.setLastName("");
+        ci.setEmail("");
+        ci.setPhoneNumber("");
+        ci.setStreetAddress("");
+        ci.setCity("");
+        ci.setState("");
+        ci.setZipCode("");
+        ci.setLatitude(0.0);
+        ci.setLongitude(0.0);
+        ci.setAppUserId(googleUser.getAppUserId());
+        ContactInfo contactInfo = contactInfoRepository.create(ci);
+        googleUser.setContactInfo(contactInfo);
+
+        Result<AppUser> resultGoogleUser = new Result<>();
+        resultGoogleUser.setPayload(googleUser);
+        return resultGoogleUser;
     }
 
     private Result<AppUser> validate(String username, String password) {
