@@ -22,7 +22,7 @@ const SitterTable = ({ sitters }) => {
                                     <p>Rate: {sitter.rate}</p>
                                     <p>
                                         <Link to={{
-                                            pathname: `/user/sitter/${sitter.appUserId}`,
+                                            pathname: `/users/sitter/${sitter.username}`,
                                             state: { sitterFromTable: sitter }
                                         }}>View Details</Link>
                                     </p>
@@ -50,7 +50,7 @@ const SitterTable = ({ sitters }) => {
                                     <td>{parseFloat(sitter.distanceInKm).toFixed(2)} km</td>
                                     <td>
                                         <Link to={{
-                                            pathname: `/user/sitter/${sitter.appUserId}`,
+                                            pathname: `/users/sitter/${sitter.username}`,
                                             state: { sitterFromTable: sitter }
                                         }}>View Details</Link>
                                     </td>
