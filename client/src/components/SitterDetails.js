@@ -13,15 +13,19 @@ const SitterDetails = (props)=> {
 const [sitter, setSitter] = useState(null)
 const [errors, setErrors] = useState([]);
 const location = useLocation();
+const { username } = useParams();
 
 const auth = useContext(AuthContext)
 
 console.log("location: ", location);
 
+console.log("Username: ", username);
+
 useEffect(() => {
-    if (props.location.state && props.location.state.sitterFromTable) {
+    if (username) {
         const loadSitterDetails = () => {
-            fetch(`http://localhost:8080/api/users/sitter/${props.location.state.sitterFromTable.appUserId}`, {
+            console.log("Fetching sitter details for ", username);
+            fetch(`http://localhost:8080/api/users/sitter/${username}`, {
                 method: "GET",
                 headers: {
                     "Authorization": `Bearer ${auth.user.token}`
@@ -29,11 +33,12 @@ useEffect(() => {
             })
             .then(response => {
                 if (!response.ok) {
+                    console.log(response);
                     setErrors(["Something happened"]);
+                } else {
+                    response.json().then(payload => setSitter(payload))
                 }
-                return response.json();
             })
-            .then(payload => setSitter(payload))
             .catch(error => {
                 console.error("Fetch error: ", error);
                 setErrors([error]);
@@ -42,7 +47,8 @@ useEffect(() => {
 
         loadSitterDetails();
     }
-}, [location.state, auth.user]);
+}, [username, auth.user]);
+
 
 return (
     <>

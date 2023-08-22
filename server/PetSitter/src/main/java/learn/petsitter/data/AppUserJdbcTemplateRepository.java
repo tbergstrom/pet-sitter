@@ -2,6 +2,7 @@ package learn.petsitter.data;
 
 import learn.petsitter.data.mappers.AppUserMapper;
 import learn.petsitter.data.mappers.FindAllUsersMapper;
+import learn.petsitter.data.mappers.FindAllUsersMinusDistanceMapper;
 import learn.petsitter.models.AppUser;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -111,7 +112,7 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
                  "JOIN app_user_role aur ON au.app_user_id = aur.app_user_id " +
                  "JOIN app_role ar ON aur.app_role_id = ar.app_role_id " +
                  "WHERE aur.app_role_id = 1;";
-         return jdbcTemplate.query(sql, new FindAllUsersMapper());
+         return jdbcTemplate.query(sql, new FindAllUsersMinusDistanceMapper());
     }
 
     @Override
@@ -122,7 +123,7 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
                 "JOIN app_user_role aur ON au.app_user_id = aur.app_user_id " +
                 "JOIN app_role ar ON aur.app_role_id = ar.app_role_id " +
                 "WHERE aur.app_role_id = 2;";
-        return jdbcTemplate.query(sql, new FindAllUsersMapper());
+        return jdbcTemplate.query(sql, new FindAllUsersMinusDistanceMapper());
     }
 
     @Override
