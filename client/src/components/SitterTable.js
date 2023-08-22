@@ -18,7 +18,6 @@ const SitterTable = ({ sitters }) => {
                                 {/* <img src={sitter.pfpUrl} className="card-img-top" alt="" /> */}
                                 <div className="card-body">
                                     <h5 className="card-title">{sitter.username}</h5>
-                                    <p className="card-text">CARD TEMP TEXT</p>
                                     <p className="card-text">{parseFloat(sitter.distanceInKm).toFixed(2)} km away</p>
                                     <p>Rate: {sitter.rate}</p>
                                     <p>
