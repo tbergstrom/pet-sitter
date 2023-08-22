@@ -39,8 +39,10 @@ const ManageOwnerVisits = ()=> {
             {showVisitForm && <VisitForm visits={visits} setVisits={setVisits} loadVisits={loadVisits} toggleForm={toggleForm} />}
             
             <button onClick={toggleForm}>
-                {showVisitForm ? "Cancel" : "Add New Pet"}
+                {showVisitForm ? "Cancel" : "Request a New Care Visit"}
             </button>
+            {" "}
+            <button onClick={() => navigate("/manageaccount")}>Back to Manage Account</button>
         </>
     )
 }

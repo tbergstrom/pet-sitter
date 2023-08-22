@@ -38,6 +38,8 @@ const ManageContactInfo = ()=> {
             <button onClick={toggleForm}>
                 {showEditButton ? "Cancel" : "Edit"}
             </button>
+            {" "}
+            <button onClick={() => navigate("/manageaccount")}>Back to Manage Account</button>
         </>
     )
 }
