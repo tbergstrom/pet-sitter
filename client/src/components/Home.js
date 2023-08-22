@@ -4,8 +4,6 @@ const Home = () => {
 
   const navigate = useNavigate();
 
-// Landing page
-
     return (
       <div className="App">
       <div>

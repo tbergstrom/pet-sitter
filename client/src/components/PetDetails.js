@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 import ConfirmPetDelete from "./ConfirmPetDelete";
+import fetchWithToken from "../utils/fetchUtils";
 
 const PetDetails = ()=> {
 
@@ -16,7 +17,7 @@ const PetDetails = ()=> {
     const jwtToken = auth.user.token;
 
     const loadPetDetails = ()=> {
-        fetch(`http://localhost:8080/api/pets/pet/${params.id}`, {
+        fetchWithToken(`http://localhost:8080/api/pets/pet/${params.id}`, auth.logout, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${jwtToken}`
@@ -26,11 +27,13 @@ const PetDetails = ()=> {
             if (!response.ok) {
                 setErrors(["somethin happn"])
             }
+            if (response.headers.get('Content-Length') === '0') {
+                return {};
+            }
             return response.json();
         })
         .then(payload => setPet(payload))
         .catch(error => {
-            console.error("Fetch error: ", error);
             setErrors([error]);
         })
         

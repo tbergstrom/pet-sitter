@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
+import fetchWithToken from "../utils/fetchUtils";
 
 const PetForm = (props)=> {
 
-    const params = useParams(props);
     const navigate = useNavigate();
     const auth = useContext(AuthContext);
 
@@ -22,23 +22,6 @@ const PetForm = (props)=> {
         setGoesWalking(false);
     }
 
-    // useEffect(()=> {
-    //     if(params.id !== undefined) {
-    //         const targetPet = props.pets.find(pet => pet.id === parseInt(params.id))
-    //         if(targetPet !== undefined) {
-    //             setName(targetPet.name);
-    //             setPetType(targetPet.petType);
-    //             setNotes(targetPet.notes);
-    //             setGoesWalking(targetPet.goesWalking);
-    //         }
-    //     } else {
-    //         resetState();
-    //     }
-    // }, [props.pets, params.id])
-
-    // useEffect(props.loadPets, [props.pets])
-
-
     const handleSubmit = (evt)=> {
         evt.preventDefault();
 
@@ -49,19 +32,7 @@ const PetForm = (props)=> {
             goesWalking,
         }
 
-        // let url = null;
-        // let method = null;
-
-        // if (params.id !== undefined) {
-        //     newPet.id = params.id;
-        //     url = `http://localhost:8080/api/pets/${params.id}`
-        //     method = "PUT"
-        // } else {
-        //     url = "http://localhost:8080/api/pets"
-        //     method = "POST"
-        // }
-
-        fetch("http://localhost:8080/api/pets", {
+        fetchWithToken("http://localhost:8080/api/pets", auth.logout, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -72,11 +43,11 @@ const PetForm = (props)=> {
         })
         .then(response => {
             if (response.ok) {
-                navigate(`/managepets`); // need params.id?
+                navigate(`/managepets`); 
                 resetState();
                 props.loadPets();
                 props.toggleForm();
-                // a "props.setPetsCounter" could be useful as a useEffect dependency
+
             } else {
                 response.json()
                 .then(errors => {
