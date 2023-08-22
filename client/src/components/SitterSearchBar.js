@@ -4,6 +4,7 @@ import AuthContext from "../contexts/AuthContext";
 const SitterSearchBar  = (props)=> {
     const searchInputRef = useRef(null);
     const [address, setAddress] = useState("");
+    const apiKey = process.env.REACT_APP_API_KEY;
 
     const auth = useContext(AuthContext);
     // const jwtToken = auth.user.token;
@@ -23,7 +24,8 @@ const SitterSearchBar  = (props)=> {
     }, [auth]);
 
     const handleSearch = async ()=> {
-        const geoResponse = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=AIzaSyDb0qn-w3xq6Kk3m6Hkr3Y25GOSE-LA1aI`)
+        const geoResponse = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`)
+        
         const geoData = await geoResponse.json();
 
         console.log("GeoResponse:", geoResponse);

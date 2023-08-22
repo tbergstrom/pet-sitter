@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 
 const Home = () => {
 
@@ -9,8 +10,8 @@ const Home = () => {
     return (
       <div className="App">
       <div>
-        <button className='find-sitter-btn button' onClick={()=> navigate("/findsitter")}>Find A Sitter</button>
-        <button className='become-sitter-btn button'onClick={()=> navigate("/create_account")}>Become a Sitter</button>
+        <Button variant="info" className='find-sitter-btn button' onClick={()=> navigate("/findsitter")}>Find A Sitter</Button>
+        <Button variant="info" className='become-sitter-btn button'onClick={()=> navigate("/create_account")}>Become a Sitter</Button>
       </div>
     </div>
       );
