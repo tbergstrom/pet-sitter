@@ -43,8 +43,14 @@ const ManagePets = ()=> {
             
             <Button variant="info" onClick={toggleForm}>
                 {showPetForm ? "Cancel" : "Add New Pet"}
+
             </Button>
             
+
+           
+            {" "}
+            <button onClick={() => navigate("/manageaccount")}>Back to Manage Account</button>
+
         </>
     )
 }

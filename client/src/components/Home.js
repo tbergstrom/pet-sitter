@@ -1,15 +1,19 @@
 import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
+
 import Carousel from 'react-bootstrap/Carousel';
 import { Image, Container} from 'react-bootstrap';
-
+import { useContext } from 'react';
+import AuthContext from '../contexts/AuthContext';
 
 
 const Home = () => {
-
+  const auth = useContext(AuthContext)
+  const user = auth.user
   const navigate = useNavigate();
 
 // Landing page
+
 
     return (
       <div className="App">
@@ -41,8 +45,8 @@ const Home = () => {
         <Button variant="info" className='find-sitter-btn button' onClick={()=> navigate("/findsitter")}>Find A Sitter</Button>
         <Button variant="info" className='become-sitter-btn button'onClick={()=> navigate("/create_account")}>Become a Sitter</Button>
       </div> */}
-    </div>
-      );
+  </div>
+);
 }
 
 export default Home;

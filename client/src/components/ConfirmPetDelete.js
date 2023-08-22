@@ -63,14 +63,14 @@ const ConfirmPetDelete = () => {
 
     return ( 
         <>
-            <h2>Confirm Delete</h2>
-            <p>Remove this pet from your pet list?</p>
+            <h2>Remove this pet from your pet list?</h2>
             <ul>
                 <li>Name: {pet.name}</li>
             </ul>
-            <button onClick={handleDelete}>Delete</button>
+            <button onClick={handleDelete}>Remove?</button>
             {" "}
-            <Link to="/managepets">Cancel</Link>
+            <button onClick={() => navigate("/managepets")}>Cancel</button>
+
         </>
     );
 }
