@@ -2,13 +2,13 @@ import { useContext, useState } from "react";
 import AuthContext from "../contexts/AuthContext";
 import ContactInfoDetails from "./ContactInfoDetails";
 import ContactInfoForm from "./ContactInfoForm";
+import fetchWithToken from "../utils/fetchUtils";
 
 const ManageContactInfo = ()=> {
 
     const [contactInfo, setContactInfo] = useState([]);
     const [showEditButton, setShowEditButton] = useState(false);
 
-    
     const auth = useContext(AuthContext);
     const user = auth.user;
 
@@ -19,7 +19,7 @@ const ManageContactInfo = ()=> {
     }
 
     const loadContactInfo = () => {
-        fetch(`http://localhost:8080/api/user/${user.id}`, {
+        fetchWithToken(`http://localhost:8080/api/user/${user.id}`, auth.logout, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${jwtToken}`

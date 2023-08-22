@@ -1,15 +1,10 @@
 import { useContext, useState, useEffect } from "react";
 import VisitTable from "./VisitTable";
 import AuthContext from "../contexts/AuthContext";
+import fetchWithToken from "../utils/fetchUtils";
 
 const ManageSitterVisits = () => {
 
-// Direct child of ManageAccount
-// Parent of VisitTable
-
-// Sitters can see their upcoming visits here and pending visits
-// Sitters can confirm, deny/ cancel visits
-// Could contain some link or access to VisitForm
     const [visits, setVisits] = useState([]);
 
     const auth = useContext(AuthContext);
@@ -17,8 +12,9 @@ const ManageSitterVisits = () => {
 
     const jwtToken = auth.user.token;
 
+    // Do we need to change this backend call to the token version? 
     const loadVisits = () => {
-        fetch(`http://localhost:8080/api/visit/sitter/${user.id}`, {
+        fetchWithToken(`http://localhost:8080/api/visit/sitter/${user.id}`, auth.logout, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${jwtToken}`

@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 import { GoogleLogin } from '@react-oauth/google';
+import fetchWithToken from "../utils/fetchUtils";
 
 
 export default function Login() {
@@ -18,7 +19,7 @@ export default function Login() {
     const handleSubmit = async (event) => {
         event.preventDefault();
   
-        const response = await fetch("http://localhost:8080/authenticate", {
+        const response = await fetchWithToken("http://localhost:8080/authenticate", auth.logout, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -46,7 +47,7 @@ export default function Login() {
     const tokenId = event.credential;
 
     try {
-      const response = await fetch("http://localhost:8080/authenticate-google", {
+      const response = await fetchWithToken("http://localhost:8080/authenticate-google", auth.logout, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

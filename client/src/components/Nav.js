@@ -1,13 +1,12 @@
-import { Link, useParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 import AuthContext from "../contexts/AuthContext"
 import { useContext } from "react"
 
 const Nav = ()=> {
+
     const auth = useContext(AuthContext)
     const user = auth.user
 
-    const params = useParams();
-    const ownerId = params.id;
 
     return (
         <nav>

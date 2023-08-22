@@ -7,8 +7,6 @@ const ManageAccount = ()=> {
     const auth = useContext(AuthContext)
     const user = auth.user;
 
-    // console.log(user);
-
     return (
         <>
             { user ? 

@@ -1,16 +1,9 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
+import fetchWithToken from "../utils/fetchUtils";
 
 const VisitForm = (props)=> {
-    // props should include list of visits (props.visits) and visitCounter (props.visitCounter)
-
-// Direct child of SitterDetails but could live elsewhere
-
-// This could be embedded in SitterDetails and/OR
-// could be accessible via a link or button in the SitterDetails component
-// This component is used to request a Care Visit from a specific Sitter
-// It would need to update VisitTable
 
     const params = useParams();
     const navigate = useNavigate();
@@ -48,7 +41,7 @@ const VisitForm = (props)=> {
             ownerId: "ownerId"  // the other from... auth.user.id?
         }
 
-        fetch("http://localhost:8080/api/visits", {
+        fetchWithToken("http://localhost:8080/api/visits", auth.logout, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

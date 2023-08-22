@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from '@react-oauth/google';
+import fetchWithToken from "../utils/fetchUtils";
+import AuthContext from "../contexts/AuthContext";
 
 export default function CreateAccount() {
 
@@ -8,7 +10,8 @@ export default function CreateAccount() {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("")
   const [errors, setErrors] = useState([]);
-
+  
+  const auth = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -19,7 +22,7 @@ export default function CreateAccount() {
         return;
       }
 
-      const response = await fetch("http://localhost:8080/create-account", {
+      const response = await fetchWithToken("http://localhost:8080/create-account", auth.logout, {
           method: "POST",
           headers: {
               "Content-Type": "application/json",
@@ -52,7 +55,7 @@ export default function CreateAccount() {
 
       try {
 
-        const response = await fetch("http://localhost:8080/create-account-google", {
+        const response = await fetchWithToken("http://localhost:8080/create-account-google", auth.logout, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

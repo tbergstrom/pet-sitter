@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import AuthContext from "../contexts/AuthContext";
+import fetchWithToken from "../utils/fetchUtils";
 
 const SitterSearchBar  = (props)=> {
 
@@ -31,13 +32,16 @@ const SitterSearchBar  = (props)=> {
 
         const queryString = new URLSearchParams(params).toString();
         const url = `http://localhost:8080/api/users/nearby-sitters?${queryString}`
-        const response = await fetch(url, {
+        const response = await fetchWithToken(url, auth.logout, {
             headers: {
                 "Authorization": `Bearer ${auth.user.token}`
             }
         });
 
         const data = await response.json();
+        if (response.headers.get('Content-Length') === '0') {
+            return {};
+        }
         return data;
     }
 

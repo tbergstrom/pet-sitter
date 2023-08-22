@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
+import fetchWithToken from "../utils/fetchUtils";
 
 const ContactInfoDetails = (props)=> {
 
@@ -16,56 +17,30 @@ const ContactInfoDetails = (props)=> {
 
     const jwtToken = auth.user.token;
 
-    // const loadContactInfo = ()=> {
-    //     // fetch(`http://localhost:8080/api/contact-info/${params.id}`, {
-    //     fetch(`http://localhost:8080/api/contact-info/user/my-info`, {
-    //         method: "GET",
-    //         headers: {
-    //             "Authorization": `Bearer ${jwtToken}`
-    //         }
-    //     })
-    //     .then(response => {
-    //         if (!response.ok) {
-    //             console.log(response);
-    //             setErrors(["Err: ", response.status])
-    //         }
-    //         return response.json();
-    //     })
-    //     .then(payload => setContactInfo(payload))
-    //     .catch(error => {
-    //         console.error("Fetch error: ", error);
-    //         setErrors([error.message]);
-    //     })   
-    // }
-
-    // useEffect(loadContactInfo, [])
-
     const loadUser = () => {
-        fetch(`http://localhost:8080/api/contact-info/user/my-info`, {
+        fetchWithToken(`http://localhost:8080/api/contact-info/user/my-info`, auth.logout, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${jwtToken}`
             }
         })
         .then(response => {
-            console.log("Params: ", params);
             if (!response.ok) {
                 setErrors(["somethin happn"])
+            }
+            if (response.headers.get('Content-Length') === '0') {
+                return {};
             }
             return response.json();
         })
         .then(payload => setUser(payload))
         .catch(error => {
-            console.error("Fetch error: ", error);
             setErrors([error.message]);
         })   
     }
 
     useEffect(loadUser, [])
 
-    useEffect(() => {
-        console.log("User: ", user);
-    }, [user]);
 
 
     return (
