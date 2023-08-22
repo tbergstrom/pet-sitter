@@ -8,13 +8,19 @@ const SitterDetails = (props)=> {
 const [sitter, setSitter] = useState(null)
 const [errors, setErrors] = useState([]);
 const location = useLocation();
+const { username } = useParams();
 
 const auth = useContext(AuthContext)
 
 useEffect(() => {
-    if (props.location.state && props.location.state.sitterFromTable) {
+    if (username) {
         const loadSitterDetails = () => {
-            fetchWithToken(`http://localhost:8080/api/users/sitter/${props.location.state.sitterFromTable.appUserId}`, auth.logout, {
+
+//             fetchWithToken(`http://localhost:8080/api/users/sitter/${props.location.state.sitterFromTable.appUserId}`, auth.logout, {
+
+            console.log("Fetching sitter details for ", username);
+            fetch(`http://localhost:8080/api/users/sitter/${username}`, {
+
                 method: "GET",
                 headers: {
                     "Authorization": `Bearer ${auth.user.token}`
@@ -22,14 +28,18 @@ useEffect(() => {
             })
             .then(response => {
                 if (!response.ok) {
+                    console.log(response);
                     setErrors(["Something happened"]);
+                } else {
+                    response.json().then(payload => setSitter(payload))
                 }
+
                 if (response.headers.get('Content-Length') === '0') {
                     return {};
                 }
                 return response.json();
+
             })
-            .then(payload => setSitter(payload))
             .catch(error => {
                 setErrors([error]);
             });
@@ -37,7 +47,12 @@ useEffect(() => {
 
         loadSitterDetails();
     }
-}, [location.state, auth.user, auth.logout, props.location.state]);
+
+// }, [location.state, auth.user, auth.logout, props.location.state]);
+
+}, [username, auth.user]);
+
+
 
 return (
     <>

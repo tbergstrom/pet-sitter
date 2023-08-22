@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
+import { Table } from "react-bootstrap";
 
 const SitterTable = ({ sitters }) => {
 
@@ -18,12 +19,11 @@ const SitterTable = ({ sitters }) => {
                                 {/* <img src={sitter.pfpUrl} className="card-img-top" alt="" /> */}
                                 <div className="card-body">
                                     <h5 className="card-title">{sitter.username}</h5>
-                                    <p className="card-text">CARD TEMP TEXT</p>
                                     <p className="card-text">{parseFloat(sitter.distanceInKm).toFixed(2)} km away</p>
                                     <p>Rate: {sitter.rate}</p>
                                     <p>
                                         <Link to={{
-                                            pathname: `/user/sitter/${sitter.appUserId}`,
+                                            pathname: `/users/sitter/${sitter.username}`,
                                             state: { sitterFromTable: sitter }
                                         }}>View Details</Link>
                                     </p>
@@ -31,7 +31,7 @@ const SitterTable = ({ sitters }) => {
                             </div>
                         ))}
                     </div>
-                    <table>
+                    <Table>
                         <thead>
                             <tr>
                                 {/* <th>Profile</th> */}
@@ -51,7 +51,7 @@ const SitterTable = ({ sitters }) => {
                                     <td>{parseFloat(sitter.distanceInKm).toFixed(2)} km</td>
                                     <td>
                                         <Link to={{
-                                            pathname: `/user/sitter/${sitter.appUserId}`,
+                                            pathname: `/users/sitter/${sitter.username}`,
                                             state: { sitterFromTable: sitter }
                                         }}>View Details</Link>
                                     </td>
@@ -59,7 +59,7 @@ const SitterTable = ({ sitters }) => {
                                 </tr>
                             ))}
                         </tbody>
-                    </table>
+                    </Table>
                 </>
             ) : (
                 <p>Please Enter Your Address to Find Nearby Sitters</p>

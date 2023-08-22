@@ -3,6 +3,8 @@ import PetForm from "./PetForm";
 import PetTable from "./PetTable";
 import AuthContext from "../contexts/AuthContext";
 import fetchWithToken from "../utils/fetchUtils";
+import { Button, Table } from "react-bootstrap";
+
 
 const ManagePets = ()=> {
 
@@ -36,10 +38,16 @@ const ManagePets = ()=> {
             <PetTable pets={pets} loadPets={loadPets}/>
             {showPetForm && <PetForm pets={pets} setPets={setPets} loadPets={loadPets} toggleForm={toggleForm} />}
             
-            <button onClick={toggleForm}>
+            <Button variant="info" onClick={toggleForm}>
                 {showPetForm ? "Cancel" : "Add New Pet"}
-            </button>
+
+            </Button>
             
+
+           
+            {" "}
+            <button onClick={() => navigate("/manageaccount")}>Back to Manage Account</button>
+
         </>
     )
 }

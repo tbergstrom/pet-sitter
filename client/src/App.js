@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 import './App.css';
 import Nav from './components/Nav';
@@ -10,6 +12,7 @@ import VisitTable from './components/VisitTable';
 import VisitForm from './components/VisitForm';
 import ManageOwnerVisits from './components/ManageOwnerVisits';
 import ManagePets from './components/ManagePets';
+import About from './components/About';
 
 import jwtDecode from 'jwt-decode';
 import AuthContext from './contexts/AuthContext';
@@ -92,6 +95,7 @@ function App() {
             {/* always visible */}
             <Route path='/' element={<Home />}/>
             <Route path="/findsitter" element={<FindSitter />}/>
+            <Route path="/about" element={<About/>}/>
 
             {/* logged in as owner and sitter */}
             <Route path="/visittable/:id" element={ user ? <VisitTable visits={visits} loadVisits={loadVisits} /> : <Navigate to="/" /> } />
@@ -100,7 +104,7 @@ function App() {
             <Route path="/managecontactinfo" element={ user ? <ManageContactInfo /> : <Navigate to="/" />} />
             <Route path="/managepets" element={ user ? <ManagePets /> : <Navigate to="/" />} />
             <Route path="/manageownervisits" element={ user ? <ManageOwnerVisits /> : <Navigate to="/" />} />
-            <Route path="/user/sitter/:id" element={ user ? <SitterDetails /> : <Navigate to="/" />} />
+            <Route path="/users/sitter/:username" element={ user ? <SitterDetails /> : <Navigate to="/" />} />
             <Route path="/user/my-info" element={ user ? <ContactInfoDetails /> : <Navigate to="/" />} />
             <Route path='/requestvisit' element={ user ? <ContactInfoForm contactInfo={contactInfo} /> : <Navigate to="/" /> }/>
 
