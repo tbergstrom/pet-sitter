@@ -29,10 +29,10 @@ public class SecurityConfig {
 
         http.authorizeRequests()
                 .antMatchers("/authenticate").permitAll()
-                .antMatchers("/authenticate_google").permitAll()
-                .antMatchers("/create_account").permitAll()
-                .antMatchers("/create_account_google").permitAll() // added separate endpoint for google sign in
-                .antMatchers("/refresh_token").authenticated()
+                .antMatchers("/authenticate-google").permitAll()
+                .antMatchers("/create-account").permitAll()
+                .antMatchers("/create-account-google").permitAll() // added separate endpoint for google sign in
+                .antMatchers("/refresh-token").authenticated()
                 .antMatchers(HttpMethod.GET, "/api", "/api/pets", "/api/pets/pet/*", "/api/pets/*", "/api/pets/mypets", "/api/contact-info", "/api/contact-info/user/my-info","/api/contact-info/*",
                         "/api/visit/singlevisit","/api/visit/singlevisit/*","/api/visit/owner", "/api/visit/owner/my-visits", "/api/visit/sitter",
                         "/api/visit/sitter/my-visits", "/api/users/all-owners", "/api/users/all-sitters", "api/users/sitter/*", "api/users/owner/*",

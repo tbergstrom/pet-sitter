@@ -48,7 +48,7 @@ export default function Login() {
 
     try {
       console.log(tokenId);
-      const response = await fetch("http://localhost:8080/authenticate_google", {
+      const response = await fetch("http://localhost:8080/authenticate-google", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
