@@ -17,7 +17,7 @@ const ManageAccount = ()=> {
                         <h2 className="px-4 my-5">Manage Your Account</h2>
                         <Link class="btn btn-info" to={`/managepets`}>Manage Your Pets</Link>
                         {" "}
-                        <Link class="btn btn-info" to={`/manageownervisits`}>Manage Your Visits</Link>
+                        <Link class="btn btn-info" to={`/managevisits`}>Manage Your Visits</Link>
                         {" "}
                         <Link class="btn btn-info" to={`/managecontactinfo`}>Manage Your Contact Info</Link>
                         {" "}
