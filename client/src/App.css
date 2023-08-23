@@ -27,6 +27,10 @@ body {
   cursor: pointer;
 } */
 
+.about-card {
+  margin: 3rem;
+}
+
 .nav-btn, .brand{
   margin-left:20px;
   margin-right:20px;
@@ -63,6 +67,20 @@ body {
 
 .button-container {
   margin-top: 20px;
+}
+
+.home-carousel-container {
+  max-width: 100%;
+  padding: 0;
+}
+
+.card-row {
+  display: flex;
+  justify-content: center;
+}
+
+.card-img{
+  height: 350px;
 }
 
 .carousel-img {
