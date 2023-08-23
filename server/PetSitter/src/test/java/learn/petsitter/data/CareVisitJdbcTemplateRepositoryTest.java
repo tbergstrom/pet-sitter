@@ -64,19 +64,19 @@ class CareVisitJdbcTemplateRepositoryTest {
     //TODO How to test? Can't seem to pass correct date types
     @Test
     void create() {
-        CareVisit careVisit = new CareVisit();
-        Date startDate = new Date("");
-        Date endDate = new Date("");
-
-        Time time = new Time(8L);
-        careVisit.setStartDate(startDate);
-        careVisit.setEndDate(endDate);
-        careVisit.setStatus("Pending");
-//        careVisit.setTimeOfDay(time);
-        careVisit.setNotes("A note");
-        careVisit.setCost(new BigDecimal(30.00));
-        careVisit.setOwnerId(1);
-        careVisit.setSitterId(4);
+//        CareVisit careVisit = new CareVisit();
+//        Date startDate = new Date("");
+//        Date endDate = new Date("");
+//
+//        Time time = new Time(8L);
+//        careVisit.setStartDate(startDate);
+//        careVisit.setEndDate(endDate);
+//        careVisit.setStatus("Pending");
+////        careVisit.setTimeOfDay(time);
+//        careVisit.setNotes("A note");
+//        careVisit.setCost(new BigDecimal(30.00));
+//        careVisit.setOwnerId(1);
+//        careVisit.setSitterId(4);
 
     }
 
