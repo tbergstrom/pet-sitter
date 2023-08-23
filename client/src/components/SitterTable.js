@@ -1,15 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
-import { Table } from "react-bootstrap";
+import { Container, Table } from "react-bootstrap";
 
 const SitterTable = ({ sitters }) => {
 
     const auth = useContext(AuthContext);
 
     return (
-        <div>
-            <h3>Sitters Near You</h3>
+        <Container>
+            <h3 className="my-5">Sitters Near You</h3>
             {sitters && sitters.length ? (
                 <>
                     <div className="d-flex justify-content-between ml-5"> 
@@ -22,7 +22,7 @@ const SitterTable = ({ sitters }) => {
                                     <p className="card-text">{parseFloat(sitter.distanceInKm).toFixed(2)} km away</p>
                                     <p>Rate: {sitter.rate}</p>
                                     <p>
-                                        <Link to={{
+                                        <Link class="btn btn-info" to={{
                                             pathname: `/users/sitter/${sitter.username}`,
                                             state: { sitterFromTable: sitter }
                                         }}>View Details</Link>
@@ -50,7 +50,7 @@ const SitterTable = ({ sitters }) => {
                                     <td>{sitter.rate}</td>
                                     <td>{parseFloat(sitter.distanceInKm).toFixed(2)} km</td>
                                     <td>
-                                        <Link to={{
+                                        <Link class="btn btn-info" to={{
                                             pathname: `/users/sitter/${sitter.username}`,
                                             state: { sitterFromTable: sitter }
                                         }}>View Details</Link>
@@ -64,7 +64,7 @@ const SitterTable = ({ sitters }) => {
             ) : (
                 <p>Please Enter Your Address to Find Nearby Sitters</p>
             )}
-        </div>
+        </Container>
     )
 }
 

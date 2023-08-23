@@ -3,6 +3,7 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 import fetchWithToken from "../utils/fetchUtils";
 import VisitForm from "../components/VisitForm";
+import { Container, Form, Button } from "react-bootstrap";
 
 const SitterDetails = (props)=> {
 
@@ -80,26 +81,26 @@ useEffect(() => {
 
 
 return (
-    <>
+    <Container>
         {errors.length > 0 && 
         <ul>
             {errors.map((error, i) => <li key={i}>{error.message}</li>)}
         </ul>}
         {sitter ? 
             (<div className="sitter-details">
-                <h2>Sitter Details</h2>
+                <h2 className="my-5">Sitter Details</h2>
                 <p>Username: {sitter.username}</p>
                 {/* <p>Name: {sitter.contactInfo.firstName} {sitter.contactInfo.lastName}</p> */}
                 <p>Email: {sitter.contactInfo.email}</p>
                 <p>Phone: {sitter.contactInfo.phoneNumber}</p>
                 <p>Address: {sitter.contactInfo.streetAddress}, {sitter.contactInfo.city}, {sitter.contactInfo.state} {sitter.contactInfo.zipCode}</p>
-                <h4>Book a Visit Today!</h4>
+                <h4 className="my-5">Book a Visit Today!</h4>
                 <VisitForm sitter={sitter} owner={owner}/>
             </div>)
             :
             (<p>...Loading</p>)
         }
-    </>
+    </Container>
 );
 }
 

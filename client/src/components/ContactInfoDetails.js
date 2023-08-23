@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 import fetchWithToken from "../utils/fetchUtils";
+import { Container, Button } from "react-bootstrap";
 
 const ContactInfoDetails = (props)=> {
 
@@ -44,7 +45,7 @@ const ContactInfoDetails = (props)=> {
 
 
     return (
-        <>
+        <Container>
             { errors && errors.length > 0 &&
             <ul>
                 {errors.map((error, i) => <li key={i}>{error}</li>)}
@@ -64,7 +65,7 @@ const ContactInfoDetails = (props)=> {
                 :
                 (<p>...Loading</p>)
             }
-        </>
+        </Container>
         
     );
 }

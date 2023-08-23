@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 import fetchWithToken from "../utils/fetchUtils";
+import { Container, Form, Button } from "react-bootstrap";
 
 const VisitForm = (props)=> {
 
@@ -72,11 +73,12 @@ const VisitForm = (props)=> {
     console.log(typeof(timeOfDay));
 
     return (
-        <>
-            <form onSubmit={handleSubmit}>
+        <Container>
+            <Form onSubmit={handleSubmit}>
                 <ul>
                     {errors.map(error => <li key={error}> {error.message}</li>)}
                 </ul>
+                <Form.Group className="mb-3">
                 <fieldset>
                     <label htmlFor="start-date-input"> Start: </label>
                     <input 
@@ -88,6 +90,8 @@ const VisitForm = (props)=> {
                     />
                     
                 </fieldset>
+                </Form.Group>
+                <Form.Group className="mb-3">
                 <fieldset>
                     <label htmlFor="end-date-input"> End: </label>
                     <input 
@@ -99,6 +103,8 @@ const VisitForm = (props)=> {
                     />
                     
                 </fieldset>
+                </Form.Group>
+                <Form.Group className="mb-3">
                 <fieldset>
                     <label htmlFor="time-of-day-input">Time: </label>
                     <input 
@@ -109,14 +115,18 @@ const VisitForm = (props)=> {
                     />
 
                 </fieldset>
+                </Form.Group>
+                <Form.Group className="mb-3">
                 <fieldset>
                     <label htmlFor="notes-input">Additional notes: </label>
                     <textarea id="notes-input" value={notes} onChange={(evt) => setNotes(evt.target.value)}></textarea>
                 </fieldset>
-                <button type="submit">Save</button>
-                <Link to="/managevisits">Cancel</Link>
-            </form>
-        </>
+                </Form.Group>
+                <Button className="px-4" variant="info" type="submit">Save</Button>
+                {" "}
+                <Link class="btn btn-warning" to="/managevisits">Cancel</Link>
+            </Form>
+        </Container>
     )
 
 

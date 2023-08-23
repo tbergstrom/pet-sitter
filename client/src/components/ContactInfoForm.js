@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 import fetchWithToken from "../utils/fetchUtils";
+import { Container, Form, Button } from "react-bootstrap";
 
 const ContactInfoForm = (props)=> {
 
@@ -140,8 +141,8 @@ const ContactInfoForm = (props)=> {
     };
 
     return (
-        <>
-            <form onSubmit={handleSubmit}>
+        <Container>
+            <Form className="my-5" onSubmit={handleSubmit}>
                 <ul>
                     {errors.map((error, index) => (
                         <li key={index}>{error.message}</li>
@@ -152,6 +153,7 @@ const ContactInfoForm = (props)=> {
                     value={contactInfoId}
                     onChange={(evt) => setContactInfoId(evt.target.value)}
                 />
+                <Form.Group className="mb-3">
                 <fieldset>
                     <label htmlFor="first-name-input">First Name: </label>
                     <input
@@ -161,6 +163,8 @@ const ContactInfoForm = (props)=> {
                         onChange={(evt) => setFirstName(evt.target.value)}
                     />
                 </fieldset>
+                </Form.Group>
+                <Form.Group className="mb-3">
                 <fieldset>
                     <label htmlFor="last-name-input">Last Name: </label>
                     <input
@@ -170,6 +174,8 @@ const ContactInfoForm = (props)=> {
                         onChange={(evt) => setLastName(evt.target.value)}
                     />
                 </fieldset>
+                </Form.Group>
+                <Form.Group className="mb-3">
                 <fieldset>
                     <label htmlFor="email-input">Email: </label>
                     <input
@@ -179,6 +185,8 @@ const ContactInfoForm = (props)=> {
                         onChange={(evt) => setEmail(evt.target.value)}
                     />
                 </fieldset>
+                </Form.Group>
+                <Form.Group className="mb-3">
                 <fieldset>
                     <label htmlFor="phone-number-input">Phone Number: </label>
                     <input
@@ -188,6 +196,8 @@ const ContactInfoForm = (props)=> {
                         onChange={(evt) => setPhoneNumber(evt.target.value)}
                     />
                 </fieldset>
+                </Form.Group>
+                <Form.Group className="mb-3">
                 <fieldset>
                     <label htmlFor="street-address-input">Street Address: </label>
                     <input
@@ -197,6 +207,8 @@ const ContactInfoForm = (props)=> {
                         onChange={(evt) => setStreetAddress(evt.target.value)}
                     />
                 </fieldset>
+                </Form.Group>
+                <Form.Group className="mb-3">
                 <fieldset>
                     <label htmlFor="city-input">City: </label>
                     <input
@@ -206,6 +218,8 @@ const ContactInfoForm = (props)=> {
                         onChange={(evt) => setCity(evt.target.value)}
                     />
                 </fieldset>
+                </Form.Group>
+                <Form.Group className="mb-3">
                 <fieldset>
                     <label htmlFor="state-input">State: </label>
                     <select
@@ -219,6 +233,8 @@ const ContactInfoForm = (props)=> {
                         ))}
                     </select>
                 </fieldset>
+                </Form.Group>
+                <Form.Group className="mb-3">
                 <fieldset>
                     <label htmlFor="zipcode-input">Zipcode: </label>
                     <input
@@ -228,10 +244,11 @@ const ContactInfoForm = (props)=> {
                         onChange={(evt) => setZipCode(evt.target.value)}
                     />
                 </fieldset>
-                <button type="submit">Save</button>
-                <Link to="/manageaccount">Cancel</Link>
-            </form>
-        </>
+                </Form.Group>
+                <Button variant="primary" type="submit">Save</Button>
+                {/* <Link to="/manageaccount">Cancel</Link> */}
+            </Form>
+        </Container>
     );
     
 

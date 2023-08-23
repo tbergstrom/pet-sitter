@@ -72,7 +72,7 @@ class CareVisitJdbcTemplateRepositoryTest {
         careVisit.setStartDate(startDate);
         careVisit.setEndDate(endDate);
         careVisit.setStatus("Pending");
-        careVisit.setTimeOfDay(time);
+//        careVisit.setTimeOfDay(time);
         careVisit.setNotes("A note");
         careVisit.setCost(new BigDecimal(30.00));
         careVisit.setOwnerId(1);

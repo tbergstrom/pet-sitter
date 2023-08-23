@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import AuthContext from "../contexts/AuthContext";
+import { Container, Button, Table } from 'react-bootstrap'
 
 const VisitTable = ({ visits })=> {
 
@@ -7,10 +8,10 @@ const VisitTable = ({ visits })=> {
     const user = auth.user;
 
     return (
-        <>
+        <Container>
             {/* Swaps between "visit" and "visits" depending on how many visits there are */}
             <h3>{visits.length} Upcoming {visits.length !== 1 ? <>Visits</> : <>Visit</>}</h3>
-            <table className="table table-striped">
+            <Table className="table table-striped">
                 <thead>
                     <tr>
                         {/* A logged in Sitter will see an "Owner" column. A logged in Owner will see a "Sitter" column */}
@@ -36,21 +37,21 @@ const VisitTable = ({ visits })=> {
                         {user.roles[0] === "SITTER" 
                         ? 
                         <>
-                            <td><button>Deny</button></td>
-                            <td><button>Confirm</button></td>
+                            <td><Button variant="warning">Deny</Button></td>
+                            <td><Button variant="info">Confirm</Button></td>
                         </>  
                         :
-                        <td><button>Details</button></td>
+                        <td><Button variant="info">Details</Button></td>
                         }
                         
                         {/* The "Details" button would link to the full VisitDetails component and contact_info table */}
                         
-                        <td><button>Cancel</button></td>
+                        <td><Button variant="warning">Cancel</Button></td>
 
                     </tr>)}
                 </tbody>
-            </table>
-        </>
+            </Table>
+        </Container>
     )
 }
 
