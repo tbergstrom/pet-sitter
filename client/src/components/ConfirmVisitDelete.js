@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 import fetchWithToken from "../utils/fetchUtils";
+import { Container, Button } from "react-bootstrap";
 
 const ConfirmVisitDelete = ()=> {
 
@@ -54,7 +55,7 @@ if (visit === null) {
 }
 
 return ( 
-    <>
+    <Container>
         <h2>Confirm Delete</h2>
         <p>Cancel this Visit?</p>
         <ul>
@@ -62,10 +63,10 @@ return (
             <li>End Date: {visit.endDate}</li>
             <li>Notes: {visit.notes}</li>
         </ul>
-        <button onClick={handleDelete}>Delete</button>
+        <Button variant="info" onClick={handleDelete}>Delete</Button>
         {" "}
-        <Link to="/visittable">Cancel</Link>
-    </>
+        <Link className="btn btn-warning" to="/visittable">Cancel</Link>
+    </Container>
 );
 }
 
