@@ -2,9 +2,7 @@ import { Link } from "react-router-dom"
 import AuthContext from "../contexts/AuthContext"
 import { useContext } from "react"
 import Button from 'react-bootstrap/Button';
-import Navbar from 'react-bootstrap/Navbar';
-
- import { Container } from "react-bootstrap";
+import { Navbar, Nav as BootstrapNav, Container, Dropdown } from 'react-bootstrap';
 
 const Nav = ()=> {
 
@@ -18,32 +16,53 @@ const Nav = ()=> {
             <Container>
                 {/* always show */}
                 <Navbar.Brand className="brand" href="/">CritterSitters</Navbar.Brand>
-                <Link className="nav-btn" to='/'>Home</Link>
-                {" "}
-                <Link className="nav-btn" to='/findsitter'>Find a Sitter</Link>
-                {" "}
-                <Link className="nav-btn" to='/about'>About Us</Link>
-                {" "}
+                <BootstrapNav className="mr-auto">
+                    <Link className="nav-btn" to='/'>Home</Link>
+                    {" "}
+                    <Link className="nav-btn" to='/findsitter'>Find a Sitter</Link>
+                    {" "}
+                    <Link className="nav-btn" to='/about'>About Us</Link>
+                    {" "}
 
 
 
-                {/* only logged in as an owner */}
-                { user && (
-                    <>
-                        <Link className="nav-btn" to='/manageaccount'>Manage Your Account</Link>
-                        {" "}
-                        <Button variant="info" onClick={auth.logout}>Logout</Button>
-                    </>
-                )}
+                    {/* only logged in as an owner */}
+                    { user && (
+                        <>
+                            <Dropdown >
+                                <Dropdown.Toggle variant="info" className="mr-2">
+                                    Welcome, <strong>{user.username}</strong>
+                                </Dropdown.Toggle>
 
-                {/* only logged out */}
-                { !user && (
-                    <>
-                        <Link className="nav-btn" to='/create_account'>Create Account</Link>
-                        {" "}
-                        <Link className="btn btn-info" to='/login'>Login</Link>
-                    </>
-                )}
+                                <Dropdown.Menu>
+                                    <Dropdown.Item disabled>
+                                        Role: {user.roles[0]}
+                                    </Dropdown.Item>
+                                    <Dropdown.Item as={Link} to="/manageaccount">
+                                        Manage Account
+                                    </Dropdown.Item>
+                                    <Dropdown.Item onSelect={auth.logout}>
+                                        Logout
+                                    </Dropdown.Item>
+                                </Dropdown.Menu>
+                                
+                            </Dropdown>
+
+                            
+                            {" "}
+                            
+                        </>
+                    )}
+
+                    {/* only logged out */}
+                    { !user && (
+                        <>
+                            <Link className="nav-btn" to='/create_account'>Create Account</Link>
+                            {" "}
+                            <Link className="btn btn-info" to='/login'>Login</Link>
+                        </>
+                    )}
+                </BootstrapNav>
             </Container>
         </Navbar>
     )

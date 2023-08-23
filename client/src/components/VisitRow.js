@@ -4,7 +4,7 @@ import { faCheck, faTimes, faMagnifyingGlass } from '@fortawesome/free-solid-svg
 import { Button } from "react-bootstrap";
 import AuthContext from "../contexts/AuthContext";
 import fetchWithToken from "../utils/fetchUtils";
-
+import { Link } from "react-router-dom";
 
 const VisitRow = ({ visit, user, handleConfirm, handleDeny }) => {
     const [errors, setErrors] = useState([]);
@@ -85,40 +85,44 @@ const VisitRow = ({ visit, user, handleConfirm, handleDeny }) => {
               owners.find(owner => owner.appUserId === visit.ownerId)?.username || "Unknown Owner"
             )}
           </td>
-          <td>{visit.startDate}</td>
-          <td>{visit.endDate}</td>
-          <td>{visit.status}</td>
-          <td>{visit.cost}</td>
-      
-          {/* Actions Cell */}
-          <td>
-            {/* For sitter with pending visit */}
-            {isSitter && isVisitPending && (
-              <>
-                <Button onClick={() => handleConfirm(visit)} variant="success">
-                  <FontAwesomeIcon icon={faCheck} />
-                </Button>
+            <td>{visit.startDate}</td>
+            <td>{visit.endDate}</td>
+            <td>{visit.status}</td>
+            <td>{visit.cost}</td>
+            
+            {/* Actions Cell */}
+            <td>
+                {/* For sitter with pending visit */}
+                <Link to={`/visitdetails/${visit.careVisitId}`} style={{ textDecoration: 'none' }}>
+                    <Button variant="primary">
+                        <FontAwesomeIcon icon={faMagnifyingGlass} data-toggle="tooltip" data-placement="top" title="Details"/>
+                    </Button>
+                </Link>
                 &nbsp;
-                <Button onClick={() => handleDeny(visit)} variant="danger">
-                  <FontAwesomeIcon icon={faTimes} />
-                </Button>
-                &nbsp;
-              </>
-            )}
-      
-            {/* Cancel action */}
-            {(isOwner && (isVisitPending || isVisitApproved)) || (isSitter && isVisitApproved) && (
-              <Button onClick={() => handleDeny(visit)} variant="danger">
-                <FontAwesomeIcon icon={faTimes} />
-              </Button>
-            )}
-      
-            {/* Details always available */}
-            &nbsp;
-            <Button variant="info">
-              <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </Button>
-          </td>
+                {isSitter && isVisitPending && 
+                    <>
+                        <Button onClick={()=> handleConfirm(visit)} variant="success">
+                            <FontAwesomeIcon icon={faCheck} data-toggle="tooltip" data-placement="top" title="Accept"/>
+                        </Button>
+                        &nbsp; {/* Space between buttons */}
+                        <Button onClick={()=> handleDeny(visit)} variant="danger">
+                            <FontAwesomeIcon icon={faTimes} data-toggle="tooltip" data-placement="top" title="Deny"/>
+                        </Button>
+                        &nbsp;
+                    </>
+                }
+
+                {/* Cancel action */}
+                {(isOwner && (isVisitPending || isVisitApproved)) || (isSitter && isVisitApproved) &&
+                    <Button onClick={()=> handleDeny(visit)} variant="danger">
+                        <FontAwesomeIcon icon={faTimes} data-toggle="tooltip" data-placement="top" title="Cancel"/>
+                    </Button>
+                }
+
+                {/* Details always available */}
+                
+                
+            </td>
         </tr>
       );
       
