@@ -41,7 +41,7 @@ const Nav = ()=> {
                     <>
                         <Link className="nav-btn" to='/create_account'>Create Account</Link>
                         {" "}
-                        <Link class="btn btn-info" to='/login'>Login</Link>
+                        <Link className="btn btn-info" to='/login'>Login</Link>
                     </>
                 )}
             </Container>
