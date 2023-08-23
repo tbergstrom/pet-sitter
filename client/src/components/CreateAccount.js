@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "../contexts/AuthContext";
 import { GoogleLogin } from '@react-oauth/google';
+import fetchWithToken from "../utils/fetchUtils";
+import AuthContext from "../contexts/AuthContext";
 
 export default function CreateAccount() {
 
@@ -9,10 +10,9 @@ export default function CreateAccount() {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("")
   const [errors, setErrors] = useState([]);
-
+  
+  const auth = useContext(AuthContext);
   const navigate = useNavigate();
-
-  const auth = useContext(AuthContext)
 
   const handleSubmit = async (event) => {
       event.preventDefault();
@@ -22,7 +22,7 @@ export default function CreateAccount() {
         return;
       }
 
-      const response = await fetch("http://localhost:8080/create_account", {
+      const response = await fetchWithToken("http://localhost:8080/create-account", auth.logout, {
           method: "POST",
           headers: {
               "Content-Type": "application/json",
@@ -42,7 +42,6 @@ export default function CreateAccount() {
           setErrors(["Account Creation failed."]);
       } else {
           const errorMessages = await response.json();
-          console.log(errorMessages);
           setErrors([errorMessages.message]);
         }
   };
@@ -57,7 +56,7 @@ export default function CreateAccount() {
 
       try {
 
-        const response = await fetch("http://localhost:8080/create_account_google", {
+        const response = await fetchWithToken("http://localhost:8080/create-account-google", auth.logout, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -71,13 +70,10 @@ export default function CreateAccount() {
           alert("Account successfully created!");
           navigate("/");
         } else {
-          // console.log("Response status: " + response.status);
-          // console.error("Error from backend: ", data);
           setErrors(existingErrors => [...existingErrors, `Error from backend: ${data}`])
           navigate("/create_account");
         }
       } catch (error) {
-        // console.error("Network error:", error);
         setErrors(existingErrors => [...existingErrors, `Network error: ${error}`])
         navigate("/create_account");
       }
@@ -85,7 +81,6 @@ export default function CreateAccount() {
   
   const handleGoogleFailure = (error) => {
     setErrors(`[Google Login Error: ${error}]`)
-    // console.error("Google Login Error:", error); // Display errors to DOM
   }
 
   return (

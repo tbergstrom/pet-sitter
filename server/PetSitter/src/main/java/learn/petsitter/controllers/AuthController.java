@@ -74,7 +74,7 @@ public class AuthController {
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
-    @PostMapping("/authenticate_google")
+    @PostMapping("/authenticate-google")
     public ResponseEntity<Map<String, String>> authenticateGoogle(@RequestBody Map<String, String> credentials) {
 
         String tokenId = credentials.get("tokenId");
@@ -114,7 +114,7 @@ public class AuthController {
 
     }
 
-    @PostMapping("/create_account")
+    @PostMapping("/create-account")
     public ResponseEntity<?> createAccount(@RequestBody Map<String, String> credentials) {
 
         String username = credentials.get("username");
@@ -139,7 +139,7 @@ public class AuthController {
     // appUserService.
     // We may need to create a similar flow for login, since the normal login method will try to look for a password.
     // The password_hash field in the DB now accepts null to account for this.
-    @PostMapping("/create_account_google")
+    @PostMapping("/create-account-google")
     public ResponseEntity<?> createAccountGoogle(@RequestBody Map<String, String> credentials) throws Exception {
 
         String role = credentials.get("role");

@@ -8,11 +8,10 @@ const ManageAccount = ()=> {
     const auth = useContext(AuthContext)
     const user = auth.user;
 
-    // console.log(user);
-
     return (
         <>
             { user ? 
+
                 (<Container>
                     <div className="pet-details">
                         <h2 className="px-4 my-5">Manage Your Account</h2>
@@ -24,6 +23,7 @@ const ManageAccount = ()=> {
                         {" "}
                     </div>
                 </Container>)
+
                 :
                 (<p>...Loading</p>)
             }
