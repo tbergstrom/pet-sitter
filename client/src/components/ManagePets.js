@@ -4,6 +4,7 @@ import PetTable from "./PetTable";
 import AuthContext from "../contexts/AuthContext";
 import fetchWithToken from "../utils/fetchUtils";
 import { Button, Table } from "react-bootstrap";
+import { useNavigate } from "react-router";
 
 
 const ManagePets = ()=> {
@@ -11,6 +12,7 @@ const ManagePets = ()=> {
     const [pets, setPets] = useState([]);
     const [showPetForm, setShowPetForm] = useState(false);
 
+    const navigate = useNavigate();
     const auth = useContext(AuthContext);
     const user = auth.user;
     const jwtToken = auth.user.token;
