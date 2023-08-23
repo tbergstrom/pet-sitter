@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faTimes, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const VisitRow = ({ visit, user, handleConfirm, handleDeny }) => {
     const isSitter = user.roles[0] === "SITTER";
@@ -20,14 +21,20 @@ const VisitRow = ({ visit, user, handleConfirm, handleDeny }) => {
             {/* Actions Cell */}
             <td>
                 {/* For sitter with pending visit */}
+                <Link to={`/visitdetails/${visit.careVisitId}`} style={{ textDecoration: 'none' }}>
+                    <Button variant="primary">
+                        <FontAwesomeIcon icon={faMagnifyingGlass} data-toggle="tooltip" data-placement="top" title="Details"/>
+                    </Button>
+                </Link>
+                &nbsp;
                 {isSitter && isVisitPending && 
                     <>
                         <Button onClick={()=> handleConfirm(visit)} variant="success">
-                            <FontAwesomeIcon icon={faCheck} />
+                            <FontAwesomeIcon icon={faCheck} data-toggle="tooltip" data-placement="top" title="Accept"/>
                         </Button>
                         &nbsp; {/* Space between buttons */}
                         <Button onClick={()=> handleDeny(visit)} variant="danger">
-                            <FontAwesomeIcon icon={faTimes} />
+                            <FontAwesomeIcon icon={faTimes} data-toggle="tooltip" data-placement="top" title="Deny"/>
                         </Button>
                         &nbsp;
                     </>
@@ -36,15 +43,13 @@ const VisitRow = ({ visit, user, handleConfirm, handleDeny }) => {
                 {/* Cancel action */}
                 {(isOwner && (isVisitPending || isVisitApproved)) || (isSitter && isVisitApproved) &&
                     <Button onClick={()=> handleDeny(visit)} variant="danger">
-                        <FontAwesomeIcon icon={faTimes} />
+                        <FontAwesomeIcon icon={faTimes} data-toggle="tooltip" data-placement="top" title="Cancel"/>
                     </Button>
                 }
 
                 {/* Details always available */}
-                &nbsp;
-                <Button variant="info">
-                    <FontAwesomeIcon icon={faMagnifyingGlass} />
-                </Button>
+                
+                
             </td>
         </tr>
     );

@@ -25,6 +25,7 @@ import ManageAccount from './components/ManageAccount';
 import ManageContactInfo from './components/ManageContactInfo';
 import SitterDetails from './components/SitterDetails';
 import FindSitter from './components/FindSitter';
+import VisitDetails from './components/VisitDetails';
 
 
 
@@ -69,14 +70,14 @@ function App() {
   
 
   // consider moving to ManageVisits
-  const loadVisits = () => {
-    // fetch("http://localhost:8080/api/visit")
-    // .then(response => response.json())
-    // .then(payload => setVisits(payload))
-    console.log("visits endpoint not implemented")
-  }
+  // const loadVisits = () => {
+  //   // fetch("http://localhost:8080/api/visit")
+  //   // .then(response => response.json())
+  //   // .then(payload => setVisits(payload))
+  //   console.log("visits endpoint not implemented")
+  // }
 
-  useEffect(loadVisits, [])
+  // useEffect(loadVisits, [])
 
   useEffect(() => {
     const token = localStorage.getItem("auth-token")
@@ -98,8 +99,8 @@ function App() {
             <Route path="/about" element={<About/>}/>
 
             {/* logged in as owner and sitter */}
-            <Route path="/visittable/:id" element={ user ? <VisitTable visits={visits} loadVisits={loadVisits} /> : <Navigate to="/" /> } />
-            <Route path="/visittable/visitdetails/:id" element={ user ? <VisitTable visits={visits} loadVisits={loadVisits} /> : <Navigate to="/" /> } />
+            <Route path="/visittable/:id" element={ user ? <VisitTable visits={visits} /> : <Navigate to="/" /> } />
+            <Route path="/visittable/visitdetails/:id" element={ user ? <VisitTable visits={visits} /> : <Navigate to="/" /> } />
             <Route path="/manageaccount" element={ user ? <ManageAccount /> : <Navigate to="/" />} />
             <Route path="/managecontactinfo" element={ user ? <ManageContactInfo /> : <Navigate to="/" />} />
             <Route path="/managepets" element={ user ? <ManagePets /> : <Navigate to="/" />} />
@@ -107,9 +108,10 @@ function App() {
             <Route path="/users/sitter/:username" element={ user ? <SitterDetails /> : <Navigate to="/" />} />
             <Route path="/user/my-info" element={ user ? <ContactInfoDetails /> : <Navigate to="/" />} />
             <Route path='/requestvisit' element={ user ? <ContactInfoForm contactInfo={contactInfo} /> : <Navigate to="/" /> }/>
+            <Route path='/visitdetails/:id' element={ user ? <VisitDetails visits={visits} /> : <Navigate to="/" /> } />
 
             {/* logged in as owner only */}
-            <Route path='/requestvisit' element={ user ? <VisitForm loadVisits={loadVisits}/> : <Navigate to="/" /> }/>
+            <Route path='/requestvisit' element={ user ? <VisitForm /> : <Navigate to="/" /> }/>
             <Route path="/petdetails/:id" element={ user ? <PetDetails /> : <Navigate to="/" />} />
             <Route path="/confirmpetdelete/:id" element={ user ? <ConfirmPetDelete /> : <Navigate to="/" />} />
 

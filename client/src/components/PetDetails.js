@@ -29,7 +29,7 @@ const PetDetails = ()=> {
         })
         .then(response => {
             if (!response.ok) {
-                setErrors(["somethin happn"])
+                setErrors(["somethin happn"]) //CHANGE
             }
             if (response.headers.get('Content-Length') === '0') {
                 return {};
