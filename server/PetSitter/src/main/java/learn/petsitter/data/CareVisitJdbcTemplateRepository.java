@@ -72,8 +72,8 @@ public class CareVisitJdbcTemplateRepository implements CareVisitRepository{
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setDate(1, convertToMySQLDate(careVisit.getStartDate()));
-            ps.setDate(2, convertToMySQLDate(careVisit.getEndDate()));
+            ps.setObject(1, careVisit.getStartDate());
+            ps.setObject(2, careVisit.getEndDate());
             ps.setString(3, careVisit.getStatus());
             ps.setTime(4, convertToSQLTime(careVisit.getTimeOfDay()));
             ps.setString(5, careVisit.getNotes());

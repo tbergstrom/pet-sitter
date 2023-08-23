@@ -27,7 +27,7 @@ const PetTable = (props)=> {
                     <tr key={pet.petId}>
                         <td>{pet.name}</td>
                         <td>{pet.petType}</td>
-                        <td><Link class="btn btn-info" to={`/petdetails/${pet.petId}`}>Details</Link></td>
+                        <td><Link className="btn btn-info" to={`/petdetails/${pet.petId}`}>Details</Link></td>
                         {/* <td><button onClick={navigate(`/petdetails/${pet.petId}`)}>Details</button></td> */}
                         {/* <td><button></button>{<PetDetails />}</td>
                         <td>{<ConfirmPetDelete />}</td> */}
