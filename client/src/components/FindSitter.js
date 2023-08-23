@@ -1,7 +1,6 @@
 import { useState } from "react";
 import SitterSearchBar from "./SitterSearchBar";
 import SitterMap from "./SitterMap";
-import { useState } from "react";
 import SitterTable from "./SitterTable";
 
 const FindSitter = () => {
