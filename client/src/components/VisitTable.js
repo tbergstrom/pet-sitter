@@ -1,39 +1,20 @@
-import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext } from "react";
 import AuthContext from "../contexts/AuthContext";
-import fetchWithToken from "../utils/fetchUtils";
 
-const VisitTable = ()=> {
-
-    const [visits, setVisits] = useState([]);
+const VisitTable = ({ visits })=> {
 
     const auth = useContext(AuthContext);
     const user = auth.user;
-
-    const jwtToken = auth.user.token;
-
-    const loadVisits = () => {
-        fetchWithToken(`http://localhost:8080/api/visit/sitter/${user.id}`, auth.logout, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${jwtToken}`
-            }
-        })
-        .then(response => response.json())
-        .then(payload => setVisits(payload))
-    };
-
-    useEffect(loadVisits, []);
 
     return (
         <>
             {/* Swaps between "visit" and "visits" depending on how many visits there are */}
             <h3>{visits.length} Upcoming {visits.length !== 1 ? <>Visits</> : <>Visit</>}</h3>
-            <table>
+            <table className="table table-striped">
                 <thead>
                     <tr>
                         {/* A logged in Sitter will see an "Owner" column. A logged in Owner will see a "Sitter" column */}
-                        {user.role === 1 ? <th>Sitter</th> : <th>Owner</th>}
+                        {user.roles[0] === "OWNER" ? <th>Sitter</th> : <th>Owner</th>}
                         <th>Start Date</th>
                         <th>End Date</th>
                         <th>Status</th>
@@ -47,23 +28,24 @@ const VisitTable = ()=> {
                 <tbody>
                     {visits.map(visit => <tr key={visit.visitId}>
                         {/* A logged in Sitter will see the Owner's name. A logged in Owner will see the Sitter's name */}
-                        {user.role === 1 ? <td>{visit.sitterName}</td> : <td>{visit.ownerName}</td>}
-                        <td>{visit.start}</td>
-                        <td>{visit.end}</td>
+                        {user.roles[0] === "OWNER" ? <td>{visit.sitterId}</td> : <td>{visit.ownerId}</td>}
+                        <td>{visit.startDate}</td>
+                        <td>{visit.endDate}</td>
                         <td>{visit.status}</td>
                         <td>{visit.cost}</td>
-                        {user.role === 2 
+                        {user.roles[0] === "SITTER" 
                         ? 
                         <>
                             <td><button>Deny</button></td>
                             <td><button>Confirm</button></td>
                         </>  
                         :
-                        null
+                        <td><button>Details</button></td>
                         }
                         
                         {/* The "Details" button would link to the full VisitDetails component and contact_info table */}
-                        <td><button>Details</button></td>
+                        
+                        <td><button>Cancel</button></td>
 
                     </tr>)}
                 </tbody>

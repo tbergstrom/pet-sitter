@@ -1,9 +1,12 @@
 package learn.petsitter.models;
 
+import org.apache.tomcat.jni.Local;
+
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.Objects;
 
@@ -12,7 +15,7 @@ public class CareVisit {
     private Date startDate;
     private Date endDate;
     private String status;
-    private Time timeOfDay;
+    private LocalTime timeOfDay;
     private String notes;
     private BigDecimal cost;
     private int ownerId;
@@ -21,7 +24,7 @@ public class CareVisit {
 
     public CareVisit() {}
 
-    public CareVisit(int careVisitId, Date start_date, Date end_date, String status, Time timeOfDay, String notes, BigDecimal cost, int owner_id, int sitterId) {
+    public CareVisit(int careVisitId, Date start_date, Date end_date, String status, LocalTime timeOfDay, String notes, BigDecimal cost, int owner_id, int sitterId) {
         this.careVisitId = careVisitId;
         this.startDate = start_date;
         this.endDate = end_date;
@@ -65,11 +68,11 @@ public class CareVisit {
         this.status = status;
     }
 
-    public Time getTimeOfDay() {
+    public LocalTime getTimeOfDay() {
         return timeOfDay;
     }
 
-    public void setTimeOfDay(Time timeOfDay) {
+    public void setTimeOfDay(LocalTime timeOfDay) {
         this.timeOfDay = timeOfDay;
     }
 

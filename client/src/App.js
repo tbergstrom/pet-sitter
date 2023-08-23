@@ -10,7 +10,7 @@ import Login from './components/Login';
 import Home from './components/Home';
 import VisitTable from './components/VisitTable';
 import VisitForm from './components/VisitForm';
-import ManageOwnerVisits from './components/ManageOwnerVisits';
+import ManageVisits from './components/ManageVisits';
 import ManagePets from './components/ManagePets';
 import About from './components/About';
 
@@ -103,7 +103,7 @@ function App() {
             <Route path="/manageaccount" element={ user ? <ManageAccount /> : <Navigate to="/" />} />
             <Route path="/managecontactinfo" element={ user ? <ManageContactInfo /> : <Navigate to="/" />} />
             <Route path="/managepets" element={ user ? <ManagePets /> : <Navigate to="/" />} />
-            <Route path="/manageownervisits" element={ user ? <ManageOwnerVisits /> : <Navigate to="/" />} />
+            <Route path="/managevisits" element={ user ? <ManageVisits /> : <Navigate to="/" />} />
             <Route path="/users/sitter/:username" element={ user ? <SitterDetails /> : <Navigate to="/" />} />
             <Route path="/user/my-info" element={ user ? <ContactInfoDetails /> : <Navigate to="/" />} />
             <Route path='/requestvisit' element={ user ? <ContactInfoForm contactInfo={contactInfo} /> : <Navigate to="/" /> }/>

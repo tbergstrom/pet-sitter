@@ -1,8 +1,9 @@
+import { useNavigate } from "react-router";
 import { useContext, useState } from "react";
 import AuthContext from "../contexts/AuthContext";
 import ContactInfoDetails from "./ContactInfoDetails";
 import ContactInfoForm from "./ContactInfoForm";
-import fetchWithToken from "../utils/fetchUtils";
+import fetchWithToken from "../utils/fetchUtils";;
 
 const ManageContactInfo = ()=> {
 
@@ -11,6 +12,7 @@ const ManageContactInfo = ()=> {
 
     const auth = useContext(AuthContext);
     const user = auth.user;
+    const navigate = useNavigate();
 
     const jwtToken = auth.user.token;
 

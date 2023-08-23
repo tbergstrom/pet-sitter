@@ -18,7 +18,7 @@ return (
                 <Card style={{ width: '18rem' }}>
                     <Card.Img variant="top" src="https://images.unsplash.com/photo-1624371066606-4863e333ad84?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1035&q=80"/>
                     <Card.Body>
-                        <Card.Title>Tyler Bergrstrom</Card.Title>
+                        <Card.Title>Tyler Bergstrom</Card.Title>
                         <Card.Text>
                         Some quick example text to build on the card title and make up the
                         bulk of the card's content.

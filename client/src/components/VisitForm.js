@@ -37,11 +37,11 @@ const VisitForm = (props)=> {
             timeOfDay,
             notes,
             cost: 100.00, // this will be calculated by the sitter.rate x (endDate - startDate)
-            sitterId: "sitterId", // one of these will be from params
-            ownerId: "ownerId"  // the other from... auth.user.id?
+            sitterId: props.sitter.appUserId, // one of these will be from params
+            ownerId: props.owner.appUserId  // the other from... auth.user.id?
         }
 
-        fetchWithToken("http://localhost:8080/api/visits", auth.logout, {
+        fetchWithToken("http://localhost:8080/api/visit", auth.logout, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -54,22 +54,28 @@ const VisitForm = (props)=> {
             if(response.ok) {
                 navigate(`/managevisits`); // need params.id?
                 resetState();
-                props.loadVisits();
+                // props.loadVisits();
                 // a props.setVisitsCounter as useEffect dependency?
             } else {
                 response.json()
                 .then(errors => {
-                    setErrors(errors)
+                    setErrors([errors])
                 })
             }
         })
     }
 
+    console.log("User is a: ", auth.user.roles[0]);
+    console.log("Sitter is: ", props.sitter)
+    console.log("Owner is: ", props.owner)
+    console.log("Time of day: ", timeOfDay);
+    console.log(typeof(timeOfDay));
+
     return (
         <>
             <form onSubmit={handleSubmit}>
                 <ul>
-                    {errors.map(error => <li key={error}> {error}</li>)}
+                    {errors.map(error => <li key={error}> {error.message}</li>)}
                 </ul>
                 <fieldset>
                     <label htmlFor="start-date-input"> Start: </label>

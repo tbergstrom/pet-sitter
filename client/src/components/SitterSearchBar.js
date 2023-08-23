@@ -5,17 +5,13 @@ import fetchWithToken from "../utils/fetchUtils";
 const SitterSearchBar  = (props)=> {
 
     const [address, setAddress] = useState("");
-
-    const [selectedDistance, setSelectedDistance] = useState(10);
+    const [selectedDistance, setSelectedDistance] = useState(5);
 
     const apiKey = process.env.REACT_APP_API_KEY;
-
     const auth = useContext(AuthContext);
 
     const handleSearch = async ()=> {
         const geoResponse = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`)
-
-
         const geoData = await geoResponse.json();
 
         if(geoData.results && geoData.results.length > 0) {
@@ -61,6 +57,7 @@ const SitterSearchBar  = (props)=> {
                 <option value="20">20 km</option>
                 <option value="50">50 km</option>
                 <option value="100">100 km</option>
+                <option value="1000">1000 km</option>
             </select>
         </div>
     )
