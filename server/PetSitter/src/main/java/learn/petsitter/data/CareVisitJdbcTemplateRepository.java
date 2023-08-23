@@ -10,8 +10,10 @@ import org.springframework.stereotype.Repository;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Repository
@@ -52,9 +54,14 @@ public class CareVisitJdbcTemplateRepository implements CareVisitRepository{
 
     private static Date convertToMySQLDate(java.util.Date javaDate) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String mysqlDateStr = sdf.format(javaDate);
-        return Date.valueOf(mysqlDateStr);
+        String mySqlDateStr = sdf.format(javaDate);
+        return Date.valueOf(mySqlDateStr);
     }
+
+    private static Time convertToSQLTime(LocalTime localTime) {
+        return Time.valueOf(localTime);
+    }
+
 
     @Override
     public CareVisit create(CareVisit careVisit) {
@@ -68,7 +75,7 @@ public class CareVisitJdbcTemplateRepository implements CareVisitRepository{
             ps.setDate(1, convertToMySQLDate(careVisit.getStartDate()));
             ps.setDate(2, convertToMySQLDate(careVisit.getEndDate()));
             ps.setString(3, careVisit.getStatus());
-            ps.setTime(4, careVisit.getTimeOfDay());
+            ps.setTime(4, convertToSQLTime(careVisit.getTimeOfDay()));
             ps.setString(5, careVisit.getNotes());
             ps.setBigDecimal(6, careVisit.getCost());
             ps.setInt(7, careVisit.getOwnerId());
@@ -101,7 +108,7 @@ public class CareVisitJdbcTemplateRepository implements CareVisitRepository{
                 careVisit.getStartDate(),
                 careVisit.getEndDate(),
                 careVisit.getStatus(),
-                careVisit.getTimeOfDay(),
+                convertToSQLTime(careVisit.getTimeOfDay()),
                 careVisit.getNotes(),
                 careVisit.getCost(),
                 careVisit.getOwnerId(),

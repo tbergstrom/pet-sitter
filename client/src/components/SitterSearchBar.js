@@ -1,46 +1,23 @@
-import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useState } from "react";
 import AuthContext from "../contexts/AuthContext";
+import fetchWithToken from "../utils/fetchUtils";
 
 const SitterSearchBar  = (props)=> {
 
     const [address, setAddress] = useState("");
-
-    const [selectedDistance, setSelectedDistance] = useState(10);
+    const [selectedDistance, setSelectedDistance] = useState(5);
 
     const apiKey = process.env.REACT_APP_API_KEY;
-
     const auth = useContext(AuthContext);
-    // const jwtToken = auth.user.token;
-
-    // useEffect(() => {
-    //     if (auth.user === null) {
-    //         return;
-    //     }
-    //     fetch("http://localhost:8080/api/users/all-sitters", {
-    //         method: "GET",
-    //         headers: {
-    //             "Authorization": `Bearer ${auth.user.token}`
-    //         }
-    //     })
-    //     .then(response => response.json())
-    //     .then(payload => props.setSitters(payload));
-    // }, [auth]);
 
     const handleSearch = async ()=> {
         const geoResponse = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`)
-
-
         const geoData = await geoResponse.json();
-
-        console.log("GeoData:", geoData);
 
         if(geoData.results && geoData.results.length > 0) {
             const location = geoData.results[0].geometry.location
 
-            console.log("Location: ", location)
-            
             const nearbyAddresses = await getNearbyAddresses(location);
-            console.log("Nearby addresses:", nearbyAddresses);
             props.setSitters(nearbyAddresses);
 
             props.setLocation(location);
@@ -57,14 +34,16 @@ const SitterSearchBar  = (props)=> {
 
         const queryString = new URLSearchParams(params).toString();
         const url = `http://localhost:8080/api/users/nearby-sitters?${queryString}`
-        const response = await fetch(url, {
+        const response = await fetchWithToken(url, auth.logout, {
             headers: {
                 "Authorization": `Bearer ${auth.user.token}`
             }
         });
-        // const response = await fetch("http://localhost:8080/api/users/all-sitters");
+
         const data = await response.json();
-        console.log("Backend fetch data :", data)
+        if (response.headers.get('Content-Length') === '0') {
+            return {};
+        }
         return data;
     }
 
@@ -80,6 +59,7 @@ const SitterSearchBar  = (props)=> {
                 <option value="20">20 km</option>
                 <option value="50">50 km</option>
                 <option value="100">100 km</option>
+                <option value="1000">1000 km</option>
             </select>
         </div>
     )

@@ -1,6 +1,7 @@
 package learn.petsitter.security;
 
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,21 +33,20 @@ public class JwtRequestFilter extends BasicAuthenticationFilter {
         if (authorization != null && authorization.startsWith("Bearer ")) {
 
             // 3. The value looks okay, confirm it with JwtConverter.
-            UserDetails user = converter.getUserFromToken(authorization);
-            if (user == null) {
-                response.setStatus(403); // Forbidden
-            } else {
-
-                // 4. Confirmed. Set auth for this single request.
+            try {
+                UserDetails user = converter.getUserFromToken(authorization);
                 UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                         user.getUsername(), null, user.getAuthorities());
-
                 SecurityContextHolder.getContext().setAuthentication(token);
+            } catch (RuntimeException ex) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write("Invalid or expired token");
+                return;
             }
         }
-
         // 5. Keep the chain going.
         chain.doFilter(request, response);
+
     }
 }
 
