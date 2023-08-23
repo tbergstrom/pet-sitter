@@ -11,7 +11,7 @@ Content-Type: application/json
 
 @base_url = http://localhost:8080/api/users
 
-@bearer_token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcml0dGVyLXNpdHRlciIsInN1YiI6IkpvaG5ueWJveSIsImF1dGhvcml0aWVzIjoiT1dORVIiLCJleHAiOjE2OTI3Mjk4NzR9.IaxUg6zCJ7R3cy4kiHr4LwuVwksNoOaZG4EFGIbYGdI
+@bearer_token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcml0dGVyLXNpdHRlciIsInN1YiI6IkpvaG5ueWJveSIsImF1dGhvcml0aWVzIjoiT1dORVIiLCJleHAiOjE2OTI4NDA0ODR9.QQZuophsdV-ke4gCkIdPImNzViDZE5Hf_HuCa3hG8tw
 ###
 
 # Get all owners
