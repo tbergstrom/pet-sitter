@@ -42,7 +42,8 @@ const SitterSearchBar  = (props)=> {
             const nearbyAddresses = await getNearbyAddresses(location);
             console.log("Nearby addresses:", nearbyAddresses);
             props.setSitters(nearbyAddresses);
-            console.log("Nearby addresses:", nearbyAddresses);
+
+            props.setLocation(location);
         }
     }
 
