@@ -41,7 +41,7 @@ const ManageVisits = ()=> {
     return (
         <Container>
             <h3 className="my-5">{user.username}'s Visits</h3>
-            <VisitTable visits={visits} loadVisists={loadVisits} />
+            <VisitTable visits={visits} loadVisits={loadVisits} />
             {showVisitForm && <VisitForm visits={visits} setVisits={setVisits} loadVisits={loadVisits} toggleForm={toggleForm} />}
             
             <Button variant="info" onClick={toggleForm}>

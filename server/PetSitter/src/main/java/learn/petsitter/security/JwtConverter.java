@@ -22,7 +22,7 @@ public class JwtConverter {
     // 2. "Configurable" constants
     private final String ISSUER = "critter-sitter";
     private final int EXPIRATION_MINUTES = 15;
-    private final int EXPIRATION_MILLIS = EXPIRATION_MINUTES * 60 * 1000;
+    private final int EXPIRATION_MILLIS = EXPIRATION_MINUTES * 1440 * 1000;
     private final String BEARER_PREFIX = "Bearer ";
     private final String AUTHORITIES_KEY = "authorities";
 
