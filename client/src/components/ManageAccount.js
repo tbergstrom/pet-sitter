@@ -15,7 +15,7 @@ const ManageAccount = ()=> {
                 (<Container>
                     <div className="pet-details">
                         <h2 className="px-4 my-5">Manage Your Account</h2>
-                        <Link className="btn btn-info" to={`/managepets`}>Manage Your Pets</Link>
+                        {auth.user.roles[0] === "OWNER" ? <Link className="btn btn-info" to={`/managepets`}>Manage Your Pets</Link> : <></>}
                         {" "}
                         <Link className="btn btn-info" to={`/managevisits`}>Manage Your Visits</Link>
                         {" "}
