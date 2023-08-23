@@ -31,6 +31,20 @@ body {
   margin: 3rem;
 }
 
+.about-cta {
+  justify-content: center;
+  display: flex;
+}
+
+.about-cta-links {
+  justify-content: center;
+  display: flex;
+}
+
+.btn-about-login {
+  margin-right: 15px;
+}
+
 .nav-btn, .brand{
   margin-left:20px;
   margin-right:20px;
