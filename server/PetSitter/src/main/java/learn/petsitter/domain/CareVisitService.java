@@ -34,7 +34,7 @@ public class CareVisitService {
         }
 
         if (cv.getCareVisitId() != 0) {
-            result.addErrorMessage("care vist Id cannot be set for 'create' operation in service", ResultType.INVALID);
+            result.addErrorMessage("care visit Id cannot be set for 'create' operation in service", ResultType.INVALID);
             return result;
         }
 
