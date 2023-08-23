@@ -76,6 +76,8 @@ public class CareVisitController {
     @PutMapping("/singlevisit/{careVisitId}")
     public ResponseEntity<?> update(@PathVariable int careVisitId, @RequestBody CareVisit cv) {
         if (careVisitId != cv.getCareVisitId()) {
+            System.out.println("Path Var careVisitId: " + careVisitId);
+            System.out.println("cv.getCareVisitId: " + cv.getCareVisitId());
             return new ResponseEntity<>(HttpStatus.CONFLICT); //409
         }
 

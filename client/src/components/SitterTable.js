@@ -22,7 +22,7 @@ const SitterTable = ({ sitters }) => {
                                     <p className="card-text">{parseFloat(sitter.distanceInKm).toFixed(2)} km away</p>
                                     <p>Rate: {sitter.rate}</p>
                                     <p>
-                                        <Link class="btn btn-info" to={{
+                                        <Link className="btn btn-info" to={{
                                             pathname: `/users/sitter/${sitter.username}`,
                                             state: { sitterFromTable: sitter }
                                         }}>View Details</Link>
@@ -50,7 +50,7 @@ const SitterTable = ({ sitters }) => {
                                     <td>{sitter.rate}</td>
                                     <td>{parseFloat(sitter.distanceInKm).toFixed(2)} km</td>
                                     <td>
-                                        <Link class="btn btn-info" to={{
+                                        <Link className="btn btn-info" to={{
                                             pathname: `/users/sitter/${sitter.username}`,
                                             state: { sitterFromTable: sitter }
                                         }}>View Details</Link>
