@@ -2,7 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 import ConfirmPetDelete from "./ConfirmPetDelete";
+
+import { Container, Button } from "react-bootstrap";
+
 import fetchWithToken from "../utils/fetchUtils";
+
 
 const PetDetails = ()=> {
 
@@ -41,7 +45,7 @@ const PetDetails = ()=> {
 
     useEffect(loadPetDetails, [params.id, jwtToken])
     return (
-        <>
+        <Container>
             { errors && 
             <ul>
                 {errors.map((error, i) => <li key={i}>{error}</li>)}
@@ -52,9 +56,9 @@ const PetDetails = ()=> {
                     <p>Name: {pet.name}</p>
                     <p>Species: {pet.petType}</p>
                     <p>Description: {pet.notes}</p>
-                    <button onClick={() => navigate(`/confirmpetdelete/${pet.petId}`)}>Remove this pet from your list?</button>
+                    <Button variant="info" onClick={() => navigate(`/confirmpetdelete/${pet.petId}`)}>Remove this pet from your list?</Button>
                     {" "}
-                    <button onClick={() => navigate("/manageaccount")}>Back to Manage Account</button>
+                    <Button variant="warning" onClick={() => navigate("/manageaccount")}>Back to Manage Account</Button>
 
 
                     {/* This button is activating as soon as the PetDetails button is clicked, for some reason. */}
@@ -63,7 +67,7 @@ const PetDetails = ()=> {
                 :
                 (<p>...Loading</p>)
             }
-        </>
+        </Container>
         
     );
 }

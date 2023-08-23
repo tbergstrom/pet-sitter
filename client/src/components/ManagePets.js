@@ -2,9 +2,13 @@ import { useContext, useEffect, useState } from "react";
 import PetForm from "./PetForm";
 import PetTable from "./PetTable";
 import AuthContext from "../contexts/AuthContext";
+
+import { Button, Container, Table } from "react-bootstrap";
+
 import fetchWithToken from "../utils/fetchUtils";
-import { Button, Table } from "react-bootstrap";
+
 import { useNavigate } from "react-router";
+
 
 
 const ManagePets = ()=> {
@@ -35,8 +39,8 @@ const ManagePets = ()=> {
     useEffect(loadPets, []);
 
     return (
-        <>
-            <h3>{user.username}'s Pets</h3>
+        <Container>
+            <h3 className="px-4 my-5">{user.username}'s Pets</h3>
             <PetTable pets={pets} loadPets={loadPets}/>
             {showPetForm && <PetForm pets={pets} setPets={setPets} loadPets={loadPets} toggleForm={toggleForm} />}
             
@@ -48,9 +52,9 @@ const ManagePets = ()=> {
 
            
             {" "}
-            <button onClick={() => navigate("/manageaccount")}>Back to Manage Account</button>
+            <Button variant="warning" onClick={() => navigate("/manageaccount")}>Back to Manage Account</Button>
 
-        </>
+        </Container>
     )
 }
 

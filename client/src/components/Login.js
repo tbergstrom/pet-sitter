@@ -2,7 +2,11 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 import { GoogleLogin } from '@react-oauth/google';
+
+import { Container, Form, Button } from "react-bootstrap";
+
 import fetchWithToken from "../utils/fetchUtils";
+
 
 
 export default function Login() {
@@ -76,12 +80,12 @@ export default function Login() {
   }
 
   return (
-    <div>
-      <h2>Login</h2>
+    <Container className="px-4 my-5">
+      <h2 className="mb-3">Login</h2>
       {errors.map((error, i) => (
         <div key={i}>{error}</div>
       ))}
-
+      
       <GoogleLogin
         clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
 
@@ -89,30 +93,32 @@ export default function Login() {
         onFailure={handleGoogleFailure}
       />
 
-      <form onSubmit={handleSubmit}>
-        <div>
+      <Form className="my-5" onSubmit={handleSubmit}>
+        <Form.Group className="mb-3">
           {/* Includes for/id attributes for basic HTML accessibility ♿. */}
-          <label htmlFor="username">Username:</label>
+          <Form.Label htmlFor="username">Username:</Form.Label>
           <input
             type="text"
+            placeholder="Enter username"
             onChange={(event) => setUsername(event.target.value)}
             value={username}
             id="username"
           />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="password">Password:</Form.Label>
           <input
             type="password"
+            placeholder="Password"
             onChange={(event) => setPassword(event.target.value)}
             value={password}
             id="password"
           />
-        </div>
+        </Form.Group>
         <div>
-          <button type="submit">Login</button>
+          <Button variant="info" type="submit">Login</Button>
         </div>
-      </form>
-    </div>
+      </Form>
+    </Container>
   );
 }
