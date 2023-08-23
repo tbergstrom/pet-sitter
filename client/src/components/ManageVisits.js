@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import VisitTable from "./VisitTable";
 import AuthContext from "../contexts/AuthContext";
-import VisitForm from "./VisitForm";
+// import VisitForm from "./VisitForm";
 import fetchWithToken from "../utils/fetchUtils";
 import { useNavigate } from "react-router";
 import { Container, Button } from 'react-bootstrap'
@@ -10,7 +10,7 @@ import { Container, Button } from 'react-bootstrap'
 const ManageVisits = ()=> {
 
     const [visits, setVisits] = useState([]);
-    const [showVisitForm, setShowVisitForm] = useState(false);
+    // const [showVisitForm, setShowVisitForm] = useState(false);
 
     const navigate = useNavigate();
     const auth = useContext(AuthContext);
@@ -18,9 +18,9 @@ const ManageVisits = ()=> {
 
     const jwtToken = auth.user.token;
 
-    const toggleForm = () => {
-        setShowVisitForm(!showVisitForm);
-    }
+    // const toggleForm = () => {
+    //     setShowVisitForm(!showVisitForm);
+    // }
 
     const loadVisits = () => {
 
@@ -42,12 +42,12 @@ const ManageVisits = ()=> {
         <Container>
             <h3 className="my-5">{user.username}'s Visits</h3>
             <VisitTable visits={visits} loadVisits={loadVisits} />
-            {showVisitForm && <VisitForm visits={visits} setVisits={setVisits} loadVisits={loadVisits} toggleForm={toggleForm} />}
+            {/* {showVisitForm && <VisitForm visits={visits} setVisits={setVisits} loadVisits={loadVisits} toggleForm={toggleForm} />} */}
             
-            <Button variant="info" onClick={toggleForm}>
+            {/* <Button variant="info" onClick={toggleForm}>
                 {showVisitForm ? "Cancel" : "Request a New Care Visit"}
             </Button>
-            {" "}
+            {" "} */}
             <Button variant="warning" onClick={() => navigate("/manageaccount")}>Back to Manage Account</Button>
         </Container>
     )

@@ -124,7 +124,7 @@ const VisitForm = (props)=> {
                 </Form.Group>
                 <Button className="px-4" variant="info" type="submit">Save</Button>
                 {" "}
-                <Link className="btn btn-warning" to="/managevisits">Cancel</Link>
+                <Link className="btn btn-warning" to="/findsitter">Cancel</Link>
             </Form>
         </Container>
     )
