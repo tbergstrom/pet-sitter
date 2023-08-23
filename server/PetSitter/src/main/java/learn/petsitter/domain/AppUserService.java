@@ -55,28 +55,43 @@ public class AppUserService implements UserDetailsService {
         }
 
         password = encoder.encode(password);
+
+        AppUser existingUser = repository.findByUsername(username);
+
+        if(existingUser != null) {
+            result.addErrorMessage("Username already exists", ResultType.INVALID);
+            return result;
+        }
+
         AppUser appUser = new AppUser(0, username, password, true, 0, roles);
 
         try {
             appUser = repository.create(appUser);
-            result.setPayload(appUser);
-        } catch (DuplicateKeyException e) {
-            result.addErrorMessage("The provided username already exists", ResultType.INVALID);
+
+        } catch (DuplicateKeyException ex) {
+            result.addErrorMessage("Unable to create user: " + ex.getMessage(), ResultType.INVALID);
+            return result;
         }
-//        //TODO setting blank contact info for new users. Is this right?
-//        ContactInfo ci = new ContactInfo();
-//        ci.setFirstName("");
-//        ci.setLastName("");
-//        ci.setEmail("");
-//        ci.setPhoneNumber("");
-//        ci.setStreetAddress("");
-//        ci.setCity("");
-//        ci.setState("");
-//        ci.setZipCode("");
-//        ci.setAppUserId(appUser.getAppUserId());
-//        ContactInfo contactInfo = contactInfoRepository.create(ci);
-//        appUser.setContactInfo(contactInfo);
-        return result;
+
+        ContactInfo ci = new ContactInfo();
+        ci.setFirstName("");
+        ci.setLastName("");
+        ci.setEmail("");
+        ci.setPhoneNumber("");
+        ci.setStreetAddress("");
+        ci.setCity("");
+        ci.setState("");
+        ci.setZipCode("");
+        ci.setLatitude(0.0);
+        ci.setLongitude(0.0);
+        ci.setAppUserId(appUser.getAppUserId());
+        ContactInfo contactInfo = contactInfoRepository.create(ci);
+        appUser.setContactInfo(contactInfo);
+
+        Result<AppUser> resultAppUser = new Result<>();
+
+        resultAppUser.setPayload(appUser);
+        return resultAppUser;
     }
 
     public Result<AppUser> createGoogleUser(String email, List<String> roles) {

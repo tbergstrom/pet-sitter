@@ -1,19 +1,17 @@
 import { useContext, useState, useEffect } from "react";
 import VisitTable from "./VisitTable";
 import AuthContext from "../contexts/AuthContext";
-import { useNavigate, useParams } from "react-router-dom";
 import VisitForm from "./VisitForm";
+import fetchWithToken from "../utils/fetchUtils";
+import { useNavigate } from "react-router";
 
-const ManageOwnerVisits = ()=> {
+const ManageVisits = ()=> {
 
     const [visits, setVisits] = useState([]);
-    const [visitsCounter, setVisitsCounter] = useState(visits.length);
     const [showVisitForm, setShowVisitForm] = useState(false);
 
-    
-    const auth = useContext(AuthContext);
     const navigate = useNavigate();
-    const params = useParams();
+    const auth = useContext(AuthContext);
     const user = auth.user;
 
     const jwtToken = auth.user.token;
@@ -23,7 +21,10 @@ const ManageOwnerVisits = ()=> {
     }
 
     const loadVisits = () => {
-        fetch(`http://localhost:8080/api/visit/owner/${user.id}`, {
+
+        let userRole = "";
+        user.roles[0] === "SITTER" ? userRole = "sitter" : userRole = "owner";
+        fetchWithToken(`http://localhost:8080/api/visit/${userRole}/my-visits`, auth.logout, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${jwtToken}`
@@ -33,7 +34,7 @@ const ManageOwnerVisits = ()=> {
         .then(payload => setVisits(payload))
     };
 
-    useEffect(loadVisits, []);
+    useEffect(loadVisits, [auth.logout, jwtToken, user.roles]);
 
     return (
         <>
@@ -50,4 +51,4 @@ const ManageOwnerVisits = ()=> {
     )
 }
 
-export default ManageOwnerVisits;
+export default ManageVisits;

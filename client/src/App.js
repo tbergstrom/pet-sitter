@@ -10,7 +10,7 @@ import Login from './components/Login';
 import Home from './components/Home';
 import VisitTable from './components/VisitTable';
 import VisitForm from './components/VisitForm';
-import ManageOwnerVisits from './components/ManageOwnerVisits';
+import ManageVisits from './components/ManageVisits';
 import ManagePets from './components/ManagePets';
 import About from './components/About';
 
@@ -33,8 +33,6 @@ function App() {
   const [visits, setVisits] = useState([]);
   const [contactInfo, setContactInfo] = useState([]);
   const [user, setUser] = useState(null);
-
-  
 
   const login = (token) => {
     // Decode the token
@@ -68,6 +66,8 @@ function App() {
     user: user ? { ...user } : null
   }
 
+  
+
   // consider moving to ManageVisits
   const loadVisits = () => {
     // fetch("http://localhost:8080/api/visit")
@@ -78,26 +78,12 @@ function App() {
 
   useEffect(loadVisits, [])
 
-
-  // consider moving to ManageContactInfo (and/ or where we view other ppls profiles)
-  // const loadContactInfo = () => {
-  //   fetch("http://localhost:8080/api/contact-info")
-  //   .then(response => response.json())
-  //   .then(payload => setContactInfo(payload))
-  //   console.log("no contact info yet")
-  // }
-
-  // useEffect(loadContactInfo, [])
-
   useEffect(() => {
     const token = localStorage.getItem("auth-token")
     if (token) {
       login(token)
     }
   }, []);
-
-
-  console.log("User: ", user);
 
   return (
     <GoogleOAuthProvider clientId='321605181263-7tsniamk1f3712hs4p6uc26dvshbv46k.apps.googleusercontent.com'>
@@ -117,7 +103,7 @@ function App() {
             <Route path="/manageaccount" element={ user ? <ManageAccount /> : <Navigate to="/" />} />
             <Route path="/managecontactinfo" element={ user ? <ManageContactInfo /> : <Navigate to="/" />} />
             <Route path="/managepets" element={ user ? <ManagePets /> : <Navigate to="/" />} />
-            <Route path="/manageownervisits" element={ user ? <ManageOwnerVisits /> : <Navigate to="/" />} />
+            <Route path="/managevisits" element={ user ? <ManageVisits /> : <Navigate to="/" />} />
             <Route path="/users/sitter/:username" element={ user ? <SitterDetails /> : <Navigate to="/" />} />
             <Route path="/user/my-info" element={ user ? <ContactInfoDetails /> : <Navigate to="/" />} />
             <Route path='/requestvisit' element={ user ? <ContactInfoForm contactInfo={contactInfo} /> : <Navigate to="/" /> }/>

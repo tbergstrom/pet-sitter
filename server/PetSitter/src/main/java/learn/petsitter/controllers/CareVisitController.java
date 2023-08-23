@@ -57,14 +57,18 @@ public class CareVisitController {
     //TODO how is the sitter going to be set? User can designate on the form (minimally we can show the number corresponding to their id and take in the id?
     @PostMapping
     public ResponseEntity<Object> create(@RequestBody CareVisit cv) {
+        System.out.println("here");
         String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         AppUser appUser = (AppUser) appUserService.loadUserByUsername(username);
         cv.setOwnerId(appUser.getAppUserId());
+        System.out.println(cv.getTimeOfDay());
 
         Result<CareVisit> result = service.create(cv);
         if (!result.isSuccess()) {
             return new ResponseEntity<>(result.getErrorMessages(), HttpStatus.BAD_REQUEST);
         }
+
+
 
         return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
     }

@@ -2,7 +2,11 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 import { GoogleLogin } from '@react-oauth/google';
+
 import { Container, Form, Button } from "react-bootstrap";
+
+import fetchWithToken from "../utils/fetchUtils";
+
 
 
 export default function Login() {
@@ -19,8 +23,7 @@ export default function Login() {
     const handleSubmit = async (event) => {
         event.preventDefault();
   
-        // NEW
-        const response = await fetch("http://localhost:8080/authenticate", {
+        const response = await fetchWithToken("http://localhost:8080/authenticate", auth.logout, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -48,8 +51,7 @@ export default function Login() {
     const tokenId = event.credential;
 
     try {
-      console.log(tokenId);
-      const response = await fetch("http://localhost:8080/authenticate_google", {
+      const response = await fetchWithToken("http://localhost:8080/authenticate-google", auth.logout, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -64,7 +66,6 @@ export default function Login() {
         auth.login(jwt_token);
         navigate("/");
       } else {
-        console.log("Response status: " + response.status);
         console.error("Error from backend: ", data);
         navigate("/login");
       }
@@ -87,7 +88,7 @@ export default function Login() {
       
       <GoogleLogin
         clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-        // buttonText="Sign Up with Google"
+
         onSuccess={handleGoogleSuccess}
         onFailure={handleGoogleFailure}
       />

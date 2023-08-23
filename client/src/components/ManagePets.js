@@ -1,21 +1,24 @@
 import { useContext, useEffect, useState } from "react";
 import PetForm from "./PetForm";
 import PetTable from "./PetTable";
-import { useNavigate, useParams } from "react-router";
 import AuthContext from "../contexts/AuthContext";
-import { Button, Container } from "react-bootstrap";
+
+import { Button, Container, Table } from "react-bootstrap";
+
+import fetchWithToken from "../utils/fetchUtils";
+
+import { useNavigate } from "react-router";
+
+
 
 const ManagePets = ()=> {
 
     const [pets, setPets] = useState([]);
-    const [petsCounter, setPetsCounter] = useState(0);
     const [showPetForm, setShowPetForm] = useState(false);
 
     const navigate = useNavigate();
-    const params = useParams();
     const auth = useContext(AuthContext);
     const user = auth.user;
-
     const jwtToken = auth.user.token;
 
     const toggleForm = ()=> {
@@ -23,7 +26,7 @@ const ManagePets = ()=> {
     }
 
     const loadPets = ()=> {
-        fetch("http://localhost:8080/api/pets/mypets", {
+        fetchWithToken("http://localhost:8080/api/pets/mypets", auth.logout, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${jwtToken}`
