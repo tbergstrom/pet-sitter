@@ -3,7 +3,8 @@ import { useContext, useState } from "react";
 import AuthContext from "../contexts/AuthContext";
 import ContactInfoDetails from "./ContactInfoDetails";
 import ContactInfoForm from "./ContactInfoForm";
-import fetchWithToken from "../utils/fetchUtils";;
+import fetchWithToken from "../utils/fetchUtils";
+import { Container, Button } from "react-bootstrap";
 
 const ManageContactInfo = ()=> {
 
@@ -32,17 +33,17 @@ const ManageContactInfo = ()=> {
     };
 
     return (
-        <>
-            <h3>{user.username}'s Contact Info</h3>
+        <Container>
+            <h3 className="my-5">{user.username}'s Contact Info</h3>
             <ContactInfoDetails contactInfo={contactInfo} loadContactInfo={loadContactInfo} />
             {showEditButton && <ContactInfoForm contactInfo={contactInfo} setContactInfo={setContactInfo} loadContactInfo={loadContactInfo} toggleForm={toggleForm} />}
             
-            <button onClick={toggleForm}>
+            <Button variant="info" onClick={toggleForm}>
                 {showEditButton ? "Cancel" : "Edit"}
-            </button>
+            </Button>
             {" "}
-            <button onClick={() => navigate("/manageaccount")}>Back to Manage Account</button>
-        </>
+            <Button variant="warning" onClick={() => navigate("/manageaccount")}>Back to Manage Account</Button>
+        </Container>
     )
 }
 

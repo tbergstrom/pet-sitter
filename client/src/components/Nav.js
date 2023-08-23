@@ -39,9 +39,9 @@ const Nav = ()=> {
                 {/* only logged out */}
                 { !user && (
                     <>
-                        <Link className="nav-btn" to='/login'>Login</Link>
-                        {" "}
                         <Link className="nav-btn" to='/create_account'>Create Account</Link>
+                        {" "}
+                        <Link class="btn btn-info" to='/login'>Login</Link>
                     </>
                 )}
             </Container>

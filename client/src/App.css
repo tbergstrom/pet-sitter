@@ -85,3 +85,15 @@ body {
   width:45rem;
   height:30rem;
 }
+
+/* 
+Forces carousel image to be 100% width and not max width of 100% 
+*/ 
+.carousel-item .img-fluid { width:100%; height:100%; }
+/*
+Forces carousel image to be 100% width and not max width of 100%
+*/
+.carousel-item .img-fluid {
+width:100%;
+height:100%;
+}
