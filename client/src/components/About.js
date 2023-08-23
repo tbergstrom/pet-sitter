@@ -14,9 +14,9 @@ return (
                 <h2 className="px-4 my-5">About Us</h2>
                 <div className='subtitle'>A Team of Pet Lovers</div>
             </div>
-            <Row className="px-4 my-5">
-                <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src="https://images.unsplash.com/photo-1624371066606-4863e333ad84?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1035&q=80"/>
+            <Row className="px-4 my-5 card-row">
+                <Card className="text-center about-card" style={{ width: '18rem' }}>
+                    <Card.Img className="card-img" variant="top" src="https://images.unsplash.com/photo-1624371066606-4863e333ad84?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1035&q=80"/>
                     <Card.Body>
                         <Card.Title>Tyler Bergstrom</Card.Title>
                         <Card.Text>
@@ -25,8 +25,8 @@ return (
                         </Card.Text>
                     </Card.Body>
                 </Card>
-                <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src="https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80"/>
+                <Card className="text-center about-card" style={{ width: '18rem' }}>
+                    <Card.Img className="card-img" variant="top" src="https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80"/>
                     <Card.Body>
                         <Card.Title>Chandler Carne</Card.Title>
                         <Card.Text>
@@ -35,8 +35,8 @@ return (
                         </Card.Text>
                     </Card.Body>
                 </Card>
-                <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src="https://images.unsplash.com/photo-1503324164927-dfb122c2041c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80" />
+                <Card className="text-center about-card" style={{ width: '18rem' }}>
+                    <Card.Img className="card-img" variant="top" src="https://images.unsplash.com/photo-1503324164927-dfb122c2041c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80" />
                     <Card.Body>
                         <Card.Title>Shannon Wilson</Card.Title>
                         <Card.Text>
@@ -47,7 +47,7 @@ return (
                 </Card>
             </Row>
             <Row className="px-4 my-5">
-                <Col sm={6} >
+                <Col sm={6}  >
                     <Image id="team-img" src={img1} rounded />
                 </Col>
                 <Col sm={6}>
