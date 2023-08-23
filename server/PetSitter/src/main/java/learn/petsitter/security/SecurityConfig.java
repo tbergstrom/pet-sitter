@@ -40,9 +40,9 @@ public class SecurityConfig {
 //                .antMatchers(HttpMethod.GET, "/api/visit/owner", "/api/visit/owner/my-visits").hasAnyAuthority("OWNER")
 //                .antMatchers(HttpMethod.GET, "/api/visit/sitter", "/api/visit/sitter/my-visits").hasAnyAuthority("SITTER")
                 .antMatchers(HttpMethod.POST,
-                        "/api/pets", "/api/visit/owner", "/api/contact-info").hasAnyAuthority("OWNER")
-                .antMatchers(HttpMethod.POST,
-                        "/api/visit/sitter").hasAnyAuthority("SITTER")
+                        "/api/pets", "/api/visit", "/api/contact-info").hasAnyAuthority("OWNER")
+//                .antMatchers(HttpMethod.POST,
+//                        "/api/visit/sitter").hasAnyAuthority("SITTER")
                 .antMatchers(HttpMethod.PUT,
                         "/api/pets", "/api/pets/pet/*", "/api/visit/owner", "/api/visit/sitter", "/api/contact-info/*", "/api/visit/singlevisit/*").hasAnyAuthority("OWNER","SITTER")
                 .antMatchers(HttpMethod.DELETE,
