@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { Container } from "react-bootstrap";
 
 const SitterMap = ({ location }) => {
     const mapRef = useRef(null);
@@ -55,7 +56,11 @@ const SitterMap = ({ location }) => {
         }
     }, [location]);
 
-    return <div ref={mapRef} style={{ width: "100%", height: "400px" }}></div>;
+    return (
+        <Container>
+            <div ref={mapRef} style={{ width: "100%", height: "400px" }}></div>
+        </Container>
+    );
 };
 
 export default SitterMap;

@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import AuthContext from "../contexts/AuthContext";
 import fetchWithToken from "../utils/fetchUtils";
+import { Container, Button } from "react-bootstrap";
 
 const SitterSearchBar  = (props)=> {
 
@@ -50,9 +51,9 @@ const SitterSearchBar  = (props)=> {
     
 
     return (
-        <div>
+        <Container className="my-2">
             <input type="text" value={address} onChange={(evt) => setAddress(evt.target.value)} placeholder="Enter address"/>
-            <button onClick={handleSearch}>Search</button>
+            <Button className="px-4" variant="info" onClick={handleSearch}>Search</Button>
             <select value={selectedDistance} onChange={(evt) => setSelectedDistance(evt.target.value)}>
                 <option value="5">5 km</option>
                 <option value="10">10 km</option>
@@ -61,7 +62,7 @@ const SitterSearchBar  = (props)=> {
                 <option value="100">100 km</option>
                 <option value="1000">1000 km</option>
             </select>
-        </div>
+        </Container>
     )
 
 }

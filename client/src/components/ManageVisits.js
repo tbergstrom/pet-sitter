@@ -4,6 +4,8 @@ import AuthContext from "../contexts/AuthContext";
 import VisitForm from "./VisitForm";
 import fetchWithToken from "../utils/fetchUtils";
 import { useNavigate } from "react-router";
+import { Container, Button } from 'react-bootstrap'
+
 
 const ManageVisits = ()=> {
 
@@ -37,17 +39,17 @@ const ManageVisits = ()=> {
     useEffect(loadVisits, [auth.logout, jwtToken, user.roles]);
 
     return (
-        <>
-            <h3>{user.username}'s Visits</h3>
+        <Container>
+            <h3 className="my-5">{user.username}'s Visits</h3>
             <VisitTable visits={visits} loadVisists={loadVisits} />
             {showVisitForm && <VisitForm visits={visits} setVisits={setVisits} loadVisits={loadVisits} toggleForm={toggleForm} />}
             
-            <button onClick={toggleForm}>
+            <Button variant="info" onClick={toggleForm}>
                 {showVisitForm ? "Cancel" : "Request a New Care Visit"}
-            </button>
+            </Button>
             {" "}
-            <button onClick={() => navigate("/manageaccount")}>Back to Manage Account</button>
-        </>
+            <Button variant="warning" onClick={() => navigate("/manageaccount")}>Back to Manage Account</Button>
+        </Container>
     )
 }
 

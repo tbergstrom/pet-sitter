@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from '@react-oauth/google';
 import fetchWithToken from "../utils/fetchUtils";
 import AuthContext from "../contexts/AuthContext";
+import { Container, Form, Button } from "react-bootstrap";
 
 export default function CreateAccount() {
 
@@ -84,14 +85,14 @@ export default function CreateAccount() {
   }
 
   return (
-    <div>
-      <h2>Sign Up and Find a Sitter Near You</h2>
+    <Container className="px-4 my-5">
+      <h2 className="mb-3">Sign Up and Find a Sitter Near You</h2>
       {errors.map((error, i) => (
         <div key={i}>{error}</div>
       ))}
 
       <div>
-        <label htmlFor="role">Role:</label>
+        <label className="mb-3" htmlFor="role">Role:</label>
         <select
           id="role"
           onChange={(event) => setRole(event.target.value)}
@@ -110,31 +111,33 @@ export default function CreateAccount() {
         onFailure={handleGoogleFailure}
       />
       
-      <form onSubmit={handleSubmit}>
-        <div>
+      <Form className="my-3" onSubmit={handleSubmit}>
+        <Form.Group className="mb-3">
           {/* Includes for/id attributes for basic HTML accessibility ♿. */}
-          <label htmlFor="username">Username:</label>
+          <Form.Label htmlFor="username">Username:</Form.Label>
           <input
             type="text"
+            placeholder="Enter username"
             onChange={(event) => setUsername(event.target.value)}
             value={username}
             id="username"
           />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="password">Password:</Form.Label>
           <input
             type="password"
+            placeholder="Password"
             onChange={(event) => setPassword(event.target.value)}
             value={password}
             id="password"
           />
-        </div>
+        </Form.Group>
         
         <div>
-          <button type="submit">Create Account</button>
+          <Button variant="info" type="submit">Create Account</Button>
         </div>
-      </form>
-    </div>
+      </Form>
+    </Container>
   );
 }
