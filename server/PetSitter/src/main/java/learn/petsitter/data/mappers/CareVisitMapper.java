@@ -35,7 +35,7 @@ public class CareVisitMapper implements RowMapper<CareVisit> {
         cv.setStartDate(resultSet.getDate("start_date"));
         cv.setEndDate(resultSet.getDate("end_date"));
         cv.setStatus(resultSet.getString("status"));
-        cv.setTimeOfDay(Time.valueOf(t));
+        cv.setTimeOfDay(t);
         cv.setNotes(resultSet.getString("notes"));
         cv.setCost(resultSet.getBigDecimal("cost"));
         cv.setOwnerId(resultSet.getInt("owner_id"));

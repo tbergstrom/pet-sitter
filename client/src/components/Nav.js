@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 import AuthContext from "../contexts/AuthContext"
 import { useContext } from "react"
 import Button from 'react-bootstrap/Button';
@@ -7,11 +7,10 @@ import Navbar from 'react-bootstrap/Navbar';
  import { Container } from "react-bootstrap";
 
 const Nav = ()=> {
+
     const auth = useContext(AuthContext)
     const user = auth.user
 
-    const params = useParams();
-    const ownerId = params.id;
 
     return (
 

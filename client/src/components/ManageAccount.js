@@ -7,8 +7,6 @@ const ManageAccount = ()=> {
     const auth = useContext(AuthContext)
     const user = auth.user;
 
-    // console.log(user);
-
     return (
         <>
             { user ? 
@@ -16,7 +14,7 @@ const ManageAccount = ()=> {
                     <h2>Manage Your Account</h2>
                     <Link to={`/managepets`}>Manage Your Pets</Link>
                     {" "}
-                    <Link className="nav-btn" to={`/manageownervisits`}>Manage Your Visits</Link>
+                    <Link className="nav-btn" to={`/managevisits`}>Manage Your Visits</Link>
                     {" "}
                     <Link to={`/managecontactinfo`}>Manage Your Contact Info</Link>
                     {" "}

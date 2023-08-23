@@ -67,12 +67,14 @@ public class JwtConverter {
 
             return new User(username, username, roles);
 
-        } catch (JwtException e) {
+        } catch (JwtException ex) {
             // 5. JWT failures are modeled as exceptions.
-            System.out.println(e);
+            System.out.println(ex);
+            throw new RuntimeException("JWT token is invalid", ex);
+//            return;
         }
 
-        return null;
+//        return null;
     }
 }
 
