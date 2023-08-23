@@ -1,18 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import { Container } from "react-bootstrap";
+import { Loader } from "@googlemaps/js-api-loader";
 
 const SitterMap = ({ location }) => {
     const mapRef = useRef(null);
     let map = null;
-
-    const loadGoogleMapsScript = () => {
-        const script = document.createElement("script");
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_API_KEY}&libraries=places`;
-        script.async = true;
-        script.defer = true;
-        script.onload = initializeMap;
-        document.head.appendChild(script);
-    };
 
     const initializeMap = () => {
         const initialLocation = {
@@ -43,11 +35,15 @@ const SitterMap = ({ location }) => {
     };
 
     useEffect(() => {
-        if (!window.google) {
-            loadGoogleMapsScript();
-        } else {
+        const loader = new Loader({
+            apiKey: process.env.REACT_APP_API_KEY,
+            version: "weekly",
+        });
+
+        loader.load().then(() => {
+            window.google = window.google || {};
             initializeMap();
-        }
+        });
     }, [location]);
 
     useEffect(() => {
