@@ -1,20 +1,33 @@
-import { useState } from "react";
+import React, { useContext, useState } from "react";
 import SitterSearchBar from "./SitterSearchBar";
 import SitterMap from "./SitterMap";
 import SitterTable from "./SitterTable";
-import { Container } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
+import AuthContext from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const FindSitter = () => {
     const [location, setLocation] = useState(null);
     const [sitters, setSitters] = useState([]);
+    const navigate = useNavigate();
 
-    return (
-        <Container className="my-5">
-            <SitterSearchBar setSitters={setSitters} setLocation={setLocation} />
-            <SitterMap location={location} />
-            <SitterTable location={location} sitters={sitters} />
-        </Container>
-    );
+    const auth = useContext(AuthContext);
+
+    if (!auth.user) {
+        return <>
+        <h1>Please Login or Create an Account to Find Sitters Near You</h1>
+        <Button variant="warning" onClick={() => navigate("/login")}>Login</Button>
+        {" "}
+        <Button variant="warning" onClick={() => navigate("/create_account")}>Create Account</Button>
+        </>
+    }
+        return (
+            <Container className="my-5">
+                <SitterSearchBar setSitters={setSitters} setLocation={setLocation} />
+                <SitterMap location={location} />
+                <SitterTable location={location} sitters={sitters} />
+            </Container>
+        );
 };
 
 export default FindSitter;

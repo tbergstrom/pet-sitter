@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 import fetchWithToken from "../utils/fetchUtils";
 import VisitForm from "../components/VisitForm";
@@ -11,6 +11,7 @@ const [sitter, setSitter] = useState(null)
 const [errors, setErrors] = useState([]);
 const location = useLocation();
 const { username } = useParams();
+const navigate = useNavigate();
 
 const [owner, setOwner] = useState(null);
 
@@ -90,8 +91,8 @@ return (
                 <p>Email: {sitter.contactInfo.email}</p>
                 <p>Phone: {sitter.contactInfo.phoneNumber}</p>
                 <p>Address: {sitter.contactInfo.streetAddress}, {sitter.contactInfo.city}, {sitter.contactInfo.state} {sitter.contactInfo.zipCode}</p>
-                {auth.user.roles[0] === "OWNER" ? <h4 className="my-5">Book a Visit Today!</h4> : <></>}
-                {auth.user.roles[0] === "OWNER" ? <VisitForm sitter={sitter} owner={owner} /> : <></>}
+                {auth.user.roles[0] === "OWNER" ? <h4 className="my-5">Book a Visit Today!</h4> : <Button variant="warning" onClick={() => navigate("/findsitter")}>Back to Find Sitters</Button>}
+                {auth.user.roles[0] === "OWNER" ? <VisitForm sitter={sitter} owner={owner} />: <></>}
             </div>)
             :
             (<p>...Loading</p>)
