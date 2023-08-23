@@ -70,12 +70,8 @@ useEffect(() => {
                 console.log(error);
                 setErrors([error]);
             });
-        }
-        
+        }   
     }
-
-// }, [location.state, auth.user, auth.logout, props.location.state]);
-
 }, [username, auth.user, auth.logout]);
 
 
@@ -94,8 +90,8 @@ return (
                 <p>Email: {sitter.contactInfo.email}</p>
                 <p>Phone: {sitter.contactInfo.phoneNumber}</p>
                 <p>Address: {sitter.contactInfo.streetAddress}, {sitter.contactInfo.city}, {sitter.contactInfo.state} {sitter.contactInfo.zipCode}</p>
-                <h4 className="my-5">Book a Visit Today!</h4>
-                <VisitForm sitter={sitter} owner={owner}/>
+                {auth.user.roles[0] === "OWNER" ? <h4 className="my-5">Book a Visit Today!</h4> : <></>}
+                {auth.user.roles[0] === "OWNER" ? <VisitForm sitter={sitter} owner={owner} /> : <></>}
             </div>)
             :
             (<p>...Loading</p>)
