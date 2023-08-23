@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class CareVisitMapper implements RowMapper<CareVisit> {
@@ -32,8 +33,8 @@ public class CareVisitMapper implements RowMapper<CareVisit> {
         LocalTime t = LocalTime.parse(time) ;
 
         cv.setCareVisitId(resultSet.getInt("care_visit_id"));
-        cv.setStartDate(resultSet.getDate("start_date"));
-        cv.setEndDate(resultSet.getDate("end_date"));
+        cv.setStartDate(resultSet.getObject("start_date", LocalDate.class));
+        cv.setEndDate(resultSet.getObject("end_date", LocalDate.class));
         cv.setStatus(resultSet.getString("status"));
         cv.setTimeOfDay(t);
         cv.setNotes(resultSet.getString("notes"));
