@@ -1,79 +1,51 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import Nav from '../components/Nav';
-import AuthContext from "../contexts/AuthContext"
-
+import AuthContext from "../contexts/AuthContext";
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 function renderComponent() {
-
     const mockAuthValue = {
-        auth: {
-            user: {
-                username: 'Johnnyboy',
-                password: 'P@ssw0rd!',
-                role: 'OWNER'
-            }
+        user: {
+            username: 'Johnnyboy',
+            password: 'P@ssw0rd!',
+            role: 'OWNER'
         }
     };
     
     render(
-        <AuthContext.Provider value={mockAuthValue}>
-            <MemoryRouter>
-                <Nav />
-            </MemoryRouter>
-        </AuthContext.Provider>
+        <GoogleOAuthProvider clientId = '321605181263-7tsniamk1f3712hs4p6uc26dvshbv46k.apps.googleusercontent.com'>
+            <AuthContext.Provider value={{ auth: mockAuthValue }}>
+                <MemoryRouter>
+                    <Nav />
+                </MemoryRouter>
+            </AuthContext.Provider>
+        </GoogleOAuthProvider>
     );
 }
 
 describe('Nav', () => {
-    it('should render six links', () => {
+    it('should render the correct links', () => {
         renderComponent();
 
-        const listItemElements = screen.getAllByRole('link');
+        const expectedLinks = [
+            { name: /CritterSitters/i, path: '/' },
+            { name: /Home/i, path: '/' },
+            { name: /Find a Sitter/i, path: '/findsitter' },
+            { name: /About Us/i, path: '/about' },
+            { name: /Manage Your Account/i, path: '/manageaccount' },
+        ];
 
-        expect(listItemElements).toHaveLength(6);
-    });
-
-    it('should render home, find a sitter, become a sitter, about, login, and create account links', () => {
-        renderComponent();
-
-        // screen.debug();
-        screen.logTestingPlaygroundURL();
-
-        const homeLinkElement = screen.getByRole('link', {
-            name: /home/i
+        expectedLinks.forEach(link => {
+            const linkElement = screen.getByRole('link', { name: link.name });
+            expect(linkElement).toBeInTheDocument();
+            expect(linkElement).toHaveAttribute('href', link.path);
         });
 
-        const findSitterLinkElement = screen.getByRole('link', {
-            name: /find a sitter/i
-        });
+        const logoutButton = screen.getByRole('button', { name: /logout/i });
+        expect(logoutButton).toBeInTheDocument();
 
-        const becomeSitterLinkElement = screen.getByRole('link', {
-            name: /become a sitter/i
-        });
-
-        const aboutLinkElement = screen.getByRole('link', {
-            name: /about/i
-        });
-
-        const loginLinkElement = screen.getByRole('link', {
-            name: /login/i
-        });
-
-        const createAccountLinkElement = screen.getByRole('link', {
-            name: /create account/i
-        });
-
-        const assertLink = (element, path) => {
-            expect(element).toBeInTheDocument();
-            expect(element).toHaveAttribute('href', path);
-        };
-
-        assertLink(homeLinkElement, '/');
-        assertLink(findSitterLinkElement, '/findsitter');
-        assertLink(becomeSitterLinkElement, '/create_account');
-        assertLink(aboutLinkElement, '/about');
-        assertLink(loginLinkElement, '/login');
-        assertLink(createAccountLinkElement, '/create_account');
+        expect(screen.queryByRole('link', { name: /login/i })).not.toBeInTheDocument();
+        expect(screen.queryByRole('link', { name: /create Account/i })).not.toBeInTheDocument();
     });
 });
