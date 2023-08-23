@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import AuthContext from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
+import { Container } from "react-bootstrap";
 
 const ManageAccount = ()=> {
 
@@ -10,15 +11,19 @@ const ManageAccount = ()=> {
     return (
         <>
             { user ? 
-                (<div className="pet-details">
-                    <h2>Manage Your Account</h2>
-                    <Link to={`/managepets`}>Manage Your Pets</Link>
-                    {" "}
-                    <Link className="nav-btn" to={`/managevisits`}>Manage Your Visits</Link>
-                    {" "}
-                    <Link to={`/managecontactinfo`}>Manage Your Contact Info</Link>
-                    {" "}
-                </div>)
+
+                (<Container>
+                    <div className="pet-details">
+                        <h2 className="px-4 my-5">Manage Your Account</h2>
+                        <Link class="btn btn-info" to={`/managepets`}>Manage Your Pets</Link>
+                        {" "}
+                        <Link class="btn btn-info" to={`/manageownervisits`}>Manage Your Visits</Link>
+                        {" "}
+                        <Link class="btn btn-info" to={`/managecontactinfo`}>Manage Your Contact Info</Link>
+                        {" "}
+                    </div>
+                </Container>)
+
                 :
                 (<p>...Loading</p>)
             }

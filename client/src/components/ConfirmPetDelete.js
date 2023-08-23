@@ -1,7 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
+
+import { Container, Button } from "react-bootstrap";
+
 import fetchWithToken from "../utils/fetchUtils";
+
 
 const ConfirmPetDelete = () => {
 
@@ -58,16 +62,16 @@ const ConfirmPetDelete = () => {
     }
 
     return ( 
-        <>
-            <h2>Remove this pet from your pet list?</h2>
+        <Container>
+            <h2 className="px-4 my-5">Remove this pet from your pet list?</h2>
             <ul>
                 <li>Name: {pet.name}</li>
             </ul>
-            <button onClick={handleDelete}>Remove?</button>
+            <Button variant="info" onClick={handleDelete}>Remove?</Button>
             {" "}
-            <button onClick={() => navigate("/managepets")}>Cancel</button>
+            <Button variant="warning" onClick={() => navigate("/managepets")}>Cancel</Button>
 
-        </>
+        </Container>
     );
 }
 
