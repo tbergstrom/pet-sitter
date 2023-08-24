@@ -1,19 +1,25 @@
 package learn.petsitter.domain;
 
+import learn.petsitter.data.AppUserJdbcTemplateRepository;
 import learn.petsitter.data.CareVisitRepository;
+import learn.petsitter.models.AppUser;
 import learn.petsitter.models.CareVisit;
-import learn.petsitter.models.Pet;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
 public class CareVisitService {
     private final CareVisitRepository repository;
+    private final AppUserJdbcTemplateRepository appUserJdbcTemplateRepository;
 
-    public CareVisitService(CareVisitRepository repository) {
+    public CareVisitService(CareVisitRepository repository, AppUserJdbcTemplateRepository appUserJdbcTemplateRepository) {
         this.repository = repository;
+        this.appUserJdbcTemplateRepository = appUserJdbcTemplateRepository;
     }
+
 
     public List<CareVisit> findByOwnerId(int ownerId) {
         return repository.findByOwnerId(ownerId);
@@ -38,8 +44,14 @@ public class CareVisitService {
             return result;
         }
 
+        long daysDifference = ChronoUnit.DAYS.between(cv.getStartDate(), cv.getEndDate());
+        AppUser careVisitSitter = appUserJdbcTemplateRepository.findById(cv.getSitterId());
+        BigDecimal sitterRate = careVisitSitter.getRate();
+        BigDecimal calculatedCost = sitterRate.multiply(new BigDecimal(daysDifference + 1));
+
         //TODO decide if this is the best place to set the initial status
         cv.setStatus("Pending");
+        cv.setCost(calculatedCost);
         cv = repository.create(cv);
         result.setPayload(cv);
         return result;

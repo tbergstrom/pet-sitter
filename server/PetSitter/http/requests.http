@@ -1,0 +1,81 @@
+# authenticate
+POST http://localhost:8080/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "Johnnyboy",
+    "password": "P@ssw0rd!"
+}
+
+###
+
+# create user account
+
+POST http://localhost:8080/create_account HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "bob@jones.com",
+    "password": "P@ssw0rd!"
+}
+
+###
+
+#authenticate new user
+
+POST http://localhost:8080/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "bob@jones.com",
+    "password": "P@ssw0rd!"
+}
+
+###
+
+@base_url = http://localhost:8080/api/
+
+###
+
+# Returns 
+GET {{base_url}}/post HTTP/1.1
+
+###
+
+
+# should return 
+GET {{base_url}}/post/4 HTTP/1.1
+
+
+###
+
+# should make new post, works
+POST {{base_url}}/post HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzb2xhci1mYXJtIiwic3ViIjoiSm9obm55Ym95IiwiYXV0aG9yaXRpZXMiOiJBRE1JTiIsImV4cCI6MTY5MTc4NTQyMn0.LXn1zjU69WQu7jraaNAJQWzeT8i6ZXuJnzl-yMC4GrY
+
+{
+  "postTitle": "Bird Bearings",
+  "postBody": "What is the average airspeed velocity of an unladen swallow?",
+  "postAppUserId": 1
+}
+
+###
+
+#should get replies by postId
+
+GET {{base_url}}/reply/4 HTTP/1.1
+
+###
+# should make new reply
+POST {{base_url}}/reply HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzb2xhci1mYXJtIiwic3ViIjoiSm9obm55Ym95IiwiYXV0aG9yaXRpZXMiOiJBRE1JTiIsImV4cCI6MTY5MTc4MzQxNn0.4ljAkXCowPZ67siNyGPC8rmSe33SB7JzwBDb5mokmCY
+
+{
+  "replyBody": "Here are my many thoughts",
+  "postId": 4,
+  "postAppUserId": 1
+}
+
+###
