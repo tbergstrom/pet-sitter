@@ -34,11 +34,9 @@ const VisitRow = ({ visit, user, handleConfirm, handleDeny }) => {
                     }
                 })
                 .then(payload => {
-                    console.log("Sitters payload: ", payload);
                     setSitters(payload);
                 })
                 .catch(error => {
-                    console.log(error);
                     setErrors([error]);
                 });
             };
@@ -62,11 +60,9 @@ const VisitRow = ({ visit, user, handleConfirm, handleDeny }) => {
                     }
                 })
                 .then(payload => {
-                    console.log("Owners payload: ", payload);
                     setOwners(payload);
                 })
                 .catch(error => {
-                    console.log(error);
                     setErrors([error]);
                 });
             };
@@ -113,7 +109,7 @@ const VisitRow = ({ visit, user, handleConfirm, handleDeny }) => {
                 }
 
                 {/* Cancel action */}
-                {(isOwner && (isVisitPending || isVisitApproved)) || (isSitter && isVisitApproved) &&
+                {((isOwner && (isVisitPending || isVisitApproved)) || (isSitter && isVisitApproved)) &&
                     <Button onClick={()=> handleDeny(visit)} variant="danger">
                         <FontAwesomeIcon icon={faTimes} data-toggle="tooltip" data-placement="top" title="Cancel"/>
                     </Button>
