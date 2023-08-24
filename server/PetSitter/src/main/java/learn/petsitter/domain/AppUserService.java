@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
@@ -63,7 +64,7 @@ public class AppUserService implements UserDetailsService {
             return result;
         }
 
-        AppUser appUser = new AppUser(0, username, password, true, 0, roles);
+        AppUser appUser = new AppUser(0, username, password, true, 0, BigDecimal.ZERO, roles);
 
         try {
             appUser = repository.create(appUser);
@@ -107,7 +108,7 @@ public class AppUserService implements UserDetailsService {
             return result;
         }
 
-        AppUser googleUser = new AppUser(0, email, true, 0, roles);
+        AppUser googleUser = new AppUser(0, email, true, 0, BigDecimal.ZERO, roles);
 
         try {
             googleUser = repository.createGoogleUser(googleUser);

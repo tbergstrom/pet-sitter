@@ -31,11 +31,6 @@ const SitterMap = ({ location, sitters }) => {
 
     const updateMapCenter = (location) => {
         if (mapInstance.current) {
-            // map.setCenter(location);
-            // const marker = new window.google.maps.Marker({
-            //     position: location,
-            //     map: map,
-            // });
             mapInstance.current.setCenter(location);
         }
     };
@@ -60,28 +55,18 @@ const SitterMap = ({ location, sitters }) => {
     }
 
     const placeSitterMarkers = () => {
-        // resetMarkers();
-        // console.log('Received sitters:', sitters);
+        resetMarkers();
 
-        
-    
         if (sitters && sitters.length > 0) {
             sitters.forEach(sitter => { 
                 const contactInfo = sitter.contactInfo;
-                // console.log(sitter.contactInfo);
                 if(contactInfo && contactInfo.latitude && contactInfo.longitude) {
-                    // console.log("Sitter Latitude:", contactInfo.latitude); 
-                    // console.log("Sitter Longitude:", contactInfo.longitude);
-    
-                    // Using the latitude and longitude from contactInfo directly
+
                     const sitterLocation = {
                         lat: parseFloat(contactInfo.latitude), 
                         lng: parseFloat(contactInfo.longitude)
                     };
 
-                    console.log("sitterLocaion.lat: ", sitterLocation.lat)
-                    console.log("sitterLocaion.lng: ", sitterLocation.lng)
-    
                     if (!sitterLocation.lat || !sitterLocation.lng || isNaN(sitterLocation.lat) || isNaN(sitterLocation.lng)) {
                         setErrors(prevErrors => [...prevErrors, 'Invalid address for sitter:' + sitter.name]);
                         return;
