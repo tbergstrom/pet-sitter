@@ -84,7 +84,7 @@ const VisitRow = ({ visit, user, handleConfirm, handleDeny }) => {
             <td>{visit.startDate}</td>
             <td>{visit.endDate}</td>
             <td>{visit.status}</td>
-            <td>{visit.cost}</td>
+            <td>${visit.cost}</td>
             
             {/* Actions Cell */}
             <td>
