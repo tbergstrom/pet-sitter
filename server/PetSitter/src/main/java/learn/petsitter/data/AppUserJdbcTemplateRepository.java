@@ -126,7 +126,7 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
                 "JOIN app_role ar ON aur.app_role_id = ar.app_role_id " +
                 "LEFT JOIN contact_info ci ON ci.app_user_id = au.app_user_id " + // join with ContactInfo
                 "WHERE aur.app_role_id = 2;";
-        return jdbcTemplate.query(sql, new FindAllUsersWithLocationMapper());
+        return jdbcTemplate.query(sql, new FindAllUsersMinusDistanceMapper());
     }
 
     @Override
