@@ -28,6 +28,7 @@ public class FindAllUsersWithLocationMapper implements RowMapper<AppUser> {
         user.setUsername(rs.getString("username"));
         user.setPassword(rs.getString("password_hash"));
         user.setEnabled(rs.getBoolean("enabled"));
+        user.setDistanceInKm(rs.getDouble("distance"));
         user.setAuthorities(roles);
 
         contactInfo.setLatitude(rs.getDouble("lat"));
