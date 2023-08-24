@@ -24,38 +24,42 @@ public class AppUser implements UserDetails {
     public AppUser() {}
 
     // For traditional users who don't sign in with Google OAuth. The password field is included.
-    public AppUser(int appUserId, String username, String password, boolean enabled, List<String> roles) {
+    public AppUser(int appUserId, String username, String password, boolean enabled, BigDecimal rate, List<String> roles) {
         this.appUserId = appUserId;
         this.username = username;
         this.password = password;
         this.enabled = enabled;
         this.authorities = convertRolesToAuthorities(roles);
+        this.rate = rate;
     }
 
     // For traditional users who include "distanceInKm" property
-    public AppUser(int appUserId, String username, String password, boolean enabled, double distanceInKm, List<String> roles) {
+    public AppUser(int appUserId, String username, String password, boolean enabled, double distanceInKm, BigDecimal rate, List<String> roles) {
         this.appUserId = appUserId;
         this.username = username;
         this.password = password;
         this.enabled = enabled;
         this.distanceInKm = distanceInKm;
         this.authorities = convertRolesToAuthorities(roles);
+        this.rate = rate;
     }
 
     // For Google OAuth users, no password is stored. Does not include distance property.
-    public AppUser(int appUserId, String username, boolean enabled, List <String> roles) {
+    public AppUser(int appUserId, String username, boolean enabled, BigDecimal rate, List <String> roles) {
         this.appUserId = appUserId;
         this.username = username;
         this.enabled = enabled;
         this.authorities = convertRolesToAuthorities(roles);
+        this.rate = rate;
     }
     // For Google users. Includes distance property.
-    public AppUser(int appUserId, String username, boolean enabled, double distanceInKm, List <String> roles) {
+    public AppUser(int appUserId, String username, boolean enabled, double distanceInKm, BigDecimal rate, List <String> roles) {
         this.appUserId = appUserId;
         this.username = username;
         this.enabled = enabled;
         this.distanceInKm = distanceInKm;
         this.authorities = convertRolesToAuthorities(roles);
+        this.rate = rate;
     }
 
     private static Collection<GrantedAuthority> convertRolesToAuthorities(List<String> roles) {

@@ -18,6 +18,7 @@ public class FindAllUsersMinusDistanceMapper implements RowMapper<AppUser> {
                 rs.getString("username"),
                 rs.getString("password_hash"),
                 rs.getBoolean("enabled"),
+                rs.getBigDecimal("rate"),
                 roles);
     }
 }

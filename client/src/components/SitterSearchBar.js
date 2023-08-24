@@ -61,6 +61,7 @@ const SitterSearchBar  = (props)=> {
                 <option value="50">50 km</option>
                 <option value="100">100 km</option>
                 <option value="1000">1000 km</option>
+                <option value="10000">10000 km</option>
             </select>
         </Container>
     )

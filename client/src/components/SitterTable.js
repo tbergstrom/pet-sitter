@@ -47,6 +47,7 @@ const SitterTable = ({ sitters }) => {
                                 <tr key={sitter.appUserId}>
                                     {/* <td><img src={sitter.pfpUrl} className="card-img-top" alt="" /></td> */}
                                     <td>{sitter.username}</td>
+                                    {console.log(sitter)}
                                     <td>{sitter.rate}</td>
                                     <td>{parseFloat(sitter.distanceInKm).toFixed(2)} km</td>
                                     <td>

@@ -32,7 +32,7 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
     public AppUser findByUsername(String username) {
         List<String> roles = getRolesByUsername(username);
 
-        final String sql = "select app_user_id, username, password_hash, enabled "
+        final String sql = "select app_user_id, username, password_hash, enabled, rate "
                 + "from app_user "
                 + "where username = ?;";
 
@@ -108,7 +108,7 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
     @Override
     @Transactional
     public List<AppUser> getAllOwners() {
-         final String sql = "SELECT au.app_user_id, au.username, au.password_hash, au.enabled, ar.name AS role " +
+         final String sql = "SELECT au.app_user_id, au.username, au.password_hash, au.enabled, au.rate, ar.name AS role " +
                  "FROM app_user au " +
                  "JOIN app_user_role aur ON au.app_user_id = aur.app_user_id " +
                  "JOIN app_role ar ON aur.app_role_id = ar.app_role_id " +
@@ -119,7 +119,7 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
     @Override
     @Transactional
     public List<AppUser> getAllSitters() {
-        final String sql = "SELECT au.app_user_id, au.username, au.password_hash, au.enabled, ar.name AS role, " +
+        final String sql = "SELECT au.app_user_id, au.username, au.password_hash, au.enabled, ar.name, ar.rate AS role, " +
                 "ci.lat, ci.lng " +
                 "FROM app_user au " +
                 "JOIN app_user_role aur ON au.app_user_id = aur.app_user_id " +
@@ -134,7 +134,7 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
     public AppUser findById(int userId) {
         List<String> roles = getRolesByUserId(userId);
 
-        final String sql = "select app_user_id, username, password_hash, enabled " +
+        final String sql = "select app_user_id, username, password_hash, rate, enabled " +
                  "from app_user " +
                  "where app_user_id = ?;";
 
