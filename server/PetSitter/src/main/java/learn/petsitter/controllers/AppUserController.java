@@ -1,15 +1,14 @@
 package learn.petsitter.controllers;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import learn.petsitter.models.AppUser;
 import learn.petsitter.domain.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -48,5 +47,11 @@ public class AppUserController {
     public List<AppUser> getNearbySitters(@RequestParam double lat, @RequestParam double lng, @RequestParam double distance) {
         return appUserService.getNearbySitters(lat, lng, distance);
     }
+
+    @GetMapping("/user/{userId}")
+    public AppUser getUserById(@PathVariable int userId) {
+        return appUserService.findById(userId);
+    }
+
 
 }

@@ -216,6 +216,16 @@ public class AppUserService implements UserDetailsService {
 
         return digits > 0 && letters > 0 && others > 0;
     }
+
+    public AppUser findById(int userId) {
+        AppUser appUser = repository.findById(userId);
+        if (appUser != null) {
+            ContactInfo contactInfo = contactInfoRepository.findByAppUserId(appUser.getAppUserId());
+            appUser.setContactInfo(contactInfo);
+        }
+        return appUser;
+    }
+
 }
 
 

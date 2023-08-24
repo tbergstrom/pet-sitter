@@ -22,7 +22,7 @@ public class ContactInfoJdbcTemplateRepository implements ContactInfoRepository{
 
     @Override
     public ContactInfo findById(int id) {
-        final String sql = "select username, contact_info_id, first_name, last_name, email, phone_number, street_address, city, state, zipcode, lat, lng, contact_info.app_user_id " +
+        final String sql = "select contact_info_id, first_name, last_name, email, phone_number, street_address, city, state, zipcode, lat, lng, contact_info.app_user_id " +
                 "from contact_info " +
                 "join app_user " +
                 "on app_user.app_user_id = contact_info.app_user_id " +
