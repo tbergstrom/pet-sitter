@@ -21,8 +21,7 @@ return (
                     <Card.Body>
                         <Card.Title>Tyler Bergstrom</Card.Title>
                         <Card.Text>
-                        Some quick example text to build on the card title and make up the
-                        bulk of the card's content.
+                        Has one cat and one athletic husky. Goes for many long walks.
                         </Card.Text>
                     </Card.Body>
                 </Card>
@@ -31,8 +30,7 @@ return (
                     <Card.Body>
                         <Card.Title>Chandler Carne</Card.Title>
                         <Card.Text>
-                        Some quick example text to build on the card title and make up the
-                        bulk of the card's content.
+                        Has two cats. They run the show and love to walk across keyboards during meetings.
                         </Card.Text>
                     </Card.Body>
                 </Card>
@@ -41,8 +39,7 @@ return (
                     <Card.Body>
                         <Card.Title>Shannon Wilson</Card.Title>
                         <Card.Text>
-                        
-                        Has one cat and a very fluffy, very silly collie. Without a little help from pet sitters, there would be no sanity left
+                        Has one cat and a very silly collie. Without a little help from pet sitters, there would be no sanity left.
                         </Card.Text>
                     </Card.Body>
                 </Card>
