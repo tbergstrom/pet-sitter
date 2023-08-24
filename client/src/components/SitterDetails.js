@@ -88,6 +88,7 @@ return (
                 <h2 className="my-5">Sitter Details</h2>
                 <p>Username: {sitter.username}</p>
                 {/* <p>Name: {sitter.contactInfo.firstName} {sitter.contactInfo.lastName}</p> */}
+                <p>Daily rate: ${sitter.rate}</p>
                 <p>Email: {sitter.contactInfo.email}</p>
                 <p>Phone: {sitter.contactInfo.phoneNumber}</p>
                 <p>Address: {sitter.contactInfo.streetAddress}, {sitter.contactInfo.city}, {sitter.contactInfo.state} {sitter.contactInfo.zipCode}</p>
