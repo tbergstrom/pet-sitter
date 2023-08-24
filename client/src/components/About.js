@@ -41,7 +41,7 @@ return (
                     <Card.Body>
                         <Card.Title>Shannon Wilson</Card.Title>
                         <Card.Text>
-                        University of Wyoming <br/>
+                        
                         Has one cat and a very fluffy, very silly collie. Without a little help from pet sitters, there would be no sanity left
                         </Card.Text>
                     </Card.Body>

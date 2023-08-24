@@ -12,21 +12,6 @@ body {
   justify-content: center;
 }
 
-/* Nav {
-  background-color: lightcoral;
-  font-size: 30px;
-  padding: 3rem;
-} */
-
-
-/* button {
-  font-size: 24px;
-  padding: 3rem 6rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-} */
-
 .about-card {
   margin: 3rem;
 }
@@ -86,6 +71,10 @@ body {
 .home-carousel-container {
   max-width: 100%;
   padding: 0;
+}
+
+.home-div {
+  padding:0;
 }
 
 .card-row {
