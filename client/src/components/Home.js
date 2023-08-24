@@ -13,7 +13,7 @@ const Home = () => {
   const navigate = useNavigate();
 
     return (
-      <div className="App">
+      <div className="App home-div">
         <Container className="home-carousel-container">
           <Carousel >
             <Carousel.Item>
