@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom"
 import AuthContext from "../contexts/AuthContext"
 import { useContext } from "react"
-import Button from 'react-bootstrap/Button';
 import { Navbar, Nav as BootstrapNav, Container, Dropdown } from 'react-bootstrap';
 
 const Nav = ()=> {
@@ -24,8 +23,6 @@ const Nav = ()=> {
                     <Link className="nav-btn" to='/about'>About Us</Link>
                     {" "}
 
-
-
                     {/* only logged in as an owner */}
                     { user && (
                         <>
@@ -41,7 +38,7 @@ const Nav = ()=> {
                                     <Dropdown.Item as={Link} to="/manageaccount">
                                         Manage Account
                                     </Dropdown.Item>
-                                    <Dropdown.Item onSelect={auth.logout}>
+                                    <Dropdown.Item onClick={auth.logout}>
                                         Logout
                                     </Dropdown.Item>
                                 </Dropdown.Menu>

@@ -3,6 +3,7 @@ package learn.petsitter.data;
 import learn.petsitter.data.mappers.AppUserMapper;
 import learn.petsitter.data.mappers.FindAllUsersMapper;
 import learn.petsitter.data.mappers.FindAllUsersMinusDistanceMapper;
+import learn.petsitter.data.mappers.FindAllUsersWithLocationMapper;
 import learn.petsitter.models.AppUser;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -118,13 +119,40 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
     @Override
     @Transactional
     public List<AppUser> getAllSitters() {
-        final String sql = "SELECT au.app_user_id, au.username, au.password_hash, au.enabled, ar.name AS role " +
+        final String sql = "SELECT au.app_user_id, au.username, au.password_hash, au.enabled, ar.name AS role, " +
+                "ci.lat, ci.lng " +
                 "FROM app_user au " +
                 "JOIN app_user_role aur ON au.app_user_id = aur.app_user_id " +
                 "JOIN app_role ar ON aur.app_role_id = ar.app_role_id " +
+                "LEFT JOIN contact_info ci ON ci.app_user_id = au.app_user_id " + // join with ContactInfo
                 "WHERE aur.app_role_id = 2;";
-        return jdbcTemplate.query(sql, new FindAllUsersMinusDistanceMapper());
+        return jdbcTemplate.query(sql, new FindAllUsersWithLocationMapper());
     }
+
+    @Override
+    @Transactional
+    public AppUser findById(int userId) {
+        List<String> roles = getRolesByUserId(userId);
+
+        final String sql = "select app_user_id, username, password_hash, enabled " +
+                 "from app_user " +
+                 "where app_user_id = ?;";
+
+        return jdbcTemplate.query(sql, new AppUserMapper(roles), userId)
+                .stream()
+                .findFirst().orElse(null);
+    }
+
+    private List<String> getRolesByUserId(int userId) {
+        final String sql = "select r.name " +
+                "from app_user_role ur " +
+                "inner join app_role r on ur.app_role_id = r.app_role_id " +
+                "inner join app_user au on ur.app_user_id = au.app_user_id " +
+                "where au.app_user_id = ?";
+        return jdbcTemplate.query(sql, (rs, rowId) -> rs.getString("name"), userId);
+    }
+
+
 
     @Override
     public List<AppUser> findNearbySitters(double lat, double lng, double distance) {
@@ -142,7 +170,7 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
                 "ORDER BY distance " +
                 "LIMIT 0, 20;";
         
-        return jdbcTemplate.query(sql, new FindAllUsersMapper(), lat, lng, lat, distance);
+        return jdbcTemplate.query(sql, new FindAllUsersWithLocationMapper(), lat, lng, lat, distance);
     }
 
     private void updateRoles(AppUser user) {
@@ -170,6 +198,8 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
                 + "where au.username = ?";
         return jdbcTemplate.query(sql, (rs, rowId) -> rs.getString("name"), username);
     }
+
+
 }
 
 

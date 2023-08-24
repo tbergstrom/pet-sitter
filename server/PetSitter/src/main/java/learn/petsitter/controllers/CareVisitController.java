@@ -48,6 +48,15 @@ public class CareVisitController {
 
     @GetMapping("/singlevisit/{careVisitId}")
     public ResponseEntity<CareVisit> findById(@PathVariable int careVisitId) {
+
+        String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        AppUser appUser = (AppUser) appUserService.loadUserByUsername(username);
+        int userId = appUser.getAppUserId();
+
+        if (!service.isUserAssociatedWithCareVisit(userId, careVisitId)) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN); // 403 Forbidden
+        }
+
         CareVisit cv = service.findById(careVisitId);
         if (cv == null) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -57,7 +66,7 @@ public class CareVisitController {
     //TODO how is the sitter going to be set? User can designate on the form (minimally we can show the number corresponding to their id and take in the id?
     @PostMapping
     public ResponseEntity<Object> create(@RequestBody CareVisit cv) {
-        System.out.println("here");
+
         String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         AppUser appUser = (AppUser) appUserService.loadUserByUsername(username);
         cv.setOwnerId(appUser.getAppUserId());

@@ -123,4 +123,13 @@ public class CareVisitService {
         return result;
     }
 
+        public boolean isUserAssociatedWithCareVisit(int userId, int careVisitId) {
+            CareVisit careVisit = repository.findById(careVisitId);
+            if (careVisit == null) {
+                return false;
+            }
+        return careVisit.getOwnerId() == userId || careVisit.getSitterId() == userId;
+    }
+
+
 }

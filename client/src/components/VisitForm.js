@@ -55,8 +55,7 @@ const VisitForm = (props)=> {
             if(response.ok) {
                 navigate(`/managevisits`); // need params.id?
                 resetState();
-                // props.loadVisits();
-                // a props.setVisitsCounter as useEffect dependency?
+
             } else {
                 response.json()
                 .then(errors => {
@@ -66,11 +65,6 @@ const VisitForm = (props)=> {
         })
     }
 
-    console.log("User is a: ", auth.user.roles[0]);
-    console.log("Sitter is: ", props.sitter)
-    console.log("Owner is: ", props.owner)
-    console.log("Time of day: ", timeOfDay);
-    console.log(typeof(timeOfDay));
 
     return (
         <Container>
