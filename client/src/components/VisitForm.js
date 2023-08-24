@@ -37,7 +37,7 @@ const VisitForm = (props)=> {
             status: "Pending",
             timeOfDay,
             notes,
-            cost: 100.00, // this will be calculated by the sitter.rate x (endDate - startDate)
+            cost: 0.0, 
             sitterId: props.sitter.appUserId, // one of these will be from params
             ownerId: props.owner.appUserId  // the other from... auth.user.id?
         }
