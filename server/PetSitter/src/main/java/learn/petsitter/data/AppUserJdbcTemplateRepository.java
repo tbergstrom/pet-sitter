@@ -119,7 +119,7 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
     @Override
     @Transactional
     public List<AppUser> getAllSitters() {
-        final String sql = "SELECT au.app_user_id, au.username, au.password_hash, au.enabled, ar.name, ar.rate AS role, " +
+        final String sql = "SELECT au.app_user_id, au.username, au.password_hash, au.enabled, au.rate, ar.name AS role, " +
                 "ci.lat, ci.lng " +
                 "FROM app_user au " +
                 "JOIN app_user_role aur ON au.app_user_id = aur.app_user_id " +

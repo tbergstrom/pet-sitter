@@ -72,7 +72,7 @@ const ContactInfoForm = (props)=> {
     useEffect(loadContactInfo, [])
 
     useEffect(() => {
-        // Set the state values using the contactInfo prop when it changes
+        if (contactInfo.contactInfoId !== undefined) {
             setContactInfoId(contactInfo.contactInfoId);
             setFirstName(contactInfo.firstName);
             setLastName(contactInfo.lastName);
@@ -82,6 +82,7 @@ const ContactInfoForm = (props)=> {
             setCity(contactInfo.city);
             setState(contactInfo.state);
             setZipCode(contactInfo.zipCode);
+        }  
     }, [contactInfo]);
 
     const handleSubmit = async (evt)=> {
