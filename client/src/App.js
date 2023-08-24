@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
 import './App.css';
 import Nav from './components/Nav';
 import Login from './components/Login';
@@ -26,7 +25,6 @@ import ManageContactInfo from './components/ManageContactInfo';
 import SitterDetails from './components/SitterDetails';
 import FindSitter from './components/FindSitter';
 import VisitDetails from './components/VisitDetails';
-
 
 
 function App() {
@@ -67,18 +65,6 @@ function App() {
     user: user ? { ...user } : null
   }
 
-  
-
-  // consider moving to ManageVisits
-  // const loadVisits = () => {
-  //   // fetch("http://localhost:8080/api/visit")
-  //   // .then(response => response.json())
-  //   // .then(payload => setVisits(payload))
-  //   console.log("visits endpoint not implemented")
-  // }
-
-  // useEffect(loadVisits, [])
-
   useEffect(() => {
     const token = localStorage.getItem("auth-token")
     if (token) {
@@ -89,9 +75,10 @@ function App() {
   return (
     <GoogleOAuthProvider clientId='321605181263-7tsniamk1f3712hs4p6uc26dvshbv46k.apps.googleusercontent.com'>
       <AuthContext.Provider value={auth}>
+        
         <BrowserRouter>
           <Nav />
-           
+          
           <Routes>
             {/* always visible */}
             <Route path='/' element={<Home />}/>
@@ -123,6 +110,7 @@ function App() {
             <Route path='*' element={<p>Page Not Found</p>} />
           </Routes>
         </BrowserRouter>
+        
       </AuthContext.Provider>
     </GoogleOAuthProvider>
   );

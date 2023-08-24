@@ -24,7 +24,7 @@ const FindSitter = () => {
         return (
             <Container className="my-5">
                 <SitterSearchBar setSitters={setSitters} setLocation={setLocation} />
-                <SitterMap location={location} />
+                <SitterMap location={location} sitters={sitters}/>
                 <SitterTable location={location} sitters={sitters} />
             </Container>
         );
