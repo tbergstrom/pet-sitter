@@ -14,12 +14,12 @@ const FindSitter = () => {
     const auth = useContext(AuthContext);
 
     if (!auth.user) {
-        return <>
+        return <Container>
         <h1>Please Login or Create an Account to Find Sitters Near You</h1>
         <Button variant="warning" onClick={() => navigate("/login")}>Login</Button>
         {" "}
         <Button variant="warning" onClick={() => navigate("/create_account")}>Create Account</Button>
-        </>
+        </Container>
     }
         return (
             <Container className="my-5">
