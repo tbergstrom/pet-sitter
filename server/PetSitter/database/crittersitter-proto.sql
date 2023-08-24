@@ -161,6 +161,11 @@ INSERT INTO care_visit (start_date, end_date, `status`, time_of_day, notes, cost
 ('2023-10-01', '2023-10-21', 'Accepted', '08:00:00', 'You already know the feeding and walking schedule, just call us at any time if something goes wrong.', 325.00, 2, 5),
 ('2023-11-12', '2023-11-19', 'Accepted', '06:00:00', null, 100.50, 3, 5);
 
+UPDATE care_visit cv
+JOIN app_user au ON cv.sitter_id = au.app_user_id
+SET cv.cost = (DATEDIFF(cv.end_date, cv.start_date)+1) * IFNULL(au.rate, 0)
+WHERE cv.care_visit_id IS NOT NULL;
+
 
 SELECT * FROM app_user;
 SELECT * FROM care_visit;
@@ -173,7 +178,4 @@ select * from app_user join app_user_role on app_user.app_user_id = app_user_rol
 
 select username, first_name, last_name, email, phone_number, street_address, city, state, zipcode from contact_info join app_user on app_user.app_user_id = contact_info.app_user_id where app_user.app_user_id = 1;
 
-select TIMEDIFF('2023-08-15 16:00:00', '2023-08-16 08:00:00');
-
-
-
+-- select TIMEDIFF('2023-08-15 16:00:00', '2023-08-16 08:00:00');
