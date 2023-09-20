@@ -173,6 +173,19 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
         return jdbcTemplate.query(sql, new FindAllUsersWithLocationMapper(), lat, lng, lat, distance);
     }
 
+    @Override
+    @Transactional
+    public void saveProfilePictureUrl(int userId, String pfpUrl) {
+        String sql = "UPDATE app_user SET pfp_url = ? WHERE app_user_id = ?";
+        jdbcTemplate.update(sql, pfpUrl, userId);
+    }
+
+    @Override
+    public String getProfilePictureUrl(int userId) {
+        String sql = "SELECT pfp_url FROM app_user WHERE app_user_id = ?";
+        return jdbcTemplate.queryForObject(sql, String.class, userId);
+    }
+
     private void updateRoles(AppUser user) {
         // delete all roles, then re-add
         jdbcTemplate.update("delete from app_user_role where app_user_id = ?;", user.getAppUserId());
@@ -198,6 +211,8 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
                 + "where au.username = ?";
         return jdbcTemplate.query(sql, (rs, rowId) -> rs.getString("name"), username);
     }
+
+
 
 
 }

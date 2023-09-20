@@ -19,6 +19,7 @@ public class AppUser implements UserDetails {
     private  Collection<GrantedAuthority> authorities = List.of();
     private BigDecimal rate;
     private double distanceInKm;
+    private String pfpUrl;
     private ContactInfo contactInfo;
 
     public AppUser() {}
@@ -112,6 +113,14 @@ public class AppUser implements UserDetails {
 
     public int getAppUserId() {
         return appUserId;
+    }
+
+    public String getPfpUrl() {
+        return pfpUrl;
+    }
+
+    public void setPfpUrl(String pfpUrl) {
+        this.pfpUrl = pfpUrl;
     }
 
     public void setAppUserId(int appUserId) {

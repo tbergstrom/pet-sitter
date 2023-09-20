@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -21,6 +22,14 @@ public class AppUserController {
     @Autowired
     public AppUserController(AppUserService appUserService) {
         this.appUserService = appUserService;
+    }
+
+    @PostMapping("/update-pfp")
+    public String updateProfilePic(@RequestParam("pfpUrl") String pfpUrl, Principal principal) {
+        String username = principal.getName();
+
+        appUserService.updateProfilePicture(username, pfpUrl);
+        return "redirect:/";
     }
 
     @GetMapping("/all-sitters")
@@ -52,6 +61,8 @@ public class AppUserController {
     public AppUser getUserById(@PathVariable int userId) {
         return appUserService.findById(userId);
     }
+
+
 
 
 }

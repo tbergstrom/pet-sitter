@@ -227,6 +227,9 @@ public class AppUserService implements UserDetailsService {
         return appUser;
     }
 
+    public Result<AppUser> updateProfilePicture(String username, String pfpUrl) {
+        
+    }
 }
 
 
