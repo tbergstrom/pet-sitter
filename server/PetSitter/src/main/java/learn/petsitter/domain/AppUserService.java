@@ -64,7 +64,7 @@ public class AppUserService implements UserDetailsService {
             return result;
         }
 
-        AppUser appUser = new AppUser(0, username, password, true, 0, BigDecimal.ZERO, roles);
+        AppUser appUser = new AppUser(0, username, password, true, 0, BigDecimal.ZERO, "", roles);
 
         try {
             appUser = repository.create(appUser);
@@ -108,7 +108,7 @@ public class AppUserService implements UserDetailsService {
             return result;
         }
 
-        AppUser googleUser = new AppUser(0, email, true, 0, BigDecimal.ZERO, roles);
+        AppUser googleUser = new AppUser(0, email, true, 0, BigDecimal.ZERO, "", roles);
 
         try {
             googleUser = repository.createGoogleUser(googleUser);
