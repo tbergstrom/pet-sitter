@@ -36,7 +36,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/api", "/api/pets", "/api/pets/pet/*", "/api/pets/*", "/api/pets/mypets", "/api/contact-info", "/api/contact-info/user/my-info","/api/contact-info/*",
                         "/api/visit/singlevisit","/api/visit/singlevisit/*","/api/visit/owner", "/api/visit/owner/my-visits", "/api/visit/sitter",
                         "/api/visit/sitter/my-visits", "/api/users/user/*", "/api/users/all-owners", "/api/users/all-sitters", "/api/users/sitter/*", "/api/users/owner/*",
-                        "/api/users/nearby-sitters").hasAnyAuthority("OWNER", "SITTER")
+                        "/api/users/nearby-sitters", "/api/users/my-info").hasAnyAuthority("OWNER", "SITTER")
 //                .antMatchers(HttpMethod.GET, "/api/visit/owner", "/api/visit/owner/my-visits").hasAnyAuthority("OWNER")
 //                .antMatchers(HttpMethod.GET, "/api/visit/sitter", "/api/visit/sitter/my-visits").hasAnyAuthority("SITTER")
                 .antMatchers(HttpMethod.POST,
@@ -44,7 +44,7 @@ public class SecurityConfig {
 //                .antMatchers(HttpMethod.POST,
 //                        "/api/visit/sitter").hasAnyAuthority("SITTER")
                 .antMatchers(HttpMethod.PUT,
-                        "/api/pets", "/api/pets/pet/*", "/api/visit/owner", "/api/visit/sitter", "/api/contact-info/*", "/api/visit/singlevisit/*").hasAnyAuthority("OWNER","SITTER")
+                        "/api/pets", "/api/pets/pet/*", "/api/visit/owner", "/api/visit/sitter", "/api/contact-info/*", "/api/visit/singlevisit/*", "/api/users/update-pfp").hasAnyAuthority("OWNER","SITTER")
                 .antMatchers(HttpMethod.DELETE,
                         "/api/pets", "/api/pets/pet/*").hasAnyAuthority("OWNER")
 //                .antMatchers(HttpMethod.DELETE,

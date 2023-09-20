@@ -2,9 +2,12 @@ package learn.petsitter.controllers;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import learn.petsitter.domain.Result;
+import learn.petsitter.domain.ResultType;
 import learn.petsitter.models.AppUser;
 import learn.petsitter.domain.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,12 +27,23 @@ public class AppUserController {
         this.appUserService = appUserService;
     }
 
-    @PostMapping("/update-pfp")
-    public String updateProfilePic(@RequestParam("pfpUrl") String pfpUrl, Principal principal) {
-        String username = principal.getName();
+    @PutMapping("/update-pfp")
+    public ResponseEntity<?> updateProfilePic(@RequestBody String pfpUrl) {
+        System.out.println(pfpUrl);
+        String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        System.out.println("Username according to Principal: " + username);
 
-        appUserService.updateProfilePicture(username, pfpUrl);
-        return "redirect:/";
+
+        Result<AppUser> result = appUserService.updateProfilePicture(username, pfpUrl);
+        if(!result.isSuccess()) {
+            if(result.getResultType() == ResultType.NOT_FOUND) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(result.getErrorMessages(), HttpStatus.BAD_REQUEST);
+            }
+        }
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/all-sitters")
@@ -50,6 +64,17 @@ public class AppUserController {
     @GetMapping("/owner/{username}")
     public AppUser getOwnerByUsername(@PathVariable String username) {
         return (AppUser) appUserService.loadUserByUsername(username);
+    }
+
+    @GetMapping("/my-info")
+    public ResponseEntity<AppUser> findByAppUserToken() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        AppUser appUser = (AppUser) appUserService.loadUserByUsername(username);
+
+        if(appUser == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(appUser, HttpStatus.OK);
     }
 
     @GetMapping("/nearby-sitters")
