@@ -17,7 +17,7 @@ CREATE TABLE app_user (
     password_hash VARCHAR(2048),
     enabled BIT NOT NULL DEFAULT(1),
     rate DECIMAL(7, 2),
-    pfp_url VARCHAR(2048)
+    pfp_url VARCHAR(2048) default('https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80')
 );
 
 CREATE TABLE contact_info (
