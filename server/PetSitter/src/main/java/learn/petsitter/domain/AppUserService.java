@@ -228,7 +228,24 @@ public class AppUserService implements UserDetailsService {
     }
 
     public Result<AppUser> updateProfilePicture(String username, String pfpUrl) {
-        
+        Result<AppUser> result = new Result<>();
+
+        AppUser appUser = repository.findByUsername(username);
+
+        if(appUser == null) {
+            result.addErrorMessage(username + " not found or is not enabled.", ResultType.NOT_FOUND);
+        }
+
+        try{
+            repository.saveProfilePictureUrl(appUser.getAppUserId(), pfpUrl);
+        } catch (Exception ex) {
+            result.addErrorMessage("Unable to update profile picture: " + ex.getMessage(), ResultType.INVALID);
+            return result;
+        }
+
+        appUser.setPfpUrl(pfpUrl);
+        result.setPayload(appUser);
+        return result;
     }
 }
 
