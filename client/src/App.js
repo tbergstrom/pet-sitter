@@ -4,52 +4,29 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './App.css';
-import Nav from './components/Nav';
-import Login from './components/Login';
-import Home from './components/Home';
-import VisitTable from './components/VisitTable';
-import VisitForm from './components/VisitForm';
-import ManageVisits from './components/ManageVisits';
-import ManagePets from './components/ManagePets';
-import About from './components/About';
-
 import jwtDecode from 'jwt-decode';
+
+import About from './components/About';
 import AuthContext from './contexts/AuthContext';
-import CreateAccount from './components/CreateAccount';
-import PetDetails from './components/PetDetails';
 import ConfirmPetDelete from './components/ConfirmPetDelete';
 import ContactInfoDetails from './components/ContactInfoDetails';
 import ContactInfoForm from './components/ContactInfoForm';
-import ManageAccount from './components/ManageAccount';
-import ManageContactInfo from './components/ManageContactInfo';
-import SitterDetails from './components/SitterDetails';
+import CreateAccount from './components/CreateAccount';
 import FindSitter from './components/FindSitter';
-import VisitDetails from './components/VisitDetails';
-
-
-import Nav from './components/Nav';
-import Login from './components/Login';
 import Home from './components/Home';
-import VisitTable from './components/VisitTable';
-import VisitForm from './components/VisitForm';
-import ManageVisits from './components/ManageVisits';
-import ManagePets from './components/ManagePets';
-import About from './components/About';
-import NotAuthenticated from './components/NotAuthenticated';
 import LoadingSpinner from './components/LoadingSpinner';
-
-import jwtDecode from 'jwt-decode';
-import AuthContext from './contexts/AuthContext';
-import CreateAccount from './components/CreateAccount';
-import PetDetails from './components/PetDetails';
-import ConfirmPetDelete from './components/ConfirmPetDelete';
-import ContactInfoDetails from './components/ContactInfoDetails';
-import ContactInfoForm from './components/ContactInfoForm';
+import Login from './components/Login';
 import ManageAccount from './components/ManageAccount';
 import ManageContactInfo from './components/ManageContactInfo';
+import ManagePets from './components/ManagePets';
+import ManageVisits from './components/ManageVisits';
+import Nav from './components/Nav';
+import NotAuthenticated from './components/NotAuthenticated';
+import PetDetails from './components/PetDetails';
 import SitterDetails from './components/SitterDetails';
-import FindSitter from './components/FindSitter';
 import VisitDetails from './components/VisitDetails';
+import VisitForm from './components/VisitForm';
+import VisitTable from './components/VisitTable';
 
 
 function App() {
