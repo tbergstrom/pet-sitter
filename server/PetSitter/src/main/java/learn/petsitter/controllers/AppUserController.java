@@ -28,11 +28,11 @@ public class AppUserController {
     }
 
     @PutMapping("/update-pfp")
-    public ResponseEntity<?> updateProfilePic(@RequestBody String pfpUrl) {
-        System.out.println(pfpUrl);
-        String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-        System.out.println("Username according to Principal: " + username);
+    public ResponseEntity<?> updateProfilePic(@RequestBody String pfpUrl, Principal principal) {
 
+        System.out.println(pfpUrl);
+        String username = principal.getName();
+        System.out.println("Username according to Principal: " + username);
 
         Result<AppUser> result = appUserService.updateProfilePicture(username, pfpUrl);
         if(!result.isSuccess()) {

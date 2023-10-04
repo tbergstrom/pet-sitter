@@ -63,20 +63,23 @@ const ContactInfoDetails = (props)=> {
     };
 
     const handleSavePfpUrl = ()=> {
+
+        const trimmedUrl = newPfpUrl.replace(/^"|"$/g, '');
+
         fetchWithToken("http://localhost:8080/api/users/update-pfp", auth.logout, {
             method: "PUT",
             headers: {
                 Authorization: `Bearer ${jwtToken}`,
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({pfpUrl: newPfpUrl}),
+            body: JSON.stringify(trimmedUrl),
         }) 
         .then((response) => {
             if(response.ok) {
-                setAppUser({...appUser, pfpUrl: newPfpUrl});
+                setAppUser({...appUser, pfpUrl: trimmedUrl});
                 setEditMode(false);
             } else {
-                console.log("newPfpUrl: ", newPfpUrl);
+                console.log("newPfpUrl: ", trimmedUrl);
                 setErrors(["Failed to update profile picture"])
             }
         })
@@ -95,9 +98,10 @@ const ContactInfoDetails = (props)=> {
             </ul>}
             { contactInfo ? 
                 (<div className="contact-info-details">
+                    
                     {appUser && appUser.pfpUrl ? (
                         <div className="profile-picture">
-                            <img src={appUser.pfpUrl} alt="" className="img-fluid rounded-circle" style={{ width: '400px', height: '400px' }}/>
+                            <img src={appUser.pfpUrl.replace(/^"|"$/g, '')} alt="" className="img-fluid rounded-circle" style={{ width: '400px', height: '400px' }} />
                         </div>
                         
                     ) : (
@@ -137,7 +141,7 @@ const ContactInfoDetails = (props)=> {
             }
         </Container>
         
-    );
+    )
 }
 
 export default ContactInfoDetails;
