@@ -39,4 +39,5 @@ public interface AppUserRepository {
 
     @Transactional
     String getProfilePictureUrl(int userId);
+
 }

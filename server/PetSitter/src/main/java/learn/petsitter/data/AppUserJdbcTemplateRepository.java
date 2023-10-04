@@ -212,9 +212,4 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
         return jdbcTemplate.query(sql, (rs, rowId) -> rs.getString("name"), username);
     }
 
-
-
-
 }
-
-

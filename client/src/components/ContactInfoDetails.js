@@ -89,7 +89,6 @@ const ContactInfoDetails = (props)=> {
     };
 
 
-
     return (
         <Container>
             { errors && errors.length > 0 &&

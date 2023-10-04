@@ -2,7 +2,30 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import './App.css';
+import Nav from './components/Nav';
+import Login from './components/Login';
+import Home from './components/Home';
+import VisitTable from './components/VisitTable';
+import VisitForm from './components/VisitForm';
+import ManageVisits from './components/ManageVisits';
+import ManagePets from './components/ManagePets';
+import About from './components/About';
+
+import jwtDecode from 'jwt-decode';
+import AuthContext from './contexts/AuthContext';
+import CreateAccount from './components/CreateAccount';
+import PetDetails from './components/PetDetails';
+import ConfirmPetDelete from './components/ConfirmPetDelete';
+import ContactInfoDetails from './components/ContactInfoDetails';
+import ContactInfoForm from './components/ContactInfoForm';
+import ManageAccount from './components/ManageAccount';
+import ManageContactInfo from './components/ManageContactInfo';
+import SitterDetails from './components/SitterDetails';
+import FindSitter from './components/FindSitter';
+import VisitDetails from './components/VisitDetails';
+
 
 import Nav from './components/Nav';
 import Login from './components/Login';
@@ -35,6 +58,7 @@ function App() {
   const [contactInfo, setContactInfo] = useState([]);
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
 
   const login = (token) => {
     // Decode the token
@@ -81,6 +105,7 @@ function App() {
     setTimeout(()=> {
       setIsLoading(false);
     }, 2000);
+
   }, []);
 
   return (
@@ -97,6 +122,7 @@ function App() {
             <Route path="/about" element={<About/>}/>
 
             {/* logged in as owner and sitter */}
+
             <Route path="/visittable/:id" element={ isLoading ? <LoadingSpinner /> : user ? <VisitTable visits={visits} /> : <NotAuthenticated /> } />
             <Route path="/visittable/visitdetails/:id" element={ isLoading ? <LoadingSpinner /> : user ? <VisitTable visits={visits} /> : <NotAuthenticated /> } />
             <Route path="/manageaccount" element={isLoading ? <LoadingSpinner /> : user ? <ManageAccount /> : <NotAuthenticated />} />
@@ -113,6 +139,7 @@ function App() {
             <Route path='/requestvisit' element={ isLoading ? <LoadingSpinner /> : user ? <VisitForm /> : <NotAuthenticated /> }/>
             <Route path="/petdetails/:id" element={ isLoading ? <LoadingSpinner /> : user ? <PetDetails /> : <NotAuthenticated /> } />
             <Route path="/confirmpetdelete/:id" element={ isLoading ? <LoadingSpinner /> : user ? <ConfirmPetDelete /> : <NotAuthenticated /> } />
+
 
             {/* logged out only */}
             <Route path='/login' element={ user ? <Navigate to="/" /> : <Login /> }/>

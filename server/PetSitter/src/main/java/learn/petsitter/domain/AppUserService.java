@@ -248,6 +248,3 @@ public class AppUserService implements UserDetailsService {
         return result;
     }
 }
-
-
-
