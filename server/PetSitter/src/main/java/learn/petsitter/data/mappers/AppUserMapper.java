@@ -23,6 +23,7 @@ public class AppUserMapper implements RowMapper<AppUser> {
                 rs.getString("password_hash"),
                 rs.getBoolean("enabled"),
                 rs.getBigDecimal("rate"),
+                rs.getString("pfp_url"),
                 roles);
     }
 }

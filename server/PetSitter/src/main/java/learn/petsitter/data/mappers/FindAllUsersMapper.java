@@ -20,6 +20,7 @@ public class FindAllUsersMapper implements RowMapper<AppUser> {
                 rs.getBoolean("enabled"),
                 rs.getDouble("rate"),
                 rs.getBigDecimal("distance"),
+                rs.getString("pfp_url"),
                 roles);
     }
 }

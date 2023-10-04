@@ -19,22 +19,24 @@ public class AppUser implements UserDetails {
     private  Collection<GrantedAuthority> authorities = List.of();
     private BigDecimal rate;
     private double distanceInKm;
+    private String pfpUrl;
     private ContactInfo contactInfo;
 
     public AppUser() {}
 
     // For traditional users who don't sign in with Google OAuth. The password field is included.
-    public AppUser(int appUserId, String username, String password, boolean enabled, BigDecimal rate, List<String> roles) {
+    public AppUser(int appUserId, String username, String password, boolean enabled, BigDecimal rate, String pfpUrl, List<String> roles) {
         this.appUserId = appUserId;
         this.username = username;
         this.password = password;
         this.enabled = enabled;
         this.authorities = convertRolesToAuthorities(roles);
         this.rate = rate;
+        this.pfpUrl = pfpUrl;
     }
 
     // For traditional users who include "distanceInKm" property
-    public AppUser(int appUserId, String username, String password, boolean enabled, double distanceInKm, BigDecimal rate, List<String> roles) {
+    public AppUser(int appUserId, String username, String password, boolean enabled, double distanceInKm, BigDecimal rate, String pfpUrl, List<String> roles) {
         this.appUserId = appUserId;
         this.username = username;
         this.password = password;
@@ -42,24 +44,27 @@ public class AppUser implements UserDetails {
         this.distanceInKm = distanceInKm;
         this.authorities = convertRolesToAuthorities(roles);
         this.rate = rate;
+        this.pfpUrl = pfpUrl;
     }
 
     // For Google OAuth users, no password is stored. Does not include distance property.
-    public AppUser(int appUserId, String username, boolean enabled, BigDecimal rate, List <String> roles) {
+    public AppUser(int appUserId, String username, boolean enabled, BigDecimal rate, String pfpUrl, List <String> roles) {
         this.appUserId = appUserId;
         this.username = username;
         this.enabled = enabled;
         this.authorities = convertRolesToAuthorities(roles);
         this.rate = rate;
+        this.pfpUrl = pfpUrl;
     }
     // For Google users. Includes distance property.
-    public AppUser(int appUserId, String username, boolean enabled, double distanceInKm, BigDecimal rate, List <String> roles) {
+    public AppUser(int appUserId, String username, boolean enabled, double distanceInKm, BigDecimal rate, String pfpUrl, List <String> roles) {
         this.appUserId = appUserId;
         this.username = username;
         this.enabled = enabled;
         this.distanceInKm = distanceInKm;
         this.authorities = convertRolesToAuthorities(roles);
         this.rate = rate;
+        this.pfpUrl = pfpUrl;
     }
 
     private static Collection<GrantedAuthority> convertRolesToAuthorities(List<String> roles) {
@@ -112,6 +117,14 @@ public class AppUser implements UserDetails {
 
     public int getAppUserId() {
         return appUserId;
+    }
+
+    public String getPfpUrl() {
+        return pfpUrl;
+    }
+
+    public void setPfpUrl(String pfpUrl) {
+        this.pfpUrl = pfpUrl;
     }
 
     public void setAppUserId(int appUserId) {

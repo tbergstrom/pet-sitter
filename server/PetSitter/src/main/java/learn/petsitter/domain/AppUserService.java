@@ -64,7 +64,7 @@ public class AppUserService implements UserDetailsService {
             return result;
         }
 
-        AppUser appUser = new AppUser(0, username, password, true, 0, BigDecimal.ZERO, roles);
+        AppUser appUser = new AppUser(0, username, password, true, 0, BigDecimal.ZERO, "", roles);
 
         try {
             appUser = repository.create(appUser);
@@ -108,7 +108,7 @@ public class AppUserService implements UserDetailsService {
             return result;
         }
 
-        AppUser googleUser = new AppUser(0, email, true, 0, BigDecimal.ZERO, roles);
+        AppUser googleUser = new AppUser(0, email, true, 0, BigDecimal.ZERO, "", roles);
 
         try {
             googleUser = repository.createGoogleUser(googleUser);
@@ -227,7 +227,24 @@ public class AppUserService implements UserDetailsService {
         return appUser;
     }
 
+    public Result<AppUser> updateProfilePicture(String username, String pfpUrl) {
+        Result<AppUser> result = new Result<>();
+
+        AppUser appUser = repository.findByUsername(username);
+
+        if(appUser == null) {
+            result.addErrorMessage(username + " not found or is not enabled.", ResultType.NOT_FOUND);
+        }
+
+        try{
+            repository.saveProfilePictureUrl(appUser.getAppUserId(), pfpUrl);
+        } catch (Exception ex) {
+            result.addErrorMessage("Unable to update profile picture: " + ex.getMessage(), ResultType.INVALID);
+            return result;
+        }
+
+        appUser.setPfpUrl(pfpUrl);
+        result.setPayload(appUser);
+        return result;
+    }
 }
-
-
-

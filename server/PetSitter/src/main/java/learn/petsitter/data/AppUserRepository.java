@@ -33,4 +33,11 @@ public interface AppUserRepository {
 
     @Transactional
     List<AppUser> findNearbySitters(double lat, double lng, double distance);
+
+    @Transactional
+    void saveProfilePictureUrl(int userId, String pfpUrl);
+
+    @Transactional
+    String getProfilePictureUrl(int userId);
+
 }

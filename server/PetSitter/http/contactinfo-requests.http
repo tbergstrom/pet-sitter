@@ -1,0 +1,97 @@
+# authenticate
+POST http://localhost:8080/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "Johnnyboy",
+    "password": "P@ssw0rd!"
+}
+
+###
+
+# create user account
+
+POST http://localhost:8080/create_account HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "bob@jones.com",
+    "password": "P@ssw0rd!",
+    "role": "OWNER"
+}
+
+###
+
+#authenticate new user
+
+POST http://localhost:8080/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "bob@jones.com",
+    "password": "P@ssw0rd!"
+}
+
+###
+
+@base_url = http://localhost:8080/api/contact-info
+@bearer_token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcml0dGVyLXNpdHRlciIsInN1YiI6ImJvYkBqb25lcy5jb20iLCJhdXRob3JpdGllcyI6Ik9XTkVSIiwiZXhwIjoxNjkyNjQyMjIzfQ.80Aoj2Yt-j1qTiVNOn5XDeU_Xb4Kn1AwMyBC9e0PU58
+
+###
+
+# Returns contact info associated with user id, works
+GET {{base_url}}/user/my-info HTTP/1.1
+Authorization: Bearer {{bearer_token}}
+###
+
+# should return contact info by id,
+GET {{base_url}}/6 HTTP/1.1
+Authorization: Bearer {{bearer_token}}
+
+###
+
+### What is a more appropriate endpoint for updating a user's contact info?
+#should update by contact info id
+PUT {{base_url}}/1 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{bearer_token}}
+
+{
+  "contactInfoId": 1,
+  "firstName": "Johnathan",
+  "lastName": "Jones-Smith",
+  "email": "john.jonesh@example.com",
+  "phoneNumber": "123-456-7890",
+  "streetAddress": "456 Azure Hills",
+  "city": "Los Angeles",
+  "state": "CA",
+  "zipCode": "90001"
+}
+
+
+###
+
+# should make new contact info, 
+POST {{base_url}} HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{bearer_token}}
+
+{
+  "firstName": "Bob",
+  "lastName": "Smith",
+  "email": "john.smith@example.com",
+  "phoneNumber": "123-456-7890",
+  "streetAddress": "456 Azure Hills",
+  "city": "Los Angeles",
+  "state": "CA",
+  "zipCode": "90001",
+  "appUserId": 6
+}
+
+###
+
+###Probably should not allow deletions of contact info...
+# should delete pet by id
+DELETE {{base_url}}/1 HTTP/1.1
+Authorization: Bearer {{bearer_token}}
+###
