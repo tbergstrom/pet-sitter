@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import AuthContext from "../contexts/AuthContext";
 import fetchWithToken from "../utils/fetchUtils";
 import { Container, Button } from "react-bootstrap";
+import { fetchContactInfo, fetchAppUser } from "../utils/apiUtils";
 
 const ContactInfoDetails = (props)=> {
 
@@ -15,52 +16,33 @@ const ContactInfoDetails = (props)=> {
 
     const jwtToken = auth.user.token;
 
-    const loadUser = () => {
-        fetchWithToken(`http://localhost:8080/api/contact-info/user/my-info`, auth.logout, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${jwtToken}`
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                setErrors(["somethin happn"])
-            }
-            if (response.headers.get('Content-Length') === '0') {
-                return {};
-            }
-            return response.json();
-        })
-        .then(payload => setContactInfo(payload))
-        .catch(error => {
-            setErrors([error.message]);
-        });
-        fetchWithToken(`http://localhost:8080/api/users/my-info`, auth.logout, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${jwtToken}`
-            },
-        })   
-        .then(response => {
-            if (!response.ok) {
-                setErrors(["somethin happn"])
-            }
-            if (response.headers.get('Content-Length') === '0') {
-                return {};
-            }
-            return response.json();
-        })
-        .then(payload => setAppUser(payload))
-        .catch(error => {
-            setErrors([error.message]);
-        })
-    }
+    const loadUser = ()=> {
+
+        fetchContactInfo(jwtToken, auth.logout)
+            .then(payload => setContactInfo(payload))
+            .catch(error => {
+                setErrors(["Failed to fetch contact info"]);
+            });
+
+        fetchAppUser(jwtToken, auth.logout)
+            .then(payload => {
+                setAppUser(payload);
+                auth.pfpUrl = payload.pfpUrl;
+            })
+            .catch(error => {
+                setErrors(["Failed to fetch app user info"])
+            });
+    };
 
     useEffect(loadUser, [])
 
     const toggleEditMode = () => {
         setEditMode(!editMode);
     };
+
+    const updatePfpUrl = (newPfpUrl) => {
+        auth.pfpUrl = newPfpUrl;
+      };
 
     const handleSavePfpUrl = ()=> {
 
@@ -77,6 +59,7 @@ const ContactInfoDetails = (props)=> {
         .then((response) => {
             if(response.ok) {
                 setAppUser({...appUser, pfpUrl: trimmedUrl});
+                updatePfpUrl(trimmedUrl);
                 setEditMode(false);
             } else {
                 console.log("newPfpUrl: ", trimmedUrl);
@@ -87,7 +70,6 @@ const ContactInfoDetails = (props)=> {
             setErrors([error.message])
         });
     };
-
 
     return (
         <Container>
