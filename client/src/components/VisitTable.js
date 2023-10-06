@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import AuthContext from "../contexts/AuthContext";
-import { Container, Button, Table } from 'react-bootstrap'
+import { Container, Table } from 'react-bootstrap'
 import fetchWithToken from "../utils/fetchUtils";
 import VisitRow from "./VisitRow";
 

@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom"
 import AuthContext from "../contexts/AuthContext"
 import { useContext } from "react"
-import { Navbar, Nav as BootstrapNav, Container, Dropdown } from 'react-bootstrap';
+import { Navbar, Nav as BootstrapNav, Container, Dropdown, Image } from 'react-bootstrap';
 
 const Nav = ()=> {
 
     const auth = useContext(AuthContext)
     const user = auth.user
-
 
     return (
 
@@ -23,11 +22,12 @@ const Nav = ()=> {
                     <Link className="nav-btn" to='/about'>About Us</Link>
                     {" "}
 
-                    {/* only logged in as an owner */}
+                    {/* only logged in*/}
                     { user && (
-                        <>
+                        <>  
                             <Dropdown >
                                 <Dropdown.Toggle variant="info" className="mr-2">
+                                    <Image src={auth.pfpUrl} alt="Profile" roundedCircle width="30" height="30" />
                                     Welcome, <strong>{user.username}</strong>
                                 </Dropdown.Toggle>
 
