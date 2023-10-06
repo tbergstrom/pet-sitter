@@ -38,6 +38,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [pfpUrl, setPfpUrl] = useState(null);
+  const [appUser, setAppUser] = useState(null);
 
 
   const login = (token) => {
@@ -67,7 +68,7 @@ function App() {
     login,
     logout,
     user: user ? { ...user } : null,
-    pfpUrl: pfpUrl,
+    pfpUrl: appUser ? pfpUrl : null,
   }
 
   useEffect(() => {
@@ -80,6 +81,7 @@ function App() {
 
       fetchAppUser(token, logout) 
         .then(payload => {
+          setAppUser(payload);
           setPfpUrl(payload.pfpUrl.replace(/^"|"$/g, ''));
         })
         .catch(error => {

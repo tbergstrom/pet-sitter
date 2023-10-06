@@ -1,12 +1,15 @@
 import { Link } from "react-router-dom"
 import AuthContext from "../contexts/AuthContext"
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Navbar, Nav as BootstrapNav, Container, Dropdown, Image } from 'react-bootstrap';
 
 const Nav = ()=> {
 
     const auth = useContext(AuthContext)
     const user = auth.user
+
+    useEffect(() => {
+      }, [auth.pfpUrl]);
 
     return (
 
@@ -28,10 +31,9 @@ const Nav = ()=> {
                             <Dropdown >
                                 <Dropdown.Toggle variant="info" className="mr-2">
                                     {auth.pfpUrl && (
-                                        <Image src={auth.pfpUrl.trim("")} alt="Profile" roundedCircle width="30" height="30" />
-                                        
+                                        <Image src={auth.pfpUrl} alt="Profile" roundedCircle width="30" height="30" />
                                     )}
-
+                                    {" "}
                                     Welcome, <strong>{user.username}</strong>
                                 </Dropdown.Toggle>
 
@@ -44,7 +46,6 @@ const Nav = ()=> {
                                     </Dropdown.Item>
                                     <Dropdown.Item onClick={auth.logout}>
                                         Logout
-                                        {console.log(auth.pfpUrl)};
                                     </Dropdown.Item>
                                 </Dropdown.Menu>
                                 

@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import AuthContext from "../contexts/AuthContext";
 import fetchWithToken from "../utils/fetchUtils";
 import { Container, Button } from "react-bootstrap";
-import { useUser } from "../contexts/UserContext";
 import { fetchContactInfo, fetchAppUser } from "../utils/apiUtils";
 
 const ContactInfoDetails = (props)=> {
@@ -12,7 +11,6 @@ const ContactInfoDetails = (props)=> {
     const [appUser, setAppUser] = useState(null);
     const [newPfpUrl, setNewPfpUrl] = useState("");
     const [editMode, setEditMode] = useState(false);
-    const { updatePfpUrl } = useUser();
 
     const auth = useContext(AuthContext)
 
@@ -42,6 +40,10 @@ const ContactInfoDetails = (props)=> {
         setEditMode(!editMode);
     };
 
+    const updatePfpUrl = (newPfpUrl) => {
+        auth.pfpUrl = newPfpUrl;
+      };
+
     const handleSavePfpUrl = ()=> {
 
         const trimmedUrl = newPfpUrl.replace(/^"|"$/g, '');
@@ -57,6 +59,7 @@ const ContactInfoDetails = (props)=> {
         .then((response) => {
             if(response.ok) {
                 setAppUser({...appUser, pfpUrl: trimmedUrl});
+                updatePfpUrl(trimmedUrl);
                 setEditMode(false);
             } else {
                 console.log("newPfpUrl: ", trimmedUrl);
