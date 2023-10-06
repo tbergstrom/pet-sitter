@@ -80,7 +80,7 @@ function App() {
 
       fetchAppUser(token, logout) 
         .then(payload => {
-          setPfpUrl(payload.pfpUrl);
+          setPfpUrl(payload.pfpUrl.replace(/^"|"$/g, ''));
         })
         .catch(error => {
           console.error("Failed to fetch app user info:", error);

@@ -27,7 +27,11 @@ const Nav = ()=> {
                         <>  
                             <Dropdown >
                                 <Dropdown.Toggle variant="info" className="mr-2">
-                                    <Image src={auth.pfpUrl} alt="Profile" roundedCircle width="30" height="30" />
+                                    {auth.pfpUrl && (
+                                        <Image src={auth.pfpUrl.trim("")} alt="Profile" roundedCircle width="30" height="30" />
+                                        
+                                    )}
+
                                     Welcome, <strong>{user.username}</strong>
                                 </Dropdown.Toggle>
 
@@ -40,12 +44,12 @@ const Nav = ()=> {
                                     </Dropdown.Item>
                                     <Dropdown.Item onClick={auth.logout}>
                                         Logout
+                                        {console.log(auth.pfpUrl)};
                                     </Dropdown.Item>
                                 </Dropdown.Menu>
                                 
                             </Dropdown>
 
-                            
                             {" "}
                             
                         </>
