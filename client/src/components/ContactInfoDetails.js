@@ -27,7 +27,8 @@ const ContactInfoDetails = (props)=> {
         fetchAppUser(jwtToken, auth.logout)
             .then(payload => {
                 setAppUser(payload);
-                auth.pfpUrl = payload.pfpUrl;
+                auth.pfpUrl = payload.pfpUrl.replace(/^"|"$/g, '');
+
             })
             .catch(error => {
                 setErrors(["Failed to fetch app user info"])
@@ -54,7 +55,7 @@ const ContactInfoDetails = (props)=> {
                 Authorization: `Bearer ${jwtToken}`,
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(trimmedUrl),
+            body: JSON.stringify({pfpUrl: trimmedUrl}),
         }) 
         .then((response) => {
             if(response.ok) {
@@ -62,8 +63,8 @@ const ContactInfoDetails = (props)=> {
                 updatePfpUrl(trimmedUrl);
                 setEditMode(false);
             } else {
-                console.log("newPfpUrl: ", trimmedUrl);
                 setErrors(["Failed to update profile picture"])
+
             }
         })
         .catch((error) => {
