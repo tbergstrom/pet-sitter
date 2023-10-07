@@ -86,6 +86,7 @@ return (
         {sitter ? 
             (<div className="sitter-details">
                 <h2 className="my-5">Sitter Details</h2>
+                <img src={sitter.pfpUrl.replace(/^"|"$/g, '')} alt="" />
                 <p>Username: {sitter.username}</p>
                 {/* <p>Name: {sitter.contactInfo.firstName} {sitter.contactInfo.lastName}</p> */}
                 <p>Daily rate: ${sitter.rate}</p>

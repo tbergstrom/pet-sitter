@@ -16,7 +16,7 @@ const SitterTable = ({ sitters }) => {
                         {sitters.slice(0, 3).map(sitter => (
                             <div key={sitter.appUserId} className="card" style={{width: "18rem"}}>
                                 {/* Need to have a pfp URL, prob in contact_info table */}
-                                {/* <img src={sitter.pfpUrl} className="card-img-top" alt="" /> */}
+                                <img src={sitter.pfpUrl} className="card-img-top" alt="" />
                                 <div className="card-body">
                                     <h5 className="card-title">{sitter.username}</h5>
                                     <p className="card-text">{parseFloat(sitter.distanceInKm).toFixed(2)} km away</p>
@@ -45,7 +45,10 @@ const SitterTable = ({ sitters }) => {
                         <tbody>
                             {sitters.slice(3).map(sitter => (
                                 <tr key={sitter.appUserId}>
+
                                     <td>{sitter.username}</td>
+                                    {console.log(sitter)}
+                                    {console.log(sitter.pfpUrl)}
                                     <td>${sitter.rate}</td>
                                     <td>{parseFloat(sitter.distanceInKm).toFixed(2)} km</td>
                                     <td>

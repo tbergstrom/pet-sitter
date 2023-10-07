@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/users")
@@ -28,11 +29,10 @@ public class AppUserController {
     }
 
     @PutMapping("/update-pfp")
-    public ResponseEntity<?> updateProfilePic(@RequestBody String pfpUrl, Principal principal) {
+    public ResponseEntity<?> updateProfilePic(@RequestBody Map<String, String> requestBody, Principal principal) {
 
-        System.out.println(pfpUrl);
+        String pfpUrl = requestBody.get("pfpUrl");
         String username = principal.getName();
-        System.out.println("Username according to Principal: " + username);
 
         Result<AppUser> result = appUserService.updateProfilePicture(username, pfpUrl);
         if(!result.isSuccess()) {
@@ -79,6 +79,15 @@ public class AppUserController {
 
     @GetMapping("/nearby-sitters")
     public List<AppUser> getNearbySitters(@RequestParam double lat, @RequestParam double lng, @RequestParam double distance) {
+
+//        List<AppUser> listOfSitters = appUserService.getNearbySitters(lat, lng, distance);
+
+//        for (AppUser sitter: listOfSitters
+//             ) {
+//            System.out.println(sitter.getPfpUrl());
+//        }
+
+
         return appUserService.getNearbySitters(lat, lng, distance);
     }
 
